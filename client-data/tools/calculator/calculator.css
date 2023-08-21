@@ -1,0 +1,50 @@
+@media only screen and (max-width: 750px) {
+/* CSS rules here for screens lower than 700px */
+	#calc-container {
+		width:80%;
+		height:500px;
+	}
+}
+
+@media only screen and (min-width: 750px) {
+/* CSS rules here for screens above 70px */
+
+	#calc-container {
+		width:600px;
+		height:450px;
+	}
+}
+
+@media only screen and (max-height: 400px) {
+	/* CSS rules here for screens above 70px */
+	
+		#calc-container {
+			height:93%;
+		}
+	}
+
+#calc-container {
+	position: absolute;
+	display:none;
+	top: 9rem !important;;
+	left:65px;
+	padding-bottom:43px;
+	-webkit-box-shadow: -1px 4px 18px -6px rgba(0,0,0,0.75);
+	-moz-box-shadow: -1px 4px 18px -6px rgba(0,0,0,0.75);
+	box-shadow: -1px 4px 18px -6px rgba(0,0,0,0.75);
+}
+	  
+#calc-container-header {
+	display: flex;
+    justify-content: space-between;
+	padding: 10px;
+	cursor: move;
+	opacity:1;
+	background-color: #66b7f7;
+	color: #fff;
+}
+
+#calculator {
+	width:100%;
+	height:100%;
+}

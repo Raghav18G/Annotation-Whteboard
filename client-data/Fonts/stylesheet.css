@@ -1,0 +1,74 @@
+/*
+ *
+ * INSTRUCTIONS
+ *
+ * Copy the Legal Disclaimer and the @font-faces statements to your regular CSS file.
+ * The font file(s) should be placed relative to the regular CSS file.
+ *
+ */
+
+/* subset */
+
+@font-face {
+    font-family: 'CircularXXSub-BookSubset';
+    src: url('CircularXXSub-BookSubset.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'CircularXXSub-BookSubset';
+    src: url('CircularXXSub-BookSubset.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'CircularXXSub-RegularSubset';
+    src: url('CircularXXSub-RegularSubset.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'CircularXXSub-RegularSubset';
+    src: url('CircularXXSub-RegularSubset.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'CircularXXWeb-Book';
+    src: url('CircularXXWeb-Book.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'CircularXXWeb-Book';
+    src: url('CircularXXWeb-Book.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'CircularXXWeb-Regular';
+    src: url('CircularXXWeb-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'CircularXXWeb-Regular';
+    src: url('CircularXXWeb-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'CircularXXMonoWeb-Regular';
+    src: url('CircularXXMonoWeb-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'CircularXXMonoWeb-Regular';
+    src: url('CircularXXMonoWeb-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'CircularXXWeb';
+    src: url('CircularXXWeb-Book.woff2') format('woff2');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'CircularXXWeb';
+    src: url('CircularXXWeb-Regular.woff2') format('woff2');
+    font-weight: 400;
+}
+
+

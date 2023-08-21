@@ -1,0 +1,1460 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <title>Iprep  Whiteboard</title>
+    <link rel="stylesheet" href="Fonts/stylesheet.css">
+    <link rel="stylesheet" href="tools/table/table.css">
+    
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="tools/background-manangement/backgorund.css">
+    <!-- <link rel="stylesheet" href="tools/add-pages/addPages.css"> -->
+    <link rel="stylesheet" href="tools/mathematical-tools/mathematicaltools.css">
+    <link rel="stylesheet" href="tools/PDF/pdf.css">
+    <!-- <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.0/css/bootstrap.css" /> -->
+    <link type="text/css" rel="stylesheet" href="OfflineCDN/source.zoom.us/1.8.0/css/bootstrap.css" />
+    <!-- <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.0/css/react-select.css" /> -->
+    <link type="text/css" rel="stylesheet" href="OfflineCDN/source.zoom.us/1.8.0/css/react-select.css" />
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" /> -->
+    <!-- <link href="OfflineCDN/ajax.googleapis.com/ajax/libs/jquery/" rel="stylesheet" /> -->
+
+
+
+
+    <script src="OfflineCDN/ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/jquery.fullscreen.js"></script>
+
+    <script src="OfflineCDN/maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
+        integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg=="
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="board.css" />
+
+    <script src="OfflineCDN/kit.fontawesome.com/0166a4ad2b.js" crossorigin="anonymous"></script>
+    <script src="socket.io.js"></script>
+
+
+    <script src="node_modules/pdfjs-dist/build/pdf.min.js"></script>
+
+    <meta name="description" content="A free and opensource online collaborative drawing tool." />
+    <meta name="keywords" content="Collaborative whiteboard,online,draw,paint,shared,realtime" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/Fevicon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/Fevicon.png" />
+    <link
+      rel="manifest"
+      href="https://res.cloudinary.com/ddwbbzuxw/raw/upload/v1597236051/fevicon/site_uzghky.webmanifest"
+    />
+    <style>
+        .modal-backdrop {
+            opacity: 0.25 !important;
+        }
+
+        .canvascolor-container {
+            background-color: black;
+            border-radius: 5px;
+            overflow: hidden;
+            width: 179px;
+            padding: 2px;
+            display: none;
+        }
+
+        .canvascolor-container canvas {
+            cursor: crosshair;
+        }
+
+        .canvascolor-history {
+            overflow: auto;
+        }
+
+        .canvascolor-history>div {
+            margin: 2px;
+            display: inline-block;
+        }
+    </style>
+    <!-- <link type="text/css" rel="stylesheet" href="node_modules/@zoomus/websdk/dist/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" href="node_modules/@zoomus/websdk/dist/css/react-select.css" /> -->
+</head>
+
+<body id="body-new">
+    <script>
+        $(window).on("load", function () {
+            init();
+        });
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+        document.addEventListener('touchmove', function (event) {
+            if (event.scale !== 1) { event.preventDefault(); }
+        }, { passive: false });
+    </script>
+
+
+
+    <!-- Browser IFRAME -->
+
+    <div class="iframeMoadal" id="iframeModal">
+        <div class="iframemodal-content">
+            <div class="close-iframe" id="close-browser">&times;</div>
+
+            <!-- <script>
+                (function () {
+                    var cx = '95c89d889e52e4b7f';
+                    var gcse = document.createElement('script');
+                    gcse.type = 'text/javascript';
+                    gcse.async = true;
+                    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                        '//cse.google.com/cse.js?cx=' + cx;
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(gcse, s);
+                })();
+            </script>
+            <gcse:search></gcse:search>
+            <hr>
+            <gcse:searchresults-only></gcse:searchresults-only> -->
+            <!-- <div class="gcse-search"></div>
+            <div class="gcse-searchresults-only"></div> -->
+            <div>
+                <div class="gcse-searchbox">
+                </div>
+                <div class="gcse-searchresults"></div>
+            </div>
+
+        </div>
+    </div>
+
+
+    
+    <!-- Add new Page modal -->
+    <div id="addNewPageModal" class="addNewPageModal">
+        <div class="addNewPageModal-content">
+          <span class="pagesModalClose" id="pagesModalClose">&times;</span>
+          <h2>Page Navigation</h2>
+          <div class="page-container" id="pageContainer">
+            <!-- Pages will be dynamically added here -->
+          </div>
+          <button id="addPageBtn">Add Page</button>
+        </div>
+      </div>
+
+    <!-- Download Content Modal -->
+    <div class="downloadModal" id="downloadModal">
+    <div class="downloadModal-content">
+            <span class="close" id="downloadModalClose"><img src="./assets/CloseCircle.svg" /></span>
+
+            <div class="downloadItems">
+                <h3 style="font-weight: 800;"> Download Current Page in the Following Formats</h3>
+                <div class="downloadItems--container">
+                    <div  class="download-chip">
+                        <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsSVG">SVG</h4>
+                    </div>
+                    <div  class="download-chip">
+                        <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPDF">PDF</h4>    
+                    </div>
+                    <div  class="download-chip">
+                        <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPNG">PNG</h4>
+                    </div>
+                    <div  class="download-chip">
+                        <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsJPG">JPG</h4>
+                    </div>
+                  
+                </div>
+            </div>
+          
+            <div class="donwnloadAllPages" id="downloadingMulyipageOption">
+                <h3 style="font-weight: 800;">OR</h3>
+                <div  class="download-chip">
+                    <h3  style="text-align: center; cursor: pointer;" id="downlaodAllPages" class="downloadOption">Download All Pages</h3>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Video Modal -->
+    <div class="videoModal" id="videoModal">
+        <div class="videoModal-content">
+            <div class="videoModalheader" id="videoModalheader">
+                <p> *************** Hold here to Drag **************** </p>
+            </div>
+            <span class="close" id="videoModalClose"></span>
+            <iframe id="videoIframe"></iframe>
+        </div>
+    </div>
+
+    <!-- Video Player -->
+    <div class="dragVideoModal" id="dragVideoModal">
+        <div class="dragVideoModal-content">
+            <span class="close" id="dragVideoModalClose">&times;</span>
+            <!-- Video Tag -->
+            <div class="dragVideoModalheader" id="dragVideoModalheader">
+                <p> *************** Hold here to Drag **************** </p>
+            </div>
+            <!-- <span class="close" id="dragVideoModalClose"><img src="./assets/CloseCircle.svg" /></span> -->
+            <video id="videoPlayer" controls>
+
+                Your browser does not support the video tag.
+            </video>
+
+        </div>
+    </div>
+
+    <!-- PDF Opener -->
+    <div class="pdf-modal" id="pdfModal">
+        <div class="pdf-modal-content">
+            <div id="closePDFBtn"> <span class="close">&times;</span></div>
+
+            <h5 id="pdf-name"></h5>
+
+            <div id="addPDFPages">
+            </div>
+            <p>
+                <button id="select-All" class="pdfBtn" onclick="handleAddAllPDF()">Select All</button>
+                <button id="remove-All" class="pdfBtn" onclick="deselectAllPDF()">Remove ALL</button>
+
+            </p>
+            <div style="align-self:end;">
+                <button id="importPDF" class="pdfBtn" onclick="handleDrawPDF()">Import PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Snackbar -->
+
+    <div id="snackbar">Invalid File type. Please choose PDF file.</div>
+    <div id="snackbar-success">PDF uploaded successfully.</div>
+    <!-- <div id="snackbar-success">PDF uploaded successfully.</div> -->
+
+
+    <!--Document Moadal -->
+
+    <div class="documentModal" id="documentModal">
+        <div class="documentModal-content">
+            <span class="close" id="documentModalModalClose"><img src="./assets/CloseCircle.svg" /></span>
+            <div>
+                <div class="documentModalOptions">
+                    <img src="assets/AddImageFromLocal.svg" class="document-modal-icon1" />
+                    <p id="SelectFromDevice" class="document-option">Add Image from Device </p>
+
+                </div>
+
+                <hr />
+                <div class="documentModalOptions">
+                    <img src="assets/AddImageFromLibrary.svg" class="document-modal-icon2" />
+                    <p id="SelectFromLibrary" class="document-option">Add Image From Library</p>
+                </div>
+
+                <hr />
+                <div class="documentModalOptions">
+                    <img src="assets/pdff.png" class="document-modal-icon" style="height:20px;width:20px" />
+                    <p id="SelectFromPDF" class="document-option">Upload PDF</p>
+                </div>
+                <hr />
+                <div class="documentModalOptions">
+                    <img src="assets/video.png" class="document-modal-icon" style="height:20px;width:20px" />
+                    <p id="SelectFromVideo" class="document-option">Upload Video</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Drawer Image Library -->
+
+    <div id="drawer" class="drawer ">
+        <div class="content">
+            <span id="closeButton" class="close">&times;</span>
+            <!-- Drawer content goes here -->
+            <h2 id="img-library">Image Library</h2>
+            <div style="display: flex; justify-content: end">
+                <button class="browser-btn" id="SearchGoogle">Browser Files <svg xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 48 48" width="18px" height="18px">
+                        <path fill="#FFC107"
+                            d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" />
+                        <path fill="#FF3D00"
+                            d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" />
+                        <path fill="#4CAF50"
+                            d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" />
+                        <path fill="#1976D2"
+                            d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z" />
+                    </svg></button>
+            </div>
+
+
+            <div class="tab-header">
+                <button class="tab" data-category="category1" id="tab1">Education</button>
+                <button class="tab" data-category="category2" id="tab2">Sports</button>
+                <button class="tab" data-category="category3" id="tab3">Music</button>
+                <button class="tab" data-category="category4" id="tab4">Art</button>
+                <button class="tab" data-category="category5" id="tab5">Science</button>
+                <button class="tab" data-category="category6" id="tab6">Maths</button>
+            </div>
+
+
+            <div class="drawer-tab-content">
+                <div id="category1" class="tab-panel">
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 1.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 2.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 3.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 4.jpeg" />
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 5.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 6.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 7.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 8.jpeg" />
+                    </div>
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 9.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 10.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 11.png" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 13.jpeg" />
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 14.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 15.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 16.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 20.jpeg" />
+                    </div>
+                </div>
+                <div id="category2" class="tab-panel">
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 1.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 2.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 3.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 4.jpeg" />
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 5.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 6.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 7.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 8.png" />
+                    </div>
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 9.jpeg">/
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 10.avif" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 11.webp" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 12.jpeg" />
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 13.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 14.webp" />
+                    </div>
+
+                </div>
+                <div id="category3" class="tab-panel">
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 1.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 2.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 3.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 4.jpeg" />
+
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 5.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 6.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 7.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 8.jpeg" />
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 9.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 10.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 11.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 12.webp" />
+                    </div>
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 13.webp" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 14.jpeg" />
+
+                    </div>
+                </div>
+                <div id="category4" class="tab-panel">
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 1.jpeg" alt="Image 1">
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 2.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 3.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 4.jpeg" />
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 5.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 6.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 7.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 8.jpeg" />
+                    </div>
+
+                    <img id="libraryImage" src="assets/Image Library/Arts/Arts 9.jpeg" />
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 10.jpeg" alt="Image 1">
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 11.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 11.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 12.jpeg" />
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 13.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 14.png" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 15.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 16.jpeg" />
+                    </div>
+
+                </div>
+                <div id="category5" class="tab-panel">
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 1.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 2.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 3.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 4.jpeg" />
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 5.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 6.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 7.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 8.jpeg" />
+                    </div>
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 9.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 10.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 11.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 12.jpeg" />
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 13.avif" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 14.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 15.png" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 16.png" />
+                    </div>
+                </div>
+                <div id="category6" class="tab-panel">
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 1.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 2.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 3.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 4.jpeg" />
+
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 5.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 6.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 7.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 8.jpeg" />
+                    </div>
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 9.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 10.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 11.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 12.webp" />
+
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 13.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 14.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 15.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 16.jpeg" />
+                    </div>
+
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 17.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 18.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 19.avif" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 13.jpeg" />
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- ADD NEW PAGE MODAL -->
+
+    <!-- <div id="add-new" class="add-new-modal">
+        <div class="add-new-modal-content">
+            <div id="close-pages"> <span class="close">&times;</span></div>
+            <h4> Add New Page</h4>
+            <div style="align-self:end;"><button class="pdfBtn">Add File</button></div>
+
+
+        </div>
+    </div> -->
+
+
+
+
+    <!-- Sticky Notes Modal -->
+
+    <div class="stickyNotesModal" id="stickyNotesModal">
+        <div class="stickyNotesModal-content">
+            <span class="close" id="stickyClose">&times;</span>
+            <div>
+                <ul>
+                    <li> <a href="#" contenteditable="true">
+                            <h2>Title #1</h2>
+                            <p>Text Content #1</p>
+                        </a> </li>
+                    <li> <a href="#" contenteditable="true">
+                            <h2>Title #2</h2>
+                            <p>Text Content #2</p>
+                        </a> </li>
+                    <li> <a href="#" contenteditable="true">
+                            <h2>Title #3</h2>
+                            <p>Text Content #3</p>
+                        </a> </li>
+                    <li> <a href="#" contenteditable="true">
+                            <h2>Title #4</h2>
+                            <p>Text Content #4</p>
+                        </a> </li>
+                    <li> <a href="#" contenteditable="true">
+                            <h2>Title #5</h2>
+                            <p>Text Content #5</p>
+                        </a> </li>
+                    <li> <a href="#" contenteditable="true">
+                            <h2>Title #6</h2>
+                            <p>Text Content #6</p>
+                        </a> </li>
+                    <li> <a href="#" contenteditable="true">
+                            <h2>Title #7</h2>
+                            <p>Text Content #7</p>
+                        </a> </li>
+                    <li> <a href="#" contenteditable="true">
+                            <h2>Title #8</h2>
+                            <p>Text Content #8</p>
+                        </a> </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="menu">
+
+    </div>
+
+    <!-- Draggable Toolbar  -->
+    <div id="draggableToolbar">
+        <div id="draggableToolbarheader">
+            <div class="dragIconContainer">
+                <img src="./assets/DRAG.svg" class="dragLogo" height="30" />
+            </div>
+        </div>
+        <!-- Tools -->
+
+        <!-- Color Picker -->
+            <span class="tool-icon color-tool-pick" style="margin: 0px 18px auto 16px;">
+            <!-- <div class="color-pick"  id="color-pick" title="Color Picker">
+                    <input type="color" value="#ff00ff" id="chooseColor" />
+            </div> -->
+            <div class="input-container" id="color-pick" title="Color Picker">
+                <input type="color" class="icon-input" id="chooseColor">
+              </div>
+              
+
+            
+            <label id="tool-color-localization" class="label-tool" style="font-size:10px;font-weight:400;margin-top: -2px;line-height: 12px;"><p>Color Picker</p></label>
+        </span>
+        <!-- Tool Size Indicator -->
+        <div class="tool size_selector_container">
+            <span class="tool-icon" id="tool-size-selector" title="Tool size selector">
+                <svg viewBox="-60 -70 120 120" class="tool-icon-sizeIndicator" style="display:none">
+                    <circle id="sizeIndicator" cx=0 cy=0 r=10 />
+                </svg>
+
+                <!-- <img src="icon-size.svg" height=30 /> -->
+                <!-- <svg class="tool-icon-svg" viewBox="0 0 37 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.28555 14.1307C4.06106 15.3552 4.06106 17.3507 5.28555 18.5752L20.5208 33.8104C20.5803 33.8728 20.6568 33.9181 20.7362 33.9465L26.2889 35.8569C26.493 35.9277 26.7198 35.8739 26.8728 35.7208C26.9805 35.6131 27.04 35.4686 27.04 35.3212C27.04 35.2588 27.0287 35.1965 27.0089 35.1369L25.0984 29.5842C25.0701 29.502 25.0247 29.4283 24.9624 29.3688L9.72715 14.1336C9.13475 13.5412 8.34394 13.2124 7.50494 13.2124C6.66594 13.2124 5.87512 13.5383 5.28272 14.1336L5.28555 14.1307ZM8.76911 20.4544L9.78951 19.434L21.9409 31.5854L20.9204 32.6058L8.76911 20.4544ZM25.5605 34.4056L21.9635 33.1698L23.1427 31.9907L24.3218 30.8115L25.5576 34.4085L25.5605 34.4056ZM23.7634 29.7685L22.743 30.7889L10.5917 18.6375L11.6121 17.6171L23.7634 29.7685ZM10.8099 16.815L9.38985 18.235L7.96979 19.6551L7.29235 18.9777L10.1325 16.1375L10.8099 16.815ZM8.93067 14.9357L9.33033 15.3354L6.4902 18.1755L6.09054 17.7759C5.30823 16.9935 5.30823 15.718 6.09054 14.9357C6.87285 14.1534 8.14836 14.1534 8.93067 14.9357Z" fill="black"/>
+                    <path d="M0.706387 25.2591C-0.235463 26.201 -0.235463 27.7359 0.706387 28.6777L12.425 40.3963C12.4708 40.4443 12.5297 40.4792 12.5907 40.501L16.8617 41.9704C17.0187 42.0249 17.1931 41.9835 17.3109 41.8658C17.3937 41.7829 17.4395 41.6718 17.4395 41.5584C17.4395 41.5104 17.4308 41.4625 17.4155 41.4167L15.946 37.1456C15.9242 37.0824 15.8894 37.0257 15.8414 36.9799L4.12277 25.2613C3.66711 24.8057 3.05883 24.5528 2.41349 24.5528C1.76815 24.5528 1.15987 24.8035 0.704206 25.2613L0.706387 25.2591ZM3.38586 30.1232L4.17074 29.3383L13.5173 38.6849L12.7324 39.4697L3.38586 30.1232ZM16.3014 40.8542L13.5347 39.9036L14.4417 38.9966L15.3487 38.0897L16.2992 40.8564L16.3014 40.8542ZM14.9192 37.2874L14.1343 38.0722L4.78774 28.7257L5.57261 27.9408L14.9192 37.2874ZM4.95561 27.3238L3.86333 28.4161L2.77104 29.5084L2.24997 28.9873L4.43454 26.8027L4.95561 27.3238ZM3.51013 25.8783L3.81754 26.1857L1.63298 28.3703L1.32557 28.0629C0.723829 27.4612 0.723828 26.4801 1.32557 25.8783C1.9273 25.2766 2.9084 25.2766 3.51013 25.8783Z" fill="black"/>
+                    <path d="M27.6893 26.0511L27.6893 26.0511C27.554 26.0028 27.4148 25.9229 27.3006 25.8045L9.13735 7.64123C7.54238 6.04627 7.54106 3.44904 9.13338 1.85241L27.6893 26.0511ZM27.6893 26.0511L27.6932 26.0524M27.6893 26.0511L27.6932 26.0524M27.6932 26.0524L34.313 28.33C34.3131 28.33 34.3133 28.3301 34.3134 28.3301C34.6853 28.4591 35.0952 28.3601 35.3704 28.0849C35.5635 27.8918 35.672 27.631 35.672 27.3616C35.672 27.2453 35.6509 27.1336 35.6169 27.0316L35.6169 27.0316M27.6932 26.0524L35.6169 27.0316M35.6169 27.0316L35.6158 27.0284M35.6169 27.0316L35.6158 27.0284M35.6158 27.0284L33.3379 20.4076L33.3379 20.4074M35.6158 27.0284L33.3379 20.4074M33.3379 20.4074C33.288 20.2627 33.2063 20.1271 33.09 20.015M33.3379 20.4074L33.09 20.015M33.09 20.015L14.9268 1.85182C14.1552 1.08023 13.1236 0.651232 12.0304 0.651232C10.9397 0.651232 9.90926 1.07493 9.13735 1.84844C9.13733 1.84846 9.13731 1.84848 9.1373 1.84849L33.09 20.015ZM31.9336 22.6264L32.9917 25.7062L29.912 24.648L30.9228 23.6372L31.9336 22.6264ZM28.0264 23.6304L14.0312 9.63523L14.7544 8.912L28.7496 22.9072L28.0264 23.6304ZM30.9227 20.7408L30.1995 21.4641L16.2043 7.46885L16.9275 6.74564L30.9227 20.7408ZM14.0311 6.74221L12.5846 8.1887L12.2703 7.87442L15.1633 4.98145L15.4776 5.29573L14.0311 6.74221ZM13.4836 3.30173L13.7134 3.53154L10.8204 6.42451L10.5906 6.1947C9.79411 5.39818 9.79411 4.09826 10.5906 3.30173C11.3872 2.50521 12.6871 2.50521 13.4836 3.30173Z" fill="black" stroke="#F6F6F6" stroke-width="0.69786"/>
+                </svg> -->
+
+                <svg class="tool-icon-svg" width="31" height="31" viewBox="0 0 31 31" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M27.1198 3.875L15.9662 6.86359L19.3416 10.239L8.94209 20.6385L5.56671 17.2631L2.57812 28.4167L13.7317 25.4281L10.3563 22.0527L20.7558 11.6532L24.1312 15.0286L27.1198 3.875Z"
+                        fill="#424242" />
+                </svg>
+
+
+                <label class="label-tool" style="font-size:10px; line-height:2px;font-weight:400; margin-top:14px">
+                    <p id="tool-size-localization">Tool-size</p>
+                    <p id="tool-selector-localization">selector</p>
+                </label>
+
+            </span>
+
+            <label class="tool-name slider verticalAlign sizeSelector" for="chooseSize">
+                <input type="range" id="chooseSize" value="3" min="1" max="50" step="1" class="rangeChooser" />
+            </label>
+
+        </div>
+
+
+        <!-- Opacity Picker -->
+        <div class="tool opacityPicker">
+            <span class="tool-icon" id="opacity-picker" title="Opacity Picker">
+                <!-- <svg class="tool-icon-svg" viewBox="0 0 8 8">
+                    <pattern id="opacityPattern" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+                        <rect x=0 y=0 width=2 height=2 fill=black />
+                        <rect x=2 y=2 width=2 height=2 fill=black />
+                        <rect x=2 y=0 width=2 height=2 fill=#eee />
+                        <rect x=0 y=2 width=2 height=2 fill=#eee />
+                    </pattern>
+                    <circle cx=4 cy=4.6 id="opacityIndicator" r=3.5 fill="url(#opacityPattern)" />
+                </svg> -->
+                <svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"
+                    fill="none">
+                    <mask id="mask0_8261_28999" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
+                        width="28" height="28">
+                        <circle id="opacityIndicator" cx="14" cy="14" r="14" fill="#D9D9D9" />
+                    </mask>
+                    <g mask="url(#mask0_8261_28999)">
+                        <path d="M-5 0H4V9H-5V0Z" fill="#212121" />
+                        <path d="M-5 18H4V27H-5V18Z" fill="#212121" />
+                        <path d="M-5 9H4V18H-5V9Z" fill="white" />
+                        <path d="M-5 27H4V36H-5V27Z" fill="white" />
+                        <path d="M4 0H13V9H4V0Z" fill="white" />
+                        <path d="M4 18H13V27H4V18Z" fill="white" />
+                        <path d="M4 9H13V18H4V9Z" fill="#212121" />
+                        <path d="M4 27H13V36H4V27Z" fill="#212121" />
+                        <path d="M13 0H22V9H13V0Z" fill="#212121" />
+                        <path d="M13 18H22V27H13V18Z" fill="#212121" />
+                        <path d="M31 9H40V18H31V9Z" fill="white" />
+                        <path d="M31 27H40V36H31V27Z" fill="white" />
+                        <path d="M22 0H31V9H22V0Z" fill="white" />
+                        <path d="M22 18H31V27H22V18Z" fill="white" />
+                        <path d="M22 9H31V18H22V9Z" fill="#212121" />
+                        <path d="M22 27H31V36H22V27Z" fill="#212121" />
+                        <path d="M31 0H40V9H31V0Z" fill="#212121" />
+                        <path d="M31 18H40V27H31V18Z" fill="#212121" />
+                        <path d="M13 9H22V18H13V9Z" fill="white" />
+                        <path d="M13 27H22V36H13V27Z" fill="white" />
+                    </g>
+                </svg>
+                <label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">
+                    <p id="tool-opacity-localization">Opacity</p>
+                    <p id="tool-picker-localization"> Picker</p>
+                </label>
+            </span>
+            <label class="tool-name slider opacitySelector hideOpacity" for="chooseOpacity" id="opacitySelector">
+                <input type="range" id="chooseOpacity" value="1" min="0.2" max="1" step="0.1"
+                    style="-webkit-appearance: slider-vertical" class="rangeChooser rangeChooser-opacity" />
+            </label>
+        </div>
+
+        <ul id="tools" class="tools">
+            <li class="tool"><span class="tool-icon"></span></li>
+        </ul>
+
+      
+
+       
+<!-- 
+        <button id="toogle-tranparency" style="border:none; margin-top: -8px;margin-left: -3px;  background: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" style="margin-top: -7px;width: 28px;" viewBox="0 0 29 28"
+                fill-rule="evenodd" clip-rule="evenodd">
+                <path
+                    d="M16 20h-8c-4.415 0-8-3.585-8-8s3.585-8 8-8h8c4.415 0 8 3.585 8 8s-3.585 8-8 8zm0-15h-8c-3.863 0-7 3.137-7 7s3.137 7 7 7h8.045c3.843-.025 6.955-3.152 6.955-7s-3.112-6.975-6.955-7h-.045zm-8 2c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5zm0 1c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4z" />
+            </svg>
+           <img class="toggle-icon" src="./assets/toggle.png" style="width: 34px;margin-top: -16px"/>
+            <br> 
+            <label id="tool-toggle-localization" class="label-tool" style="font-size:10px;font-weight:400;line-height: 2px; margin-top: 3px;font-family: Inter;"><p>White Board</p></label>
+        </button> -->
+
+            <!-- <button id="add-page" onclick="addNewPage()">Add New</button> -->
+
+    </div>
+
+
+    <div id="loadingMessage">Loading</div>
+    <div id="overlay"></div>
+    <div id="top_left_tools" class="top__tools">
+    </div>
+    <!-- added on import -->
+    <div id="zmmtg-root"></div>
+    <div id="aria-notify-area"></div>
+    <video class="video__recorder__screen" src=""></video>
+    <!-- added on meeting init -->
+    <div class="ReactModalPortal"></div>
+    <div class="ReactModalPortal"></div>
+    <div class="ReactModalPortal"></div>
+    <div class="ReactModalPortal"></div>
+    <div class="global-pop-up-box"></div>
+    <!-- <div class="sharer-controlbar-container sharer-controlbar-container--hidden"></div> -->
+
+    <div style='display:none' id="msr-pod-up"><i class="fas fa-angle-double-up"></i></div>
+    <div style='display:none' id="msr-dialog" class="msr-dialog">
+        <div id="msr-pod"><span id="msr-header">Geometry</span><i style="float:right;color:gray;margin:5px 10px 0px 0px"
+                class="fas fa-angle-double-down"></i></div>
+        <div id="msr-main"><br>Ready</div>
+    </div>
+    <div id="shape-lock" class="shape-lock">
+        <i id="shape-lock-icon" class="fas fa-unlock"></i>
+    </div>
+    <div id="usercount"></div>
+    <!-- <div id="compass">
+        <div id="north" class='direction'><i class="fas fa-chevron-up"></i></div>
+        <div id="west" class='direction'><i class="fas fa-chevron-left"></i></div>
+        <div id="east" class='direction'><i class="fas fa-chevron-right"></i></div>
+        <div id="south" class='direction'><i class="fas fa-chevron-down"></i></div>
+    </div> -->
+
+    <div id="board">
+        <!-- <img id="destination" /> -->
+
+        <div class="localization">
+            <select id="languageSelect" onchange="changeLanguage()">
+                <option value="en">English</option>
+                <option value="hi">हिंदी</option>
+            </select>
+        </div>
+
+        <svg id="canvas" width="500" height="500" viewBox="0 0 500 500" svgHeightversion="1.1"
+            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="transparent">
+            <defs id="defs">
+                <pattern id="smallGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+                    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="gray" stroke-width="0.5" />
+                </pattern>
+                <pattern id="grid" width="300" height="300" patternUnits="userSpaceOnUse">
+                    <rect width="300" height="300" fill="url(#smallGrid)" />
+                    <path d="M 300 0 L 0 0 0 300" fill="none" stroke="gray" stroke-width="1" />
+                </pattern>
+                <pattern id="diagonalLines" width="30" height="30" patternUnits="userSpaceOnUse">
+                    <path d="M 0 0 L 30 30" fill="none" stroke="gray" stroke-width="0.5" />
+                </pattern>
+                <pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse">
+                    <circle cx="5" cy="5" r="1" fill="gray" />
+                </pattern>
+                <pattern id="zigzag" width="30" height="30" patternUnits="userSpaceOnUse">
+                    <path d="M 0 0 L 15 15 L 30 0 L 15 -15" fill="none" stroke="gray" stroke-width="0.5" />
+                </pattern>
+                <pattern id="imagePattern" width="100%" height="100%" patternContentUnits="objectBoundingBox"
+                    patternTransform="scale(1)">
+                    <image id="setImagePattern" href="./assets/image.jpeg" x="0" y="0" width="1" height="1"
+                        preserveAspectRatio="none">
+                </pattern>
+            </defs>
+            <!-- <rect onmousedown="mouser.unregisterShapes()" style="display:block" id="rect_1" width="100%" height="100%" fill="url(#grid)" /> -->
+            <rect onmousedown="mouser.unregisterShapes()" style="display:block;" id="rect_1" width="100%" height="100%"
+                fill="transparent" />
+            <g id="cursors"></g>
+            <g id="layer-1"></g>
+        </svg>
+    </div>
+
+    <div class="window" id="calc-container" style="display:none">
+        <div id="calc-container-header">
+            Calc
+            <div class="close-max-btn" style="margin-right: 40px">
+                <button type="button" class="close window-button" id="close-calc" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <button type="button" class="window-button window-icon-button" id="max-calc" title="Maximize"
+                    aria-label="Max">
+                    <span aria-hidden="true"><i class="fa fa-window-maximize wb-editor-icon"></i></span></button>
+
+            </div>
+        </div>
+        <div id="calculator"></div>
+    </div>
+
+    <!-- Text Editor -->
+    <!-- Text Editor -->
+    <div class="window" id="wb-editor-container" style="display:none">
+        <div id="wb-editor-container-header">
+            <div>
+                <span id='wb-editor-curmode'>Text</span> Editor &nbsp;
+
+                <button class="wb-editor-button" data-trigger="hover" title="Modes" style="display: none"
+                    id="wb-options" type="button"><i class="fas fa-bars wb-editor-icon"></i></button>
+                <button class="wb-editor-button wb-button-inactive" data-trigger="hover" title="Run" id="wb-editor-run"
+                    type="button"><i class="fas fa-play-circle wb-editor-icon"></i></button>
+                <button class="wb-editor-button wb-button-inactive" data-trigger="hover" title="Real-time Run"
+                    id="wb-editor-live" type="button"><i id="wb-editor-live-icon"
+                        class="fas fa-circle-notch fa-spin wb-editor-icon"></i></button>
+                <button type="button" class="wb-button wb-textoptions-button" data-trigger="hover" style="display: none"
+                    title="Text Options" id="wb-textoptions" aria-label="Down"><span aria-hidden="true"><i
+                            class="fas fa-angle-double-down"></i></span></button>
+
+            </div>
+
+
+            <div class="close-max-btn" style="margin-right: 40px">
+                <button type="button" class="close window-button" id="close-editor" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <button type="button" class="window-button window-icon-button" data-trigger="hover" title="Maximize"
+                    id="max-editor" aria-label="Max"><span aria-hidden="true"><i
+                            class="fa fa-window-maximize wb-editor-icon"></i></span></button>
+            </div>
+
+        </div>
+        <div id="wb-editor-container-modes">
+            <button class="wb-button wb-mode-button" id="wb-close-options" type="button"><i
+                    class="fas fa-angle-double-up" aria-hidden="true"></i></button>
+            <button class="wb-editor-mode" id="wb-text" data-trigger="hover" title="Text editor"
+                type="button">text</button>
+            <button class="wb-editor-mode" id="wb-js" data-trigger="hover" title="Javascript compiler/editor"
+                type="button">js</button>
+            <button class="wb-editor-mode" id="wb-python" data-trigger="hover" title="Python compiler/editor"
+                type="button">py</button>
+            <button class="wb-editor-mode" id="wb-cpp" data-trigger="hover" title="C++ compiler/Editor"
+                type="button">c++</button>
+        </div>
+        <div id="wb-editor-container-toolbar" style="display: none">
+            <button class="wb-button wb-edit-button" id="wb-close-edit" type="button"><i class="fas fa-angle-double-up"
+                    aria-hidden="true"></i></button>
+            <button class="wb-button wb-edit-button" id="wb-spell-check" data-trigger="hover" title="Check spelling"
+                type="button"><i id="wb-editor-spell-check-icon" class="fas fa-spell-check"></i></button>
+            <button class="wb-button wb-edit-button" id="wb-code-template" data-trigger="hover" title="Code template"
+                type="button"><i class="fa fa-file-code-o"></i></button>
+            <button class="wb-button wb-edit-button" id="wb-ed-undo" data-trigger="hover" title="Undo" type="button"><i
+                    class="fas fa-undo"></i></button>
+            <button class="wb-button wb-edit-button" id="wb-ed-redo" data-trigger="hover" title="Redo" type="button"><i
+                    class="fas fa-redo"></i></button>
+            <button class="wb-button wb-edit-button" id="wb-ed-search" data-trigger="hover" title="Search"
+                type="button"><i class="fas fa-search"></i></button>
+            <!-- <button id="createFolderButton" onclick="createFolderButton">New Tab</button> -->
+
+        </div>
+        <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser" data-toggle="tooltip"
+        data-trigger="hover">Search</button> -->
+        <input type="text" placeholder="Type Something...." id="searchBrowser"
+            class="wb-button wb-edit-button searchBrowser" data-trigger="hover"></input>
+        <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser">Search</button> -->
+        <div id="wb-editor">
+            <div class="row wb-editor">
+                <div class="col-sm-12" id="wb-editor-input">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header wb-modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Insert Code Template</h4>
+                </div>
+                <div class="modal-body">
+                    <p>This will insert a basic template for the current language, replacing existing code. Do you wish
+                        to continue?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="wb-ed-insert-template" class="btn btn-default"
+                        data-dismiss="modal">Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="template" style="display:none;"></div>
+
+    <!-- backgorund-color-tool -->
+    <div id="colorPickerModal" class="color-modal">
+        <div class="color-modal-content">
+            <div class="color-tabs">
+                <div id="color-tab1" class="color-tab-content show">
+                    <div id="colorPickerModalContent">
+                    </div>
+                </div>
+                <div id="color-tab2" class="color-tab-content">
+                    <div id="backgorundPattern">
+                    </div>
+                </div>
+            </div>
+            <div class="bg-modal-tabs">
+                <div>
+                    <span class="color-tab" onclick="openTab(event, 'color-tab1')"><svg width="25" height="25"
+                            viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path fill="#444"
+                                d="M13 14.5c0.468-2.207 0.985-4.050 1.604-5.846 0.411 1.796 0.928 3.638 1.337 5.521 0.059 1.153-0.612 1.825-1.441 1.825s-1.5-0.672-1.5-1.5z">
+                            </path>
+                            <path fill="#444"
+                                d="M8 1l-1.44 1.44-2-2c-0.276-0.262-0.649-0.423-1.060-0.423s-0.784 0.161-1.061 0.423c-0.27 0.271-0.438 0.645-0.438 1.059s0.168 0.789 0.439 1.060l2 2-4.44 4.44 7 7 8-8zM8 2.41l5.59 5.59h-11.18l2.75-2.75c0.071 0.042 0.156 0.067 0.247 0.067 0.271 0 0.49-0.219 0.49-0.49 0-0.091-0.025-0.176-0.068-0.249l0.721-0.718 1.54 1.53c0.091 0.091 0.216 0.147 0.355 0.147 0.277 0 0.502-0.225 0.502-0.502 0-0.139-0.056-0.264-0.147-0.355l-1.53-1.53zM3.15 1.85c-0.091-0.091-0.148-0.216-0.148-0.355s0.057-0.264 0.148-0.355c0.092-0.089 0.217-0.144 0.355-0.144s0.263 0.055 0.355 0.144l2 2-0.71 0.71z">
+                            </path>
+                        </svg>
+                    </span>
+                    <span class="color-tab" onclick="openTab(event, 'color-tab2')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none">
+                            <g id="Media / Image_02">
+                                <path id="Vector"
+                                    d="M3.00005 18.0001C3 17.9355 3 17.8689 3 17.8002V6.2002C3 5.08009 3 4.51962 3.21799 4.0918C3.40973 3.71547 3.71547 3.40973 4.0918 3.21799C4.51962 3 5.08009 3 6.2002 3H17.8002C18.9203 3 19.4801 3 19.9079 3.21799C20.2842 3.40973 20.5905 3.71547 20.7822 4.0918C21 4.5192 21 5.07899 21 6.19691V17.8031C21 18.2881 21 18.6679 20.9822 18.9774M3.00005 18.0001C3.00082 18.9884 3.01337 19.5058 3.21799 19.9074C3.40973 20.2837 3.71547 20.5905 4.0918 20.7822C4.5192 21 5.07899 21 6.19691 21H17.8036C18.9215 21 19.4805 21 19.9079 20.7822C20.2842 20.5905 20.5905 20.2837 20.7822 19.9074C20.9055 19.6654 20.959 19.3813 20.9822 18.9774M3.00005 18.0001L7.76798 12.4375L7.76939 12.436C8.19227 11.9426 8.40406 11.6955 8.65527 11.6064C8.87594 11.5282 9.11686 11.53 9.33643 11.6113C9.58664 11.704 9.79506 11.9539 10.2119 12.4541L12.8831 15.6595C13.269 16.1226 13.463 16.3554 13.6986 16.4489C13.9065 16.5313 14.1357 16.5406 14.3501 16.4773C14.5942 16.4053 14.8091 16.1904 15.2388 15.7607L15.7358 15.2637C16.1733 14.8262 16.3921 14.6076 16.6397 14.5361C16.8571 14.4734 17.0896 14.4869 17.2988 14.5732C17.537 14.6716 17.7302 14.9124 18.1167 15.3955L20.9822 18.9774M20.9822 18.9774L21 18.9996M15 9C14.4477 9 14 8.55228 14 8C14 7.44772 14.4477 7 15 7C15.5523 7 16 7.44772 16 8C16 8.55228 15.5523 9 15 9Z"
+                                    stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </g>
+                        </svg>
+                    </span>
+                </div>
+                <button id="closeModalBtn" class="bg-modal-close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mathematical-Tools -->
+
+    <div id="mathematicalToolsModal" class="mathematicalToolsModal">
+        <div class="mathematicalTool-content">
+            <div id="closeToolModalBtn"> <span class="close">&times;</span></div>
+            <div class="tabs">
+                <div id="tab1--mathematiclTool" class="tab-content show">
+                </div>
+            </div>
+            <div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Table Actions -->
+
+    <!-- HTML 2 Canvas CDN -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
+    </script> -->
+    <script src="OfflineCDN/cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
+    </script>
+    <script type="application/json" id="translations">{}</script>
+    <script src="js/path-data-polyfill.js"></script>
+    <script src="js/minitpl.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/draggableToolbar.js"></script>
+
+    <script src="tools/pencil/pencil.js"></script>
+    <script src="tools/line/line.js"></script>
+    <script src="tools/rect/rect.js"></script>
+    <script src="tools/text/text.js"></script>
+    <script src="tools/eraser/eraser.js"></script>
+    <script src="js/widgets.js"></script>
+    <script src="tools/mathematical-tools/mathematicalTools.js"></script>
+    <!-- ADD NEW PAGES -->
+    <!-- <script src="tools/add-pages/addPages.js"></script> -->
+
+
+    <!-- Screenshot Tool -->
+    <script src="tools/screenshotTool/screenshotTool.js"></script>
+
+    <!-- ContextMenu -->
+    <script src="js/contextMenu.js"></script>
+
+
+
+    <!-- Sticky Notes -->
+    <!-- <script src="tools/stickyNotes/stickyNotes.js"></script> -->
+    <!-- Recorder -->
+    <script src="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.6.1/RecordRTC.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.6.1/RecordRTC.min.js" integrity="sha512-JdnCTTJRivaH4nStpZnsHO5Fm6TmgWHwwyPfhTPMgHGOz4GRzynCnm1T28C7Ees55ERL+t+gqg/DQro9oROd0w==" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://www.webrtc-experiment.com/EBML.js"></script>   -->
+    <script src="OfflineCDN/www.webrtc-experiment.com/EBML.js"></script>
+    <script src="js/intentScript.js"></script>
+    <!-- <script src="tools/ScreenRecorder/ScreenRecorder.js"></script> -->
+
+    <!-- BEGIN TRANSFORM TOOL -->
+    <!-- Transform dep: 2D -->
+    <script src="js/2D.js"></script>
+    <script src="js/Init2D.js"></script>
+    <script src="tools/transform/transform.js"></script>
+
+    <!-- END TRANSFORM TOOL -->
+    <script src="tools/document/document.js"></script>
+
+    <!-- Download -->
+    <script src="tools/download/download.js"></script>
+    <!-- BEGIN EDITOR TOOL -->
+    <!-- Editor dep: CodeMirror -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.css" />
+
+    <!-- *Editor dep: Typo -->
+    <script src="https://rawgit.com/cfinke/Typo.js/master/typo/typo.js"></script>
+
+    <!-- Editor dep: Klipse -->
+    <script>
+        window.klipse_settings = {
+            selector_eval_python_client: 'no_element',
+        };
+    </script>
+    <script src="js/klipse_plugin.min.js"></script>
+
+    <!-- Editor dep: Firebase/Firepad -->
+    <script>
+        var firepad_config = {
+            apiKey: '<API_KEY>',
+            authDomain: "<AUTH_DOMAIN>.firebaseapp.com",
+            databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
+        };
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
+    <link rel="stylesheet" href="https://firepad.io/releases/v1.5.9/firepad.css" />
+    <script src="https://firepad.io/releases/v1.5.9/firepad.min.js"></script>
+
+    <!-- Editor -->
+    <script src="tools/editor/editor.js"></script>
+    <!-- END EDITOR TOOL-->
+
+    <script src="tools/handNew/hand.js"></script>
+    <!-- <script src="tools/grid/grid.js"></script> -->
+    <script src="tools/clear/clear.js"></script>
+    <script src="tools/eraser2/eraser2.js"></script>
+
+    <!-- BEGIN CALCULATOR TOOL-->
+    <!-- Calculator dep: Desmos-->
+    <!-- <script src="https://www.desmos.com/api/v1.5/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script> -->
+    <script src="OfflineCDN/www.desmos.com/api/v1.5/calculator5b31.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+    <script src="tools/calculator/calculator.js"></script>
+    <!-- END CALCULATOR TOOL-->
+
+    <script src="tools/undo/undo.js"></script>
+    <script src="tools/redo/redo.js"></script>
+
+    <!-- Browser -->
+    <!-- <script src="tools/browserUtil/browserUtil.js"></script> -->
+    <!-- <script src="tools/zoom-in/zoom-in.js"></script>
+    <script src="tools/zoom-out/zoom-out.js"></script> -->
+    <script src="components/measurement/measurement.js"></script>
+    <script src="js/canvascolor/canvascolor.min.js"></script>
+    <script src="js/customJs/custom.js"></script>
+    <script src="tools/Close/close.js"></script>
+    <script src="tools/FullScreen/fullscreen.js"></script>
+    <!-- <script src="tools/Mice/mice.js"></script> -->
+    <!-- <script src="tools/VideoRecorder/videoRecorder.js"></script> -->
+    <!-- <script src="tools/shareScreen/sharescreen.js"></script> -->
+    <!-- Ad Cursosr Event -->
+    <!-- <script src="tools/cursor/cursor.js"></script> -->
+
+    <script src="tools/PDF/pdf.js"></script>
+
+    <!-- import ZoomMtg dependencies -->
+    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/react.min.js"></script> -->
+    <script src="OfflineCDN/source.zoom.us/1.8.0/lib/vendor/redux.min.js"></script>
+    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/react-dom.min.js"></script> -->
+    <script src="OfflineCDN/source.zoom.us/1.8.0/lib/vendor/react-dom.min.js"></script>
+    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/redux.min.js"></script> -->
+    <script src="OfflineCDN/source.zoom.us/1.8.0/lib/vendor/redux.min.js"></script>
+    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/redux-thunk.min.js"></script> -->
+    <script src="OfflineCDN/source.zoom.us/1.8.0/lib/vendor/redux-thunk.min.js"></script>
+    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/jquery.min.js"></script> -->
+    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/lodash.min.js"></script> -->
+    <script src="OfflineCDN/source.zoom.us/1.8.0/lib/vendor/lodash.min.js"></script>
+    <!-- import ZoomMtg -->
+    <!-- <script src="https://source.zoom.us/zoom-meeting-1.8.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.771.0/aws-sdk.min.js"></script> -->
+    <script src="OfflineCDN/source.zoom.us/zoom-meeting-1.8.0.min.js"></script>
+    <script src="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.771.0/aws-sdk.min.js"></script>
+    <script type="module" src="js/zoom/meeting2.js"></script>
+    <!-- <script src="https://www.webrtc-experiment.com/common.js"></script> -->
+    <script src="OfflineCDN/www.webrtc-experiment.com/common.js"></script>
+    <script type="module" src="js/record/record.js"></script>
+    <script type="module" src="js/customJs/zoomOverride.js"></script>
+
+    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+    <script src="OfflineCDN/code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- <script src="js/record/onlyAudioVideo.js"></script> -->
+
+    <!-- pdf.js -->
+    <!-- <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script> -->
+    <script src="OfflineCDN/mozilla.github.io/pdf.js/build/pdf.js"></script>
+
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+    </script> -->
+    <script src="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+    </script>
+    <script src="js/draggableContainers.js"></script>
+    <!-- <script src="tools/background-manangement/background.js"></script> -->
+
+    <!-- Paste Event -->
+    <script src="js/pasteEvents.js"></script>
+
+    <script src="js/dragEvents.js"></script>
+    <script src="tools/table/table.js"></script>
+
+    <script src="js/addPages.js"></script>
+
+    <script async src="https://cse.google.com/cse.js?cx=95c89d889e52e4b7f">
+    </script>
+    <script src="js/dragElements.js"></script>
+
+    <!-- toogle SVG -->
+    <!-- <script src="js/toogleSVG.js"></script> -->
+    <!-- DOM_TO_IMAGE -->
+
+    <script src="OfflineCDN/DOM_TO_IMAGE/dom-to-image.js"></script>
+
+    <!-- Localization  -->
+    <script>
+        function changeLanguage() {
+
+            var select = document.getElementById("languageSelect");
+            var selectedLanguage = select.value;
+
+            var shapesText = document.getElementById("popover-Rectangle");
+            var linesText = document.getElementById("popover-Line");
+
+
+            switch (selectedLanguage) {
+                case "hi":
+
+                    document.getElementById("line1").title = `सोलिड लाइन`;
+                    document.getElementById("line2").title = `सोलिड एरो`;
+                    document.getElementById("line3").title = `डैश लाइन`;
+
+                    document.getElementById("color-pick").title = `कलर पिकर`;
+                    document.getElementById("opacity-picker").title = `ओपेसिटी पिकर`;
+                    document.getElementById("tool-size-selector").title = `टूल साइज़ सलेक्टर`;
+                    document.getElementById("toolID-Pencil").title = `पेंसिल`;
+                    document.getElementById("toolID-Line").title = `लाइनस`;
+                    document.getElementById("toolID-Rectangle").title = `शेपस`;
+                    document.getElementById("toolID-Text").title = `टेक्स्ट`;
+
+                    document.getElementById("toolID-Mathematical Tools").title = `मैथमेटिकल टूल्स`;
+                    document.getElementById("toolID-Screenshot").title = `स्क्रीनशॉट`;
+                    document.getElementById("toolID-Transform").title = `ट्रांसफोर्म `;
+                    document.getElementById("toolID-Document").title = `डॉक्यूमेंट`;
+                    document.getElementById("toolID-Download").title = `डाउनलोड`;
+
+                    document.getElementById("toolID-Editor").title = `एडीटर`;
+                    document.getElementById("toolID-Hand").title = `हैंड`;
+                    document.getElementById("toolID-Grid").title = `ग्रिड`;
+                    document.getElementById("toolID-Calculator").title = `कैलक्युलेटर`;
+                    document.getElementById("toolID-Zoom In").title = `जूम इन`;
+                    document.getElementById("toolID-Zoom Out").title = `जूम आउट`;
+                    document.getElementById("toolID-Background").title = `बैकग्राउंड`;
+                    document.getElementById("toolID-Table").title = `टेबल`;
+                    document.getElementById("toolID-Undo").title = `अन्डू`;
+                    document.getElementById("toolID-Redo").title = `रीडू`;
+                    document.getElementById("toolID-Clear").title = `इरेजर`;
+                    document.getElementById('toolID-"Touch Up" Eraser').title = `टच अप`;
+
+                    document.getElementById("shape2d-rectangle").title = `रेक्टेंगल`;
+                    document.getElementById("shape2d-circle").title = `सर्किल`;
+                    document.getElementById("shape2d-triangle").title = `ट्राएंगल`;
+                    document.getElementById("shape2d-equi").title = `ईक्वलैटरल ट्राएंगल`;
+                    document.getElementById("shape2d-parallelogram").title = `पराल्लेलोग्राम`;
+                    document.getElementById("shape2d-trapezoid").title = `ट्रेपजॉयड`;
+                    document.getElementById("shape2d-rombus").title = `रॉम्बस`;
+                    document.getElementById("shape2d-pentagon").title = `पेंटागन`;
+                    document.getElementById("shape2d-hexagon").title = `हेक्सागोनल`;
+                    document.getElementById("shape2d-ellipse").title = `इलिप्स`;
+
+                    document.getElementById("shape3d-cube").title = `क्यूब`;
+                    document.getElementById("shape3d-cone").title = `कोन`;
+                    document.getElementById("shape3d-cylinder").title = `सिलेंडर`;
+                    document.getElementById("shape3d-sphere").title = `स्फीयर`;
+                    document.getElementById("shape3d-pyramid").title = `पिरामिड`;
+                    document.getElementById("shape3d-pyramid").title = `पिरामिड`;
+
+                    // widget title                   
+                    document.getElementById("ruler").title = `रूलर`;
+                    document.getElementById("setSquare").title = `सेट स्क्वेयर`;
+                    document.getElementById("protractor").title = `प्रोट्रेक्टर`;
+                    document.getElementById("stopwatch").title = `स्टॉप वॉच`;
+                    document.getElementById("clock").title = `क्लॉक`;
+                    document.getElementById("roundCompass").title = `राउंड कम्पास`;                
+                    document.getElementById("compass").title = `कम्पास`;
+                    document.getElementById("calculate").title = `कैलकुलेटर`;
+                    document.getElementById("magnifier").title = `मैग्नीफाइंग ग्लास`;
+                    document.getElementById("dice-tool").title = `डाइस`;
+
+                    // tools-label
+                    document.getElementById("tool-color-localization").innerHTML = `कलर पिकर`;
+                    document.getElementById("tool-size-localization").innerHTML = `टूल साइज़`;
+                    document.getElementById("tool-selector-localization").innerHTML = `सलेक्टर`;
+                    document.getElementById("tool-opacity-localization").innerHTML = `ओपेसिटी`;
+                    document.getElementById("tool-picker-localization").innerHTML = `पिकर`;
+                
+                    document.getElementById("tool-lines-localization").innerHTML = `लाइनस`; 
+                    document.getElementById("tool-shapes-localization").innerHTML = `शेपस`;
+                    document.getElementById("tool-text-localization").innerHTML = `टेक्स्ट`;
+                    document.getElementById("tool-mathstool-localization").innerHTML = `मैथमेटिकल`; 
+                    document.getElementById("tool-mathstools-localization").innerHTML = `टूल्स`;
+                    document.getElementById("tool-screenshot-localization").innerHTML = `स्क्रीनशॉट`;
+                    document.getElementById("tool-transform-localization").innerHTML = `ट्रांसफोर्म`;
+                    document.getElementById("tool-document-localization").innerHTML = `डॉक्यूमेंट`;
+                    document.getElementById("tool-download-localization").innerHTML = `डाउनलोड`;
+                    document.getElementById("tool-editor-localization").innerHTML = `एडीटर`;
+                    document.getElementById("tool-hand-localization").innerHTML = `हैंड`;
+                    document.getElementById("tool-grid-localization").innerHTML = `ग्रिड`;
+                    document.getElementById("tool-calculator-localization").innerHTML = `कैलक्युलेटर`;
+                    document.getElementById("tool-zoomin-localization").innerHTML = `जूम इन`;
+                    document.getElementById("tool-zoomout-localization").innerHTML = `जूम आउट`;                    
+                    document.getElementById("tool-background-localization").innerHTML = `बैकग्राउंड`;
+                    document.getElementById("tool-table-localization").innerHTML = `टेबल`;
+                    document.getElementById("tool-screen-localization").innerHTML = `स्क्रीन`;
+                    document.getElementById("tool-recorder-localization").innerHTML = `रिकॉर्डिंग`;               
+                    document.getElementById("tool-toggle-localization").innerHTML = `वाइट बोर्ड`;
+
+                    document.getElementById("img-library").innerHTML = `इमेज लाइब्रेरी`;
+                    document.getElementById("SelectFromDevice").innerHTML = `ऐड इमेज from डिवाइस `;
+                    document.getElementById("SelectFromLibrary").innerHTML = `ऐड इमेज from लाइब्रेरी`;
+                    document.getElementById("SelectFromPDF").innerHTML = `अपलोड पीडीएफ `;
+                    document.getElementById("SelectFromVideo").innerHTML = `अपलोड वीडियो`;
+
+                    document.getElementById("downloadAsSVG").innerHTML = `एसवीजी`;
+                    document.getElementById("downloadAsPDF").innerHTML = `पीडीऍफ़`;
+                    document.getElementById("downloadAsPNG").innerHTML = `पीएनजी`;
+                    document.getElementById("downloadAsJPG").innerHTML = `जेपीईजी`;
+
+                    document.getElementById("tab1").innerHTML = `एजुकेशन`;
+                    document.getElementById("tab2").innerHTML = `स्पोर्ट्स`;
+                    document.getElementById("tab3").innerHTML = `म्यूजिक`;
+                    document.getElementById("tab4").innerHTML = `आर्ट`;
+                    document.getElementById("tab5").innerHTML = `साइंस`;
+                    document.getElementById("tab6").innerHTML = `मैथ`;
+
+                    document.getElementById("two-dimension").innerHTML = `2डी शेपस`;
+                    document.getElementById("three-dimension").innerHTML = `3डी शेपस`;
+                    document.getElementById("undo-tag").innerHTML = `अन्डू`;
+                    document.getElementById("redo-tag").innerHTML = `रीडू`;
+             
+                    shapesText.querySelector(".popover-header").innerHTML = `शेपस`;                  
+                    linesText.querySelector(".popover-header").innerHTML = `लाइनस`;
+                      
+                    // snackbar
+                    document.getElementById("snackbar").innerHTML = `कृपया केवल PDF फ़ाइल का चयन करें।`;                  
+                    document.getElementById("snackbar-success").innerHTML = `PDF फ़ाइल सफलतापूर्वक अपलोड की गई है।`;
+
+                    // import PDF
+                    
+                    document.getElementById("select-All").innerHTML = "सभी का चयन करें";
+                    document.getElementById("remove-All").innerHTML = "सभी हटाएं";                   
+                    document.getElementById("importPDF").innerHTML = "पीडीएफ आयात करें";
+
+                    // Pencil-eraser                     
+                    document.getElementById("tool-pencil-localization").innerHTML = `पेंसिल`;
+                    document.getElementById("tool-eraser-localization").innerHTML = `इरेजर`;
+
+                    //  table modal title                                  
+                    // document.getElementById("add-row").innerHTML = "ऐड रो";  
+                    // document.getElementById("add-column").innerHTML = "ऐड कॉलम";  
+                    // document.getElementById("delete-row").innerHTML = "डिलीट रो";  
+                    // document.getElementById("delete-column").innerHTML = "डिलीट कॉलम";
+
+                    
+                    // Shapes names
+                    
+                    document.getElementById("tool-rectangles-localization").innerHTML= `रेक्टेंगल`;
+                    document.getElementById("tool-circle-localization").innerHTML = `सर्किल`;
+                    document.getElementById("tool-triangle-localization").innerHTML = `ट्राएंगल`;
+                    document.getElementById("tool-equitri-localization").innerHTML = `ट्राएंगल`;
+                    document.getElementById("tool-parallelogram-localization").innerHTML = `पराल्लेलोग्राम`;
+                    document.getElementById("tool-trapezoid-localization").innerHTML = `ट्रेपजॉयड`;
+                    document.getElementById("tool-rombus-localization").innerHTML = `रॉम्बस`;
+                    document.getElementById("tool-pentagon-localization").innerHTML = `पेंटागन`;
+                    document.getElementById("tool-hexagon-localization").innerHTML = `हेक्सागोनल`;
+                    document.getElementById("tool-ellipse-localization").innerHTML = `इलिप्स`;
+                    document.getElementById("tool-cube-localization").innerHTML = `क्यूब`;
+                    document.getElementById("tool-cone-localization").innerHTML = `कोन`;
+                    document.getElementById("tool-cylinder-localization").innerHTML = `सिलेंडर`;
+                    document.getElementById("tool-sphere-localization").innerHTML = `स्फीयर`;
+                    document.getElementById("tool-pyramid-localization").innerHTML = `पिरामिड`;
+                
+                   
+                    break;
+                default:
+                    // English is the default language
+
+                    document.getElementById("line1").title = `Solid line`;
+                    document.getElementById("line2").title = `Solid arrow`;
+                    document.getElementById("line3").title = `Dashed line`;
+
+                    document.getElementById("color-pick").title = `Color Picker`;
+                    document.getElementById("opacity-picker").title = `Opacity Picker`;
+                    document.getElementById("tool-size-selector").title = `Tool Size Selector`;
+                    document.getElementById("toolID-Pencil").title = `For Eraser (click to toggle)`;
+                    document.getElementById("toolID-Line").title = `Lines`;
+                    document.getElementById("toolID-Rectangle").title = `Shapes`;
+                    document.getElementById("toolID-Text").title = `Text`;
+
+                    // mathematical tools
+                    document.getElementById("toolID-Mathematical Tools").title = `Mathematical Tools`;
+
+                    document.getElementById("toolID-Screenshot").title = `Screenshot`;
+                    document.getElementById("toolID-Transform").title = `Transform`;
+                    document.getElementById("toolID-Document").title = `Document`;
+                    document.getElementById("toolID-Download").title = `Download`;
+
+                    document.getElementById("toolID-Editor").title = `Editor`;
+                    document.getElementById("toolID-Hand").title = `Hand`;
+                    document.getElementById("toolID-Grid").title = `Grid`;
+                    document.getElementById("toolID-Calculator").title = `Calculator`;
+                    document.getElementById("toolID-Zoom In").title = `Zoom In`;
+                    document.getElementById("toolID-Zoom Out").title = `Zoom Out`;
+                    document.getElementById("toolID-Background").title = `Background`;
+                    document.getElementById("toolID-Table").title = `Table`;
+                    document.getElementById("toolID-Undo").title = `Undo`;
+                    document.getElementById("toolID-Redo").title = `Redo`;
+                    document.getElementById("toolID-Clear").title = `Eraser`;
+                    document.getElementById('toolID-"Touch Up" Eraser').title = `Touch Up`;
+
+                    document.getElementById("shape2d-rectangle").title = `Rectangle`;
+                    document.getElementById("shape2d-circle").title = `Circle`;
+                    document.getElementById("shape2d-triangle").title = `Triangle`;
+                    document.getElementById("shape2d-equi").title = `Equilateral Triangle`;
+                    document.getElementById("shape2d-parallelogram").title = `Parallelogram`;
+                    document.getElementById("shape2d-trapezoid").title = `Trapezoid`;
+                    document.getElementById("shape2d-rombus").title = `Rhombus`;
+                    document.getElementById("shape2d-pentagon").title = `Pentagon`;
+                    document.getElementById("shape2d-hexagon").title = `Hexagon`;
+                    document.getElementById("shape2d-ellipse").title = `Ellipse`;
+
+                    document.getElementById("shape3d-cube").title = `Cube`;
+                    document.getElementById("shape3d-cone").title = `Cone`;
+                    document.getElementById("shape3d-cylinder").title = `Cylinder`;
+                    document.getElementById("shape3d-sphere").title = `Sphere`;
+                    document.getElementById("shape3d-pyramid").title = `Pyramid`;
+
+                       // widget title                   
+                    document.getElementById("ruler").title = `Ruler`;
+                    document.getElementById("setSquare").title = `Set Square`;
+                    document.getElementById("protractor").title = `Protractor`;
+                    document.getElementById("stopwatch").title = `Stop Watch`;
+                    document.getElementById("clock").title = `Clock`;
+                    document.getElementById("roundCompass").title = `Round Compass`;                
+                    document.getElementById("compass").title = `Compass`;
+                    document.getElementById("calculator").title = `Calculator`;
+                    document.getElementById("magnifier").title = `Magnifying Glass`;
+                    document.getElementById("dice-tool").title = `Dice`;
+
+                      // tools-label
+                    document.getElementById("tool-color-localization").innerHTML = `Color Picker`;
+                    document.getElementById("tool-size-localization").innerHTML = `Tool Size`;
+                    document.getElementById("tool-selector-localization").innerHTML = `Selector`;
+                    document.getElementById("tool-opacity-localization").innerHTML = `Opacity`;
+                    document.getElementById("tool-picker-localization").innerHTML = `Picker`;
+                
+                    document.getElementById("tool-lines-localization").innerHTML = `Lines`; 
+                    document.getElementById("tool-shapes-localization").innerHTML = `Shapes`;
+                    document.getElementById("tool-text-localization").innerHTML = `Text`;
+                    document.getElementById("tool-mathstool-localization").innerHTML = `Math`; 
+                    document.getElementById("tool-mathstools-localization").innerHTML = `Tools`;
+                    document.getElementById("tool-screenshot-localization").innerHTML = `Screenshot`;
+                    document.getElementById("tool-transform-localization").innerHTML = `Transform`;                   
+                    document.getElementById("tool-document-localization").innerHTML = `Document`;         
+                    document.getElementById("tool-download-localization").innerHTML = `Download`;                  
+                    document.getElementById("tool-editor-localization").innerHTML = `Editor`;
+                    document.getElementById("tool-hand-localization").innerHTML = `Hand`;
+                    document.getElementById("tool-grid-localization").innerHTML = `Grid`;
+                    document.getElementById("tool-calculator-localization").innerHTML = `Calculator`;              
+                    document.getElementById("tool-zoomin-localization").innerHTML = `Zoom in`;                    
+                    document.getElementById("tool-zoomout-localization").innerHTML = `Zoom Out`;                  
+                    document.getElementById("tool-background-localization").innerHTML = `Background`;
+                    document.getElementById("tool-table-localization").innerHTML = `Table`;                  
+                    document.getElementById("tool-screen-localization").innerHTML = `Screen`;
+                    document.getElementById("tool-recorder-localization").innerHTML = `Recorder`;                                
+                    document.getElementById("tool-toggle-localization").innerHTML = `White Board`;
+
+                    document.getElementById("img-library").innerHTML = `Image Library`;
+                    document.getElementById("SelectFromDevice").innerHTML = `Add Image from Device`;
+                    document.getElementById("SelectFromLibrary").innerHTML = `Add Image from Library`;
+                    document.getElementById("SelectFromPDF").innerHTML = `Upload PDF `;
+                    document.getElementById("SelectFromVideo").innerHTML = `Upload Video`;
+
+                    document.getElementById("downloadAsSVG").innerHTML = `SVG`;
+                    document.getElementById("downloadAsPDF").innerHTML = `PDF`;
+                    document.getElementById("downloadAsPNG").innerHTML = `PNG`;
+                    document.getElementById("downloadAsJPG").innerHTML = `JPG`;
+
+                    document.getElementById("tab1").innerHTML = `Education`;
+                    document.getElementById("tab2").innerHTML = `Sports`;
+                    document.getElementById("tab3").innerHTML = `Music`;
+                    document.getElementById("tab4").innerHTML = `Art`;
+                    document.getElementById("tab5").innerHTML = `Science`;
+                    document.getElementById("tab6").innerHTML = `Maths`;
+
+                    document.getElementById("two-dimension").innerHTML = `Two Dimensional Shapes (2D)`;
+                    document.getElementById("three-dimension").innerHTML = `Three Dimensional Shapes (3D)`;
+
+                    document.getElementById("undo-tag").innerHTML = `Undo`;
+                    document.getElementById("redo-tag").innerHTML = `Redo`;
+
+                    
+                    shapesText.querySelector(".popover-header").innerHTML = `Shapes`;                   
+                    linesText.querySelector(".popover-header").innerHTML = `Lines`; 
+                    
+                    // snackbar
+                    document.getElementById("snackbar").innerHTML = `Invalid file type. Please select a PDF file.`;                  
+                    document.getElementById("snackbar-success").innerHTML = `PDF file uploaded successfully.`;
+
+
+                    // import PDF select-All                   
+                    document.getElementById("select-All").innerHTML = "Select All ";
+                    document.getElementById("remove-All").innerHTML = "Remove All";                   
+                    document.getElementById("importPDF").innerHTML = "Import PDF";
+
+                    // Pencil-Erase
+                    document.getElementById("tool-pencil-localization").innerHTML = `Pencil`;
+                    document.getElementById("tool-eraser-localization").innerHTML = `Eraser`;
+
+                    
+                    // table modal title                                 
+                    // document.getElementById("add-row").innerHTML = "Add-row";  
+                    // document.getElementById("add-column").innerHTML = "Add Column";  
+                    // document.getElementById("delete-row").innerHTML = "Delete Row";  
+                    // document.getElementById("delete-column").innerHTML = "Delete Column";  
+
+                    // Shapes names
+                    
+                    document.getElementById("tool-rectangles-localization").innerHTML = "Rectangle";
+                    document.getElementById("tool-circle-localization").innerHTML = `Circle`;
+                    document.getElementById("tool-triangle-localization").innerHTML = `Triangle`;
+                    document.getElementById("tool-equitri-localization").innerHTML = `Equi Triangle`;
+                    document.getElementById("tool-parallelogram-localization").innerHTML = `Parallelogram`;
+                    document.getElementById("tool-trapezoid-localization").innerHTML = `Trapezoid`;
+                    document.getElementById("tool-rombus-localization").innerHTML = `Rhombus`;
+                    document.getElementById("tool-pentagon-localization").innerHTML = `Pentagon`;
+                    document.getElementById("tool-hexagon-localization").innerHTML = `Hexagon`;
+                    document.getElementById("tool-ellipse-localization").innerHTML = `Ellipse`;
+                    document.getElementById("tool-cube-localization").innerHTML = `Cube`;
+                    document.getElementById("tool-cone-localization").innerHTML = `Cone`;
+                    document.getElementById("tool-cylinder-localization").innerHTML = `Cylinder`;
+                    document.getElementById("tool-sphere-localization").innerHTML = `Sphere`;
+                    document.getElementById("tool-pyramid-localization").innerHTML = `Pyramid`;
+
+                 
+                    break;
+            }
+     
+        }
+    </script>
+
+</body>
+
+</html>

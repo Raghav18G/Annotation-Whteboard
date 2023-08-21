@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1" viewBox="0 0 256 256">
+   <style>
+@media (min-width: 64px) {
+text {fill: #d12 !important;}
+#w {stroke: none !important;}
+}
+   </style>
+  <path fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="16"
+  d="M16 16h224v160H16z
+     M118 181h18v51h-18z
+     M80 233h95v7H80z"/>
+  <text
+   x="32" y="128"
+   fill="none"
+   font-family="sans"
+   font-size="70"
+   font-weight="700"
+   letter-spacing="0"
+   word-spacing="0"
+  >WBO</text>
+  <path id="w" fill="none" stroke="#d12" stroke-width="24"
+   d="M80 44 v 96 h 48 v-64v64 h48 v-96"/>
+</svg>

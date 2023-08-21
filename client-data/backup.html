@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Glu | Online collaborative whiteboard</title>
+    <!-- <link rel="icon" type="image/png" href="favicon.ico" /> -->
+    <link rel="stylesheet" href="index.css" />
+    <script src="socket.io.js"></script>
+  
+  
+    <meta
+      name="description"
+      content="A free online whiteboard for realtime collaboration. Draw, write text and sketch new ideas together on whitebophir"
+    />
+    <meta
+      name="keywords"
+      content="whiteboard,collaborative,online,draw,paint,shared,realtime,wbo,whitebophir"
+    />
+    <!-- <link rel="icon" type="image/x-icon" sizes="16x16 32x32 64x64" href="favicon.ico">
+	<link rel="icon" type="image/svg+xml" sizes="256x256" href="favicon.svg">
+	<link rel="apple-touch-icon" href="favicon.svg">
+	<link rel="mask-icon" href="favicon.svg" color="black"> -->
+    <link
+      rel="shortcut icon"
+      href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/favicon_sptzcl.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/apple-touch-icon_ls1yzj.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/favicon-32x32_bshltf.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/favicon-16x16_w5wobw.png"
+    />
+    <link
+      rel="manifest"
+      href="https://res.cloudinary.com/ddwbbzuxw/raw/upload/v1597236051/fevicon/site_uzghky.webmanifest"
+    />
+  </head>
+
+  <body>
+    <div id="zmmtg-root"></div>
+    <div id="aria-notify-area"></div>
+    <header>
+      <div id="localizedHeader">
+        <h1>Glu</h1>
+        -
+        <h2>Welcome</h2>
+      </div>
+
+      <!-- <div class="dropdown">
+        <button class="dropbtn">Language</button>
+        <div class="dropdown-content" id="languageSelect" onchange="changeLanguage()">
+          <a href="#" onclick="changeLanguage('en')">English</a>
+          <a href="#" onclick="changeLanguage('fr')">Hindi</a>
+        </div>
+      </div> -->
+      <select id="languageSelect" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+      </select>
+    </header>
+
+
+    <script>
+      function changeLanguage() {
+        var selectedLanguage = document.getElementById("languageSelect").value;
+
+        switch (selectedLanguage) {
+          case "hi":
+            document.getElementById("localizedHeader").innerHTML = `
+            <h1>ग्लू व्हाइटबॉर्ड</h1>
+             -
+            <h2>में आपका स्वागत है</h2>
+                    `;
+            document.getElementById("localizedContent").innerHTML = `
+                        <h2> <b> ग्लू व्हाइटबॉर्ड </b> में आपका स्वागत है<a href="./board.html">द पब्लिक बोर्ड़</a></h2>
+                        <p>किसी के साथ वास्तविक समय में ड्राइंग पर सहयोग करने के लिए, बस उन्हें उसका यूआरएल भेजें।</p>
+                    `;
+            break;
+          default:
+            // English is the default language
+            document.getElementById("localizedHeader").innerHTML = `
+            <h1>Glu</h1>
+             -
+            <h2>Welcome</h2> `;
+            document.getElementById("localizedContent").innerHTML = `
+                        <h2>Welcome to <b>Glu Whitebaord</b>. You can go to  <a href="./board.html">the public board</a> or create a new one using the form below.</h2>
+                        <p> To collaborate on a drawing in real time with someone, just send them its URL.</p>
+                    `;
+            break;
+        }
+      }
+    </script>
+    <main>
+      <div id="localizedContent">
+        <h2 id="heading">
+          Welcome to <b>Glu Whitebaord</b>. You can go to
+          <a href="./board.html">the public board</a>
+          or create a new one using the form below.
+        </h2>
+        <p id="para">
+          To collaborate on a drawing in real time with someone, just send them
+          its URL.
+        </p>
+      </div>
+
+      <form action="./board.html" method="GET">
+        <input
+          type="text"
+          id="board"
+          name="board"
+          placeholder="Name of the board..."
+        />
+        <input type="submit" value="Go" />
+      </form>
+    </main>
+
+    <!-- <footer>
+	<a href="https://github.com/rdbeach/wb" class="smallink">Source code on github</a>
+</footer> -->
+  </body>
+  <script src="js/fetchData.js"></script>
+
+</html>

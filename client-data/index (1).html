@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ruler Widget (iDream)</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #canvas-container {
+            position: relative;
+            z-index: 1; /* Set higher z-index for the canvas */
+        }
+
+        canvas {
+            display: block;
+            /* border: 2px solid #ccc; */
+            position: absolute; /* Set canvas to absolute position */
+            top: 0;
+            left: 0;
+        }
+
+        #parent-div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            width: 868px;
+            height: 93px;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: column;
+            /* border: 0.4px solid gray; */
+            border-radius: 4px;
+        }
+
+        #element-one {
+            width: 100%;
+            height: 5px;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            cursor: crosshair;
+            border: none;
+        }
+
+        #ruler-tool {
+            width: 100%;
+            height: 88px;
+            /* background: url('ruler-tool'); */
+            background: url(ruler-tool.png);
+            position: relative;
+            overflow: hidden;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container">
+       
+        <div id="parent-div">
+            <!-- Your content inside #parent-div -->
+            <div id="element-one">
+                <!-- Empty div for restricting the drawing area -->
+                <canvas id="myCanvas" width="868" height="8"></canvas>
+            </div>
+            <div id="ruler-tool">
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let lineColor = '#f00'; // Default line color (black)
+        let lineThickness = 5; // Default line thickness
+
+        document.getElementById('element-one').addEventListener('mousedown', startDrawing);
+        document.getElementById('element-one').addEventListener('mousemove', draw);
+        document.getElementById('element-one').addEventListener('mouseup', stopDrawing);
+
+        function startDrawing(e) {
+            isDrawing = true;
+            const bounds = e.target.getBoundingClientRect();
+            const offsetX = e.clientX - bounds.left;
+            const offsetY = e.clientY - bounds.top;
+            ctx.beginPath();
+            ctx.moveTo(offsetX, offsetY);
+            ctx.strokeStyle = lineColor;
+            ctx.lineWidth = lineThickness;
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            const bounds = e.target.getBoundingClientRect();
+            const offsetX = e.clientX - bounds.left;
+            const offsetY = e.clientY - bounds.top;
+            ctx.lineTo(offsetX, offsetY);
+            ctx.stroke();
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+            ctx.closePath();
+        }
+    </script>
+</body>
+</html>

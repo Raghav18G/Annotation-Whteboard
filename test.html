@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="rounded-compass ">
+        <div class="rounded-compass-input" style="display:"block">
+            <div style="display:flex;margin-bottom: 11px;">
+            <label for="radius" style="color: red">Radius:</label>
+                <input
+                type="number"
+                id="radius"
+                min="0"
+                max="6"
+                step="0.1"
+                value="2.5"
+                style="color: red;margin: -4px 0px 0px 8px;"
+                />
+            </div>
+            <div style="display:flex">
+                <label for="degree" style="color: green;">Degree:</label>
+                <input
+                type="number"
+                id="degree"
+                min="0"
+                max="360"
+                value="0"
+                style="color: green;margin: -4px 0px 0px 8px;"
+                />
+            </div>
+        </div>
+        
+        <canvas id="canvas-roundcompass"> </canvas>
+    </div>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Iprep Whiteboard</title>
+    <link rel="stylesheet" href="index.css" />
+    <script src="socket.io.js"></script>
+    <link rel="shortcut icon" href="assets/iPrepLogo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/Fevicon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/Fevicon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/Fevicon.png" />
+    <link
+      rel="manifest"
+      href="https://res.cloudinary.com/ddwbbzuxw/raw/upload/v1597236051/fevicon/site_uzghky.webmanifest"
+    />
+  </head>
+
+  <body>
+    <div id="zmmtg-root"></div>
+    <div id="aria-notify-area"></div>
+
+    <div class="iprepLanding--navbar">
+      <select id="languageSelect" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="hi">हिंदी</option>
+      </select>
+    </div>
+
+    <div class="iprepLanding">
+      <img src="./assets/iPrepLogo.png" class="logo" />
+      <p class="iprepLanding--header" id="iprepLanding--header">
+        Welcome to iPrep Play
+      </p>
+      <p class="iprepLanding--body" id="iprepLanding--body">
+        To get started, either select an existing board or create a new one.
+      </p>
+      <form id="existingBoardForm">
+        <select
+          class="newBoard--Select"
+          name="board"
+          id="newBoard--Select"
+          onchange="checkDisable()"
+        >
+          <option value="" disabled selected id="newBoard--placeholder">
+            Select an existing board
+          </option>
+        </select>
+        <button type="submit" id="go-btn">Go</button>
+      </form>
+
+      <p class="iprepLanding--body" id="iprepLanding-or-text">Or</p>
+      <button class="newBoard--btn" id="modalBtn">Start new board</button>
+    </div>
+
+    <!-- MODAL FOR THE BOARD NAME INPUT -->
+
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p class="iprepModal--header" id="iprepModal--header">
+          Start your Whiteboard
+        </p>
+        <p class="iprepModal--subheader" id="iprepModal--subheader">
+          Enter a name to your board and press start
+        </p>
+        <form id="startNewBoardForm">
+          <div class="input-box">
+            <input
+              type="text"
+              id="board"
+              name="board"
+              class="modalInput"
+              placeholder="Name the board..."
+            />
+          </div>
+
+        <div class="btn-submit start-modal-button">
+          <button type="submit" id="modalSubmitBtn" disabled>Start</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+    <script>
+      var modal = document.getElementById("myModal");
+      // Get the button that opens the modal
+      var btn = document.getElementById("modalBtn");
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+      // When the user clicks on the button, open the modal
+      btn.onclick = () => {
+        modal.style.display = "block";
+      };
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = () => {
+        modal.style.display = "none";
+      };
+
+      // When the user clicks anywhere outside of the modal, close it
+      // window.onclick = (event) => {
+      //     console.log("JOD ",event)
+      // if (event.target == modal) {
+      //     console.log("JOD")
+      //     modal.style.display = "none";
+      // }
+      // }
+
+      // Function for localization
+      function changeLanguage() {
+        var select = document.getElementById("languageSelect");
+        var selectedLanguage = select.value;
+
+      switch (selectedLanguage) {
+        case "hi":
+          document.getElementById(
+            "iprepLanding--header"
+          ).innerHTML = `iPrep Play में आपका स्वागत है`;
+          document.getElementById(
+            "iprepLanding--body"
+          ).innerHTML = `शुरू करने के लिए किसी मौजूदा बोर्ड को चुने या नया बोर्ड बनाये`;
+          document.getElementById(
+            "newBoard--placeholder"
+          ).innerHTML = `किसी मौजूदा बोर्ड का चयन करें`;
+          document.getElementById("iprepLanding-or-text").innerHTML = `या`;
+          document.getElementById("modalBtn").innerHTML = `शुरू करें`;
+          document.getElementById(
+            "iprepModal--header"
+          ).innerHTML = `नए बोर्ड की शुरुआत करें`;
+          document.getElementById(
+            "iprepModal--subheader"
+          ).innerHTML = `अपने बोर्ड को नाम दे और शुरू करें`;
+          document.getElementById("modalSubmitBtn").innerHTML = `शुरू करें`;
+          var inputElement = document.getElementById("board");
+          inputElement.placeholder = "बोर्ड को नाम दे";
+          break;
+        default:
+          // English is the default language
+          document.getElementById(
+            "iprepLanding--header"
+          ).innerHTML = `Welcome to iPrep Play`;
+          document.getElementById(
+            "iprepLanding--body"
+          ).innerHTML = `To get started, either select an existing board or create a new one.`;
+          document.getElementById(
+            "newBoard--placeholder"
+          ).innerHTML = `Select an existing board`;
+          document.getElementById("iprepLanding-or-text").innerHTML = `Or`;
+          document.getElementById("modalBtn").innerHTML = `Start new board`;
+          document.getElementById(
+            "iprepModal--header"
+          ).innerHTML = `Start your board`;
+
+            document.getElementById(
+              "iprepModal--subheader"
+            ).innerHTML = `Enter a name to your board and press start`;
+
+            document.getElementById("modalSubmitBtn").innerHTML = `Start`;
+            var inputElement = document.getElementById("board");
+            inputElement.placeholder = "Name the board...";
+            break;
+        }
+      }
+
+      // function for disabled button
+      const inputField = document.getElementById("board");
+      const startButton = document.getElementById("modalSubmitBtn");
+
+      inputField.addEventListener("input", function (e) {
+        // Check if the input field is empty
+        const value = e.currentTarget.value;
+
+        if (value === 0) {
+          startButton.disabled = true; // Disable the button
+        } else {
+          startButton.disabled = false; // Enable the button
+          startButton.classList.add("newBoard--btn");
+        }
+      });
+    </script>
+    <!-- <footer>
+	<a href="https://github.com/rdbeach/wb" class="smallink">Source code on github</a>
+</footer> -->
+  </body>
+  <script src="socket.io.js"></script>
+  <script src="./testScript.js"></script>
+
+  <script src="./js/fetchData.js"></script>
+</html>

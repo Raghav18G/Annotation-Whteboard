@@ -1,0 +1,82 @@
+.color-modal {
+  position: fixed; /* Stay in place */
+  display: none;
+  z-index: 9999; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+  font-family: "Inter";
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.color-modal-content {
+  position: fixed;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.colorContainer {
+  height: 30px;
+  width: 30px;
+  margin: 8px;
+}
+#colorPickerModalContent {
+  display: flex;
+  flex-wrap: wrap;
+}
+input[type="color"] {
+  margin-bottom: 20px;
+}
+.patternContainer {
+  height: 4rem;
+  width: 4rem;
+  margin: 6px;
+}
+
+.color-tabs {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 10rem;
+}
+
+.color-tab {
+  padding: 10px;
+  cursor: pointer;
+}
+.color-tab:active svg {
+  background: bisque;
+}
+
+.color-tab-content {
+  display: none;
+  padding: 10px;
+}
+
+.color-tab-content.show {
+  display: block;
+}
+
+.bg-modal-tabs {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 13px;
+}
+.bg-modal-close-btn{
+  border: #f5f5f5;
+  color: red;
+  padding: 2px 5px px 5px;
+  font-size: 2rem;
+  border-radius: 10%;
+}
+.bg-modal-close-btn:hover{
+  color: #f5f5f5;
+  background-color: red;
+  transition: all 400ms;
+}

@@ -1,0 +1,52 @@
+.table-modal {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.colorContainer {
+  height: 30px;
+  width: 30px;
+  margin: 8px;
+}
+
+#table-actions {
+  position: fixed;
+  z-index: 10;
+  padding-top: 1rem;
+  background-color: white;
+  width: fit-content;
+  border: 1px solid black;
+}
+
+.action {
+  padding: 0rem 1rem;
+  cursor: pointer;
+}
+.action:hover {
+  background-color: #e0e0e0
+}
+ 
+.btn-edit-table{
+position: absolute;
+top:0px;
+left:-2.7rem;
+background-color: #e0e0e0;
+padding: 5px 5px;
+cursor: pointer;
+}
+
+.drag-div{
+  position: absolute;
+  top:-4rem;
+  left: 0rem;
+  background-color: #e0e0e0;
+  padding: 5px 5px;
+  cursor: grab;
+  text-align: center;
+  }

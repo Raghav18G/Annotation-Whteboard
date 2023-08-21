@@ -1,0 +1,33 @@
+{
+   "keywords": [
+      "collaborative",
+      "whiteboard"
+   ],
+   "version": "1.2.14",
+   "license": "AGPL-3.0-or-later",
+   "dependencies": {
+      "@fortawesome/fontawesome-free": "^6.4.0",
+      "@zoomus/websdk": "^1.8.1",
+      "accept-language-parser": "^1.5.0",
+      "express": "^4.18.2",
+      "handlebars": "^4.7.6",
+      "jspdf": "^2.5.1",
+      "polyfill-library": "^3.89.4",
+      "serve-static": "^1.14.1",
+      "socket.io": "^2.3.0"
+   },
+   "scripts": {
+      "start": "node ./server/server.js",
+      "deploy": "openode deploy"
+   },
+   "name": "glu-whiteboard",
+   "description": "Online collaborative whiteboard",
+   "main": "./server/server.js",
+   "repository": {
+      "type": "git",
+      "url": "http://github.com/rdbeach/wb.git"
+   },
+   "devDependencies": {
+      "openode": "^2.0.17"
+   }
+}
