@@ -85,6 +85,13 @@
     <script>
         $(window).on("load", function () {
             init();
+            document.getElementById("openMoreTools").addEventListener("click",()=>{
+                document.getElementById("moreTools").style.display="block"
+            })
+            
+            document.getElementById("moreToolsClose").addEventListener("click",()=>{
+                document.getElementById("moreTools").style.display="none"
+            })
         });
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
@@ -566,30 +573,56 @@
 
     </div>
 
+
+    <!-- Loading Toolbar Strip -->
+   
+        <div id="toolbarLoadingStrip">
+            <div class="loading-strip" id="strip">
+            </div>
+            <div class="loading-text" id="loadingText">Loading...</div>
+        </div>
+  
+    <div class="moreTools" id="moreTools">
+        <ul id="tool-list" class="tool-list">
+            <li class="tool-extra">
+                <div class="tool-center">
+                    <span class=" tool-icon tool-icon-modal "></span>
+                </div>
+
+               
+            </li>
+        </ul>
+        <button id="moreToolsClose">Close</button>
+    </div>
     <!-- Draggable Toolbar  -->
     <div id="draggableToolbar">
-        <div id="draggableToolbarheader">
-            <div class="dragIconContainer">
-                <img src="./assets/DRAG.svg" class="dragLogo" height="30" />
+        <!-- Tools -->
+         <!-- Color Picker -->
+         <div class="parent-color-picker" style="margin-top: -37px;margin-left:16px;margin-right: 16px;">
+            <div class="tool-selected">
+                <span class="tool-icon color-tool-pick" style="margin: -12px -7px 27px -10px;">
+          
+                <!-- <div class="color-pick"  id="color-pick" title="Color Picker">
+                        <input type="color" value="#ff00ff" id="chooseColor" />
+                </div> -->
+                    <div class="input-container" id="color-pick" title="Color Picker">
+                        <input type="color" class="icon-input" id="chooseColor">
+                    </div>
+                  
+                
+                
+                <label id="tool-color-localization" class="label-tool" style="font-size:10px;font-weight:400;margin-top: 12px;line-height: 12px;"><p>Color Picker</p></label>
+                </span>
             </div>
         </div>
-        <!-- Tools -->
+        <ul id="tools" class="tools">
+            <li class="tool"><span class="tool-icon"></span></li>
+        </ul>
+      
 
-        <!-- Color Picker -->
-            <span class="tool-icon color-tool-pick" style="margin: 0px 18px auto 16px;">
-            <!-- <div class="color-pick"  id="color-pick" title="Color Picker">
-                    <input type="color" value="#ff00ff" id="chooseColor" />
-            </div> -->
-            <div class="input-container" id="color-pick" title="Color Picker">
-                <input type="color" class="icon-input" id="chooseColor">
-              </div>
-              
-
-            
-            <label id="tool-color-localization" class="label-tool" style="font-size:10px;font-weight:400;margin-top: -2px;line-height: 12px;"><p>Color Picker</p></label>
-        </span>
+       
         <!-- Tool Size Indicator -->
-        <div class="tool size_selector_container">
+        <div class="tool size_selector_container hidden">
             <span class="tool-icon" id="tool-size-selector" title="Tool size selector">
                 <svg viewBox="-60 -70 120 120" class="tool-icon-sizeIndicator" style="display:none">
                     <circle id="sizeIndicator" cx=0 cy=0 r=10 />
@@ -601,13 +634,15 @@
                     <path d="M0.706387 25.2591C-0.235463 26.201 -0.235463 27.7359 0.706387 28.6777L12.425 40.3963C12.4708 40.4443 12.5297 40.4792 12.5907 40.501L16.8617 41.9704C17.0187 42.0249 17.1931 41.9835 17.3109 41.8658C17.3937 41.7829 17.4395 41.6718 17.4395 41.5584C17.4395 41.5104 17.4308 41.4625 17.4155 41.4167L15.946 37.1456C15.9242 37.0824 15.8894 37.0257 15.8414 36.9799L4.12277 25.2613C3.66711 24.8057 3.05883 24.5528 2.41349 24.5528C1.76815 24.5528 1.15987 24.8035 0.704206 25.2613L0.706387 25.2591ZM3.38586 30.1232L4.17074 29.3383L13.5173 38.6849L12.7324 39.4697L3.38586 30.1232ZM16.3014 40.8542L13.5347 39.9036L14.4417 38.9966L15.3487 38.0897L16.2992 40.8564L16.3014 40.8542ZM14.9192 37.2874L14.1343 38.0722L4.78774 28.7257L5.57261 27.9408L14.9192 37.2874ZM4.95561 27.3238L3.86333 28.4161L2.77104 29.5084L2.24997 28.9873L4.43454 26.8027L4.95561 27.3238ZM3.51013 25.8783L3.81754 26.1857L1.63298 28.3703L1.32557 28.0629C0.723829 27.4612 0.723828 26.4801 1.32557 25.8783C1.9273 25.2766 2.9084 25.2766 3.51013 25.8783Z" fill="black"/>
                     <path d="M27.6893 26.0511L27.6893 26.0511C27.554 26.0028 27.4148 25.9229 27.3006 25.8045L9.13735 7.64123C7.54238 6.04627 7.54106 3.44904 9.13338 1.85241L27.6893 26.0511ZM27.6893 26.0511L27.6932 26.0524M27.6893 26.0511L27.6932 26.0524M27.6932 26.0524L34.313 28.33C34.3131 28.33 34.3133 28.3301 34.3134 28.3301C34.6853 28.4591 35.0952 28.3601 35.3704 28.0849C35.5635 27.8918 35.672 27.631 35.672 27.3616C35.672 27.2453 35.6509 27.1336 35.6169 27.0316L35.6169 27.0316M27.6932 26.0524L35.6169 27.0316M35.6169 27.0316L35.6158 27.0284M35.6169 27.0316L35.6158 27.0284M35.6158 27.0284L33.3379 20.4076L33.3379 20.4074M35.6158 27.0284L33.3379 20.4074M33.3379 20.4074C33.288 20.2627 33.2063 20.1271 33.09 20.015M33.3379 20.4074L33.09 20.015M33.09 20.015L14.9268 1.85182C14.1552 1.08023 13.1236 0.651232 12.0304 0.651232C10.9397 0.651232 9.90926 1.07493 9.13735 1.84844C9.13733 1.84846 9.13731 1.84848 9.1373 1.84849L33.09 20.015ZM31.9336 22.6264L32.9917 25.7062L29.912 24.648L30.9228 23.6372L31.9336 22.6264ZM28.0264 23.6304L14.0312 9.63523L14.7544 8.912L28.7496 22.9072L28.0264 23.6304ZM30.9227 20.7408L30.1995 21.4641L16.2043 7.46885L16.9275 6.74564L30.9227 20.7408ZM14.0311 6.74221L12.5846 8.1887L12.2703 7.87442L15.1633 4.98145L15.4776 5.29573L14.0311 6.74221ZM13.4836 3.30173L13.7134 3.53154L10.8204 6.42451L10.5906 6.1947C9.79411 5.39818 9.79411 4.09826 10.5906 3.30173C11.3872 2.50521 12.6871 2.50521 13.4836 3.30173Z" fill="black" stroke="#F6F6F6" stroke-width="0.69786"/>
                 </svg> -->
-
-                <svg class="tool-icon-svg" width="31" height="31" viewBox="0 0 31 31" fill="none"
+                <div class="tool-selected" >
+                    <svg class="tool-icon-svg" style="margin-left: -1px;margin-bottom:1px ;" width="31" height="31" viewBox="0 0 31 31" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M27.1198 3.875L15.9662 6.86359L19.3416 10.239L8.94209 20.6385L5.56671 17.2631L2.57812 28.4167L13.7317 25.4281L10.3563 22.0527L20.7558 11.6532L24.1312 15.0286L27.1198 3.875Z"
                         fill="#424242" />
                 </svg>
+                </div>
+               
 
 
                 <label class="label-tool" style="font-size:10px; line-height:2px;font-weight:400; margin-top:14px">
@@ -625,7 +660,7 @@
 
 
         <!-- Opacity Picker -->
-        <div class="tool opacityPicker">
+        <div class="tool opacityPicker hidden">
             <span class="tool-icon" id="opacity-picker" title="Opacity Picker">
                 <!-- <svg class="tool-icon-svg" viewBox="0 0 8 8">
                     <pattern id="opacityPattern" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
@@ -636,7 +671,8 @@
                     </pattern>
                     <circle cx=4 cy=4.6 id="opacityIndicator" r=3.5 fill="url(#opacityPattern)" />
                 </svg> -->
-                <svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"
+                <div class="tool-selected">
+                    <svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24"  style="margin-left: 0.5px;" viewBox="0 0 28 28"
                     fill="none">
                     <mask id="mask0_8261_28999" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
                         width="28" height="28">
@@ -665,6 +701,8 @@
                         <path d="M13 27H22V36H13V27Z" fill="white" />
                     </g>
                 </svg>
+                </div>
+              
                 <label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">
                     <p id="tool-opacity-localization">Opacity</p>
                     <p id="tool-picker-localization"> Picker</p>
@@ -675,32 +713,22 @@
                     style="-webkit-appearance: slider-vertical" class="rangeChooser rangeChooser-opacity" />
             </label>
         </div>
+        <div class="tool-name">
+            <button id="openMoreTools">
+                <img src="./assets/Add Circle.png" width="30"/>
+                <label id="tool-more-localization" class="label-more" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">More</label>
+            </button>
+        </div>
 
-        <ul id="tools" class="tools">
-            <li class="tool"><span class="tool-icon"></span></li>
-        </ul>
-
-      
-
+          <!-- <button id="add-page" onclick="addNewPage()">Add New</button> -->
        
-<!-- 
-        <button id="toogle-tranparency" style="border:none; margin-top: -8px;margin-left: -3px;  background: none;">
-            <svg xmlns="http://www.w3.org/2000/svg" style="margin-top: -7px;width: 28px;" viewBox="0 0 29 28"
-                fill-rule="evenodd" clip-rule="evenodd">
-                <path
-                    d="M16 20h-8c-4.415 0-8-3.585-8-8s3.585-8 8-8h8c4.415 0 8 3.585 8 8s-3.585 8-8 8zm0-15h-8c-3.863 0-7 3.137-7 7s3.137 7 7 7h8.045c3.843-.025 6.955-3.152 6.955-7s-3.112-6.975-6.955-7h-.045zm-8 2c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5zm0 1c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4z" />
-            </svg>
-           <img class="toggle-icon" src="./assets/toggle.png" style="width: 34px;margin-top: -16px"/>
-            <br> 
-            <label id="tool-toggle-localization" class="label-tool" style="font-size:10px;font-weight:400;line-height: 2px; margin-top: 3px;font-family: Inter;"><p>White Board</p></label>
-        </button> -->
-
-            <!-- <button id="add-page" onclick="addNewPage()">Add New</button> -->
+         
 
     </div>
 
 
-    <div id="loadingMessage">Loading</div>
+    
+    <div id="loadingMessage"></div>
     <div id="overlay"></div>
     <div id="top_left_tools" class="top__tools">
     </div>
@@ -944,7 +972,6 @@
 
 
     <!-- Table Actions -->
-
     <!-- HTML 2 Canvas CDN -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
     </script> -->
@@ -956,24 +983,26 @@
     <script src="js/board.js"></script>
     <script src="js/draggableToolbar.js"></script>
 
-    <script src="tools/pencil/pencil.js"></script>
-    <script src="tools/line/line.js"></script>
+    <script src="tools/pencil/pencil.js"></script>  
+    <script src="tools/eraser/eraser.js"></script>
+    <script src="tools/clear/clear.js"></script>
+  <!-- Download -->
+  <!-- <script src="tools/download/download.js"></script> -->
+  <script src="tools/undo/undo.js"></script>
+  <script src="tools/redo/redo.js"></script>
+        <script src="tools/line/line.js"></script>
     <script src="tools/rect/rect.js"></script>
     <script src="tools/text/text.js"></script>
-    <script src="tools/eraser/eraser.js"></script>
+<!-- <script src="tools/eraser/eraser.js"></script> -->
     <script src="js/widgets.js"></script>
     <script src="tools/mathematical-tools/mathematicalTools.js"></script>
     <!-- ADD NEW PAGES -->
     <!-- <script src="tools/add-pages/addPages.js"></script> -->
 
 
-    <!-- Screenshot Tool -->
-    <script src="tools/screenshotTool/screenshotTool.js"></script>
 
     <!-- ContextMenu -->
     <script src="js/contextMenu.js"></script>
-
-
 
     <!-- Sticky Notes -->
     <!-- <script src="tools/stickyNotes/stickyNotes.js"></script> -->
@@ -983,8 +1012,10 @@
     <!-- <script src="https://www.webrtc-experiment.com/EBML.js"></script>   -->
     <script src="OfflineCDN/www.webrtc-experiment.com/EBML.js"></script>
     <script src="js/intentScript.js"></script>
-    <!-- <script src="tools/ScreenRecorder/ScreenRecorder.js"></script> -->
+    <script src="tools/ScreenRecorder/ScreenRecorder.js"></script>
 
+    <!-- Screenshot Tool -->
+    <script src="tools/screenshotTool/screenshotTool.js"></script>
     <!-- BEGIN TRANSFORM TOOL -->
     <!-- Transform dep: 2D -->
     <script src="js/2D.js"></script>
@@ -992,10 +1023,9 @@
     <script src="tools/transform/transform.js"></script>
 
     <!-- END TRANSFORM TOOL -->
-    <script src="tools/document/document.js"></script>
+    <!-- <script src="tools/document/document.js"></script> -->
 
-    <!-- Download -->
-    <script src="tools/download/download.js"></script>
+  
     <!-- BEGIN EDITOR TOOL -->
     <!-- Editor dep: CodeMirror -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.js"></script>
@@ -1028,9 +1058,9 @@
     <script src="tools/editor/editor.js"></script>
     <!-- END EDITOR TOOL-->
 
-    <script src="tools/handNew/hand.js"></script>
-    <!-- <script src="tools/grid/grid.js"></script> -->
-    <script src="tools/clear/clear.js"></script>
+    <!-- <script src="tools/handNew/hand.js"></script> -->
+    <!-- <script src="tools/hand/hand.js"></script> -->
+    <script src="tools/grid/grid.js"></script>
     <script src="tools/eraser2/eraser2.js"></script>
 
     <!-- BEGIN CALCULATOR TOOL-->
@@ -1041,21 +1071,20 @@
     <script src="tools/calculator/calculator.js"></script>
     <!-- END CALCULATOR TOOL-->
 
-    <script src="tools/undo/undo.js"></script>
-    <script src="tools/redo/redo.js"></script>
+ 
 
     <!-- Browser -->
     <!-- <script src="tools/browserUtil/browserUtil.js"></script> -->
-    <!-- <script src="tools/zoom-in/zoom-in.js"></script>
-    <script src="tools/zoom-out/zoom-out.js"></script> -->
+    <script src="tools/Close/close.js"></script>
+    <script src="tools/zoom-in/zoom-in.js"></script>
+    <script src="tools/zoom-out/zoom-out.js"></script>
     <script src="components/measurement/measurement.js"></script>
     <script src="js/canvascolor/canvascolor.min.js"></script>
     <script src="js/customJs/custom.js"></script>
-    <script src="tools/Close/close.js"></script>
-    <!-- <script src="tools/FullScreen/fullscreen.js"></script> -->
-    <!-- <script src="tools/Mice/mice.js"></script> -->
-    <!-- <script src="tools/VideoRecorder/videoRecorder.js"></script> -->
-    <!-- <script src="tools/shareScreen/sharescreen.js"></script> -->
+    <script src="tools/FullScreen/fullscreen.js"></script>
+    <script src="tools/Mice/mice.js"></script>
+    <script src="tools/VideoRecorder/videoRecorder.js"></script>
+    <script src="tools/shareScreen/sharescreen.js"></script>
     <!-- Ad Cursosr Event -->
     <!-- <script src="tools/cursor/cursor.js"></script> -->
 
@@ -1086,7 +1115,7 @@
 
     <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
     <script src="OfflineCDN/code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!-- <script src="js/record/onlyAudioVideo.js"></script> -->
+    <script src="js/record/onlyAudioVideo.js"></script>
 
     <!-- pdf.js -->
     <!-- <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script> -->
@@ -1098,7 +1127,7 @@
     <script src="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
     </script>
     <script src="js/draggableContainers.js"></script>
-    <!-- <script src="tools/background-manangement/background.js"></script> -->
+    <script src="tools/background-manangement/background.js"></script>
 
     <!-- Paste Event -->
     <script src="js/pasteEvents.js"></script>
@@ -1113,10 +1142,21 @@
     <script src="js/dragElements.js"></script>
 
     <!-- toogle SVG -->
-    <!-- <script src="js/toogleSVG.js"></script> -->
+    <script src="js/toogleSVG.js"></script>
     <!-- DOM_TO_IMAGE -->
 
     <script src="OfflineCDN/DOM_TO_IMAGE/dom-to-image.js"></script>
+
+    <script>
+        var tooll = document.querySelectorAll('.tool-selected');
+
+tooll.forEach(button => {
+  button.addEventListener('click', () => {
+    tooll.forEach(b => b.classList.remove('selected'));
+    button.classList.add('selected');
+  });
+});
+        </script>
 
     <!-- Localization  -->
     <script>
@@ -1140,12 +1180,14 @@
                     document.getElementById("opacity-picker").title = `ओपेसिटी पिकर`;
                     document.getElementById("tool-size-selector").title = `टूल साइज़ सलेक्टर`;
                     document.getElementById("toolID-Pencil").title = `पेंसिल`;
+                    document.getElementById("toolID-Eraser").title = `इरेजर`;
                     document.getElementById("toolID-Line").title = `लाइनस`;
                     document.getElementById("toolID-Rectangle").title = `शेपस`;
                     document.getElementById("toolID-Text").title = `टेक्स्ट`;
 
                     document.getElementById("toolID-Mathematical Tools").title = `मैथमेटिकल टूल्स`;
-                    document.getElementById("toolID-Screenshot").title = `स्क्रीनशॉट`;
+                    document.getElementById("toolID-Screenshot").title = `स्क्रीनशॉट`;                    
+                    document.getElementById("toolID-Recorder").title = `रिकॉर्डर`;
                     document.getElementById("toolID-Transform").title = `ट्रांसफोर्म `;
                     document.getElementById("toolID-Document").title = `डॉक्यूमेंट`;
                     document.getElementById("toolID-Download").title = `डाउनलोड`;
@@ -1158,6 +1200,7 @@
                     document.getElementById("toolID-Zoom Out").title = `जूम आउट`;
                     document.getElementById("toolID-Background").title = `बैकग्राउंड`;
                     document.getElementById("toolID-Table").title = `टेबल`;
+                    document.getElementById("toogle-tranparency").title = `व्हाइट बोर्ड`;
                     document.getElementById("toolID-Undo").title = `अन्डू`;
                     document.getElementById("toolID-Redo").title = `रीडू`;
                     document.getElementById("toolID-Clear").title = `इरेजर`;
@@ -1191,7 +1234,8 @@
                     document.getElementById("compass").title = `कम्पास`;
                     document.getElementById("calculate").title = `कैलकुलेटर`;
                     document.getElementById("magnifier").title = `मैग्नीफाइंग ग्लास`;
-                    document.getElementById("dice-tool").title = `डाइस`;
+                    document.getElementById("dice-tool").title = `डाइस`;                     
+                    document.getElementById("toolID-close").title = `क्लोज़`;
 
                     // tools-label
                     document.getElementById("tool-color-localization").innerHTML = `कलर पिकर`;
@@ -1216,9 +1260,9 @@
                     document.getElementById("tool-zoomin-localization").innerHTML = `जूम इन`;
                     document.getElementById("tool-zoomout-localization").innerHTML = `जूम आउट`;                    
                     document.getElementById("tool-background-localization").innerHTML = `बैकग्राउंड`;
-                    document.getElementById("tool-table-localization").innerHTML = `टेबल`;
-                    document.getElementById("tool-screen-localization").innerHTML = `स्क्रीन`;
-                    document.getElementById("tool-recorder-localization").innerHTML = `रिकॉर्डिंग`;               
+                    document.getElementById("tool-table-localization").innerHTML = `टेबल`;                  
+                    document.getElementById("tool-close-localization").innerHTML = `क्लोज़`; 
+                    document.getElementById("tool-recorder-localization").innerHTML = `रिकॉर्डर`;               
                     document.getElementById("tool-toggle-localization").innerHTML = `वाइट बोर्ड`;
 
                     document.getElementById("img-library").innerHTML = `इमेज लाइब्रेरी`;
@@ -1298,7 +1342,8 @@
                     document.getElementById("color-pick").title = `Color Picker`;
                     document.getElementById("opacity-picker").title = `Opacity Picker`;
                     document.getElementById("tool-size-selector").title = `Tool Size Selector`;
-                    document.getElementById("toolID-Pencil").title = `For Eraser (click to toggle)`;
+                    document.getElementById("toolID-Pencil").title = `Pencil`;                
+                    document.getElementById("toolID-Eraser").title = `Eraser`;
                     document.getElementById("toolID-Line").title = `Lines`;
                     document.getElementById("toolID-Rectangle").title = `Shapes`;
                     document.getElementById("toolID-Text").title = `Text`;
@@ -1307,6 +1352,7 @@
                     document.getElementById("toolID-Mathematical Tools").title = `Mathematical Tools`;
 
                     document.getElementById("toolID-Screenshot").title = `Screenshot`;
+                    document.getElementById("toolID-Recorder").title = `Recorder`;
                     document.getElementById("toolID-Transform").title = `Transform`;
                     document.getElementById("toolID-Document").title = `Document`;
                     document.getElementById("toolID-Download").title = `Download`;
@@ -1318,7 +1364,8 @@
                     document.getElementById("toolID-Zoom In").title = `Zoom In`;
                     document.getElementById("toolID-Zoom Out").title = `Zoom Out`;
                     document.getElementById("toolID-Background").title = `Background`;
-                    document.getElementById("toolID-Table").title = `Table`;
+                    document.getElementById("toolID-Table").title = `Table`;                                         
+                    document.getElementById("toogle-tranparency").title = `White Board`;
                     document.getElementById("toolID-Undo").title = `Undo`;
                     document.getElementById("toolID-Redo").title = `Redo`;
                     document.getElementById("toolID-Clear").title = `Eraser`;
@@ -1352,6 +1399,7 @@
                     document.getElementById("calculator").title = `Calculator`;
                     document.getElementById("magnifier").title = `Magnifying Glass`;
                     document.getElementById("dice-tool").title = `Dice`;
+                    document.getElementById("toolID-close").title = `Close`;                   
 
                       // tools-label
                     document.getElementById("tool-color-localization").innerHTML = `Color Picker`;
@@ -1376,8 +1424,8 @@
                     document.getElementById("tool-zoomin-localization").innerHTML = `Zoom in`;                    
                     document.getElementById("tool-zoomout-localization").innerHTML = `Zoom Out`;                  
                     document.getElementById("tool-background-localization").innerHTML = `Background`;
-                    document.getElementById("tool-table-localization").innerHTML = `Table`;                  
-                    document.getElementById("tool-screen-localization").innerHTML = `Screen`;
+                    document.getElementById("tool-table-localization").innerHTML = `Table`; 
+                    document.getElementById("tool-close-localization").innerHTML = `Close`; 
                     document.getElementById("tool-recorder-localization").innerHTML = `Recorder`;                                
                     document.getElementById("tool-toggle-localization").innerHTML = `White Board`;
 

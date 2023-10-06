@@ -29,19 +29,16 @@
 
   //Indicates the id of the line the user is currently drawing or an empty string while the user is not drawing
   var pencilSVG =
-    '<svg class="tool-icon-svg" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_8294_29475)"><path d="M28.7342 11.1573L9.06375 30.8348L7.95875 29.0002C7.49833 28.2352 7.90917 28.476 6.11 27.881C5.50792 26.0818 5.76292 26.4643 4.98375 26.0323L3.15625 24.9343L22.8337 5.25684L28.7342 11.1573Z" fill="#FFCC66"/><path d="M28.0284 10.4489C13.3164 25.161 13.4509 25.501 10.7876 26.2093C9.56091 26.5019 8.27949 26.473 7.06719 26.1256C5.85489 25.7782 4.75272 25.1239 3.86719 24.226L22.8364 5.25684L28.0284 10.4489Z" fill="#FFDE76"/><path d="M9.06677 30.834L4.81677 32.0736C4.20548 30.7963 3.17571 29.7666 1.89844 29.1553C2.3801 27.5261 2.09677 28.4965 3.13802 24.9053L5.59594 26.3786L6.09177 27.8519L7.5651 28.3478C8.49302 29.9132 8.16719 29.3465 9.06677 30.834Z" fill="#F6CCAF"/><path d="M8.31625 29.5944C5.13583 30.1682 2.98958 28.2982 2.28125 27.9298L3.15958 24.9336L5.6175 26.4069L6.11333 27.8803L7.58667 28.3761L8.31625 29.5944Z" fill="#FFDEC7"/><path d="M4.83979 32.0736C4.83979 32.1444 4.90354 32.0736 0.703125 33.2919C1.27687 31.3369 1.00063 32.2649 1.92146 29.1553C3.19575 29.7708 4.2243 30.7993 4.83979 32.0736Z" fill="#374F68"/><path d="M4.08875 30.8836L1.15625 31.7407L1.92125 29.1553C2.76604 29.5587 3.50742 30.1498 4.08875 30.8836Z" fill="#425B72"/><path d="M27.2721 9.69016L7.96292 28.9993C7.50958 28.2414 7.77875 28.4397 6.84375 28.121L26.2733 8.69141L27.2721 9.69016Z" fill="#FFBA55"/><path d="M25.3065 7.72849L5.86979 27.1581C5.55104 26.216 5.74937 26.4497 4.98438 26.0318L24.3006 6.72266L25.3065 7.72849Z" fill="#FFBA55"/><path d="M25.3086 7.72849L6.95573 26.0743C6.46439 25.925 5.98967 25.7256 5.53906 25.4793L24.3028 6.72266L25.3086 7.72849Z" fill="#FFCC66"/><path d="M32.6799 7.22531L30.7107 9.20864L24.7891 3.28697L26.7724 1.31781C27.1686 0.934798 27.6982 0.720703 28.2493 0.720703C28.8004 0.720703 29.3299 0.934798 29.7261 1.31781L32.6799 4.25031C33.0693 4.64753 33.2873 5.18158 33.2873 5.73781C33.2873 6.29403 33.0693 6.82808 32.6799 7.22531Z" fill="#DB5669"/><path d="M33.1634 5.03656C32.618 6.59489 30.2026 7.26781 28.7364 5.80156L25.4922 2.57864L26.7672 1.31781C27.1634 0.934798 27.693 0.720703 28.2441 0.720703C28.7952 0.720703 29.3247 0.934798 29.7209 1.31781C32.9864 4.58322 32.9651 4.46989 33.1634 5.03656Z" fill="#F26674"/><path d="M30.7055 9.20878L28.7364 11.1779L22.8359 5.25628L24.7839 3.28711L30.7055 9.20878Z" fill="#DAD7E5"/><path d="M29.9998 8.50044C29.6652 8.83437 29.2117 9.02191 28.739 9.02191C28.2662 9.02191 27.8128 8.83437 27.4781 8.50044L23.5469 4.54794L24.7865 3.28711L29.9998 8.50044Z" fill="#EDEBF2"/><path d="M27.2732 9.6899L10.7903 26.2082C10.0739 26.378 9.33656 26.4425 8.60156 26.3995L26.3099 8.72656L27.2732 9.6899Z" fill="#FFCC66"/></g><defs><clipPath id="clip0_8294_29475"><rect width="34" height="34" fill="white"/></clipPath></defs></svg><label id="tool-pencil-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Pencil</label>';
-  var eraserSVG =
-    '<svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M13,0,0,13l4,4h8l9-9Zm6.59,8L14.5,13.09,7.91,6.5,13,1.41Zm-8,8H4.42l-3-3,5.8-5.79,6.58,6.58Z"/></g></g></svg> <label id="tool-eraser-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Eraser</label>';
 
-  var pencilHindiSVG =
-    '<svg class="tool-icon-svg" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_8294_29475)"><path d="M28.7342 11.1573L9.06375 30.8348L7.95875 29.0002C7.49833 28.2352 7.90917 28.476 6.11 27.881C5.50792 26.0818 5.76292 26.4643 4.98375 26.0323L3.15625 24.9343L22.8337 5.25684L28.7342 11.1573Z" fill="#FFCC66"/><path d="M28.0284 10.4489C13.3164 25.161 13.4509 25.501 10.7876 26.2093C9.56091 26.5019 8.27949 26.473 7.06719 26.1256C5.85489 25.7782 4.75272 25.1239 3.86719 24.226L22.8364 5.25684L28.0284 10.4489Z" fill="#FFDE76"/><path d="M9.06677 30.834L4.81677 32.0736C4.20548 30.7963 3.17571 29.7666 1.89844 29.1553C2.3801 27.5261 2.09677 28.4965 3.13802 24.9053L5.59594 26.3786L6.09177 27.8519L7.5651 28.3478C8.49302 29.9132 8.16719 29.3465 9.06677 30.834Z" fill="#F6CCAF"/><path d="M8.31625 29.5944C5.13583 30.1682 2.98958 28.2982 2.28125 27.9298L3.15958 24.9336L5.6175 26.4069L6.11333 27.8803L7.58667 28.3761L8.31625 29.5944Z" fill="#FFDEC7"/><path d="M4.83979 32.0736C4.83979 32.1444 4.90354 32.0736 0.703125 33.2919C1.27687 31.3369 1.00063 32.2649 1.92146 29.1553C3.19575 29.7708 4.2243 30.7993 4.83979 32.0736Z" fill="#374F68"/><path d="M4.08875 30.8836L1.15625 31.7407L1.92125 29.1553C2.76604 29.5587 3.50742 30.1498 4.08875 30.8836Z" fill="#425B72"/><path d="M27.2721 9.69016L7.96292 28.9993C7.50958 28.2414 7.77875 28.4397 6.84375 28.121L26.2733 8.69141L27.2721 9.69016Z" fill="#FFBA55"/><path d="M25.3065 7.72849L5.86979 27.1581C5.55104 26.216 5.74937 26.4497 4.98438 26.0318L24.3006 6.72266L25.3065 7.72849Z" fill="#FFBA55"/><path d="M25.3086 7.72849L6.95573 26.0743C6.46439 25.925 5.98967 25.7256 5.53906 25.4793L24.3028 6.72266L25.3086 7.72849Z" fill="#FFCC66"/><path d="M32.6799 7.22531L30.7107 9.20864L24.7891 3.28697L26.7724 1.31781C27.1686 0.934798 27.6982 0.720703 28.2493 0.720703C28.8004 0.720703 29.3299 0.934798 29.7261 1.31781L32.6799 4.25031C33.0693 4.64753 33.2873 5.18158 33.2873 5.73781C33.2873 6.29403 33.0693 6.82808 32.6799 7.22531Z" fill="#DB5669"/><path d="M33.1634 5.03656C32.618 6.59489 30.2026 7.26781 28.7364 5.80156L25.4922 2.57864L26.7672 1.31781C27.1634 0.934798 27.693 0.720703 28.2441 0.720703C28.7952 0.720703 29.3247 0.934798 29.7209 1.31781C32.9864 4.58322 32.9651 4.46989 33.1634 5.03656Z" fill="#F26674"/><path d="M30.7055 9.20878L28.7364 11.1779L22.8359 5.25628L24.7839 3.28711L30.7055 9.20878Z" fill="#DAD7E5"/><path d="M29.9998 8.50044C29.6652 8.83437 29.2117 9.02191 28.739 9.02191C28.2662 9.02191 27.8128 8.83437 27.4781 8.50044L23.5469 4.54794L24.7865 3.28711L29.9998 8.50044Z" fill="#EDEBF2"/><path d="M27.2732 9.6899L10.7903 26.2082C10.0739 26.378 9.33656 26.4425 8.60156 26.3995L26.3099 8.72656L27.2732 9.6899Z" fill="#FFCC66"/></g><defs><clipPath id="clip0_8294_29475"><rect width="34" height="34" fill="white"/></clipPath></defs></svg><label id="tool-pencil-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">पेंसिल</label>';
-  var eraserHindiSVG =
-    '<svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M13,0,0,13l4,4h8l9-9Zm6.59,8L14.5,13.09,7.91,6.5,13,1.41Zm-8,8H4.42l-3-3,5.8-5.79,6.58,6.58Z"/></g></g></svg> <label id="tool-eraser-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">इरेजर</label>';
+    '<div class="tool-selected"><svg viewBox="0 0 34 34" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_8294_29475)"><path d="M28.7342 11.1573L9.06375 30.8348L7.95875 29.0002C7.49833 28.2352 7.90917 28.476 6.11 27.881C5.50792 26.0818 5.76292 26.4643 4.98375 26.0323L3.15625 24.9343L22.8337 5.25684L28.7342 11.1573Z" fill="#FFCC66"/><path d="M28.0284 10.4489C13.3164 25.161 13.4509 25.501 10.7876 26.2093C9.56091 26.5019 8.27949 26.473 7.06719 26.1256C5.85489 25.7782 4.75272 25.1239 3.86719 24.226L22.8364 5.25684L28.0284 10.4489Z" fill="#FFDE76"/><path d="M9.06677 30.834L4.81677 32.0736C4.20548 30.7963 3.17571 29.7666 1.89844 29.1553C2.3801 27.5261 2.09677 28.4965 3.13802 24.9053L5.59594 26.3786L6.09177 27.8519L7.5651 28.3478C8.49302 29.9132 8.16719 29.3465 9.06677 30.834Z" fill="#F6CCAF"/><path d="M8.31625 29.5944C5.13583 30.1682 2.98958 28.2982 2.28125 27.9298L3.15958 24.9336L5.6175 26.4069L6.11333 27.8803L7.58667 28.3761L8.31625 29.5944Z" fill="#FFDEC7"/><path d="M4.83979 32.0736C4.83979 32.1444 4.90354 32.0736 0.703125 33.2919C1.27687 31.3369 1.00063 32.2649 1.92146 29.1553C3.19575 29.7708 4.2243 30.7993 4.83979 32.0736Z" fill="#374F68"/><path d="M4.08875 30.8836L1.15625 31.7407L1.92125 29.1553C2.76604 29.5587 3.50742 30.1498 4.08875 30.8836Z" fill="#425B72"/><path d="M27.2721 9.69016L7.96292 28.9993C7.50958 28.2414 7.77875 28.4397 6.84375 28.121L26.2733 8.69141L27.2721 9.69016Z" fill="#FFBA55"/><path d="M25.3065 7.72849L5.86979 27.1581C5.55104 26.216 5.74937 26.4497 4.98438 26.0318L24.3006 6.72266L25.3065 7.72849Z" fill="#FFBA55"/><path d="M25.3086 7.72849L6.95573 26.0743C6.46439 25.925 5.98967 25.7256 5.53906 25.4793L24.3028 6.72266L25.3086 7.72849Z" fill="#FFCC66"/><path d="M32.6799 7.22531L30.7107 9.20864L24.7891 3.28697L26.7724 1.31781C27.1686 0.934798 27.6982 0.720703 28.2493 0.720703C28.8004 0.720703 29.3299 0.934798 29.7261 1.31781L32.6799 4.25031C33.0693 4.64753 33.2873 5.18158 33.2873 5.73781C33.2873 6.29403 33.0693 6.82808 32.6799 7.22531Z" fill="#DB5669"/><path d="M33.1634 5.03656C32.618 6.59489 30.2026 7.26781 28.7364 5.80156L25.4922 2.57864L26.7672 1.31781C27.1634 0.934798 27.693 0.720703 28.2441 0.720703C28.7952 0.720703 29.3247 0.934798 29.7209 1.31781C32.9864 4.58322 32.9651 4.46989 33.1634 5.03656Z" fill="#F26674"/><path d="M30.7055 9.20878L28.7364 11.1779L22.8359 5.25628L24.7839 3.28711L30.7055 9.20878Z" fill="#DAD7E5"/><path d="M29.9998 8.50044C29.6652 8.83437 29.2117 9.02191 28.739 9.02191C28.2662 9.02191 27.8128 8.83437 27.4781 8.50044L23.5469 4.54794L24.7865 3.28711L29.9998 8.50044Z" fill="#EDEBF2"/><path d="M27.2732 9.6899L10.7903 26.2082C10.0739 26.378 9.33656 26.4425 8.60156 26.3995L26.3099 8.72656L27.2732 9.6899Z" fill="#FFCC66"/></g><defs><clipPath id="clip0_8294_29475"><rect width="34" height="34" fill="white"/></clipPath></defs></svg></div><label id="tool-pencil-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Pencil</label>';
+  // var eraserSVG =
+  //   '<svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M13,0,0,13l4,4h8l9-9Zm6.59,8L14.5,13.09,7.91,6.5,13,1.41Zm-8,8H4.42l-3-3,5.8-5.79,6.58,6.58Z"/></g></g></svg> <label id="tool-eraser-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Eraser</label>';
+
   var curLineId = "",
     startX = 0,
     startY = 0,
     // penIcons = ["✏","W"],
-    penIcons = [pencilSVG, eraserSVG, pencilHindiSVG, eraserHindiSVG];
+    penIcons = [pencilSVG];
   (lastTime = performance.now()), //The time at which the last point was drawn
     (end = false);
   var curPen = {
@@ -258,89 +255,76 @@
     return line;
   }
 
+  // function toggle(elem) {
+  //   var index = 0;
+  //   var getEleLanEraser = null;
+  //   var getEleLanPencil = null;
+
+  //   if (document.getElementById("tool-eraser-localization")) {
+  //     getEleLanEraser = document.getElementById(
+  //       "tool-eraser-localization"
+  //     ).innerHTML;
+  //   }
+  //   if (document.getElementById("tool-pencil-localization")) {
+  //     getEleLanPencil = document.getElementById(
+  //       "tool-pencil-localization"
+  //     ).innerHTML;
+  //   }
+
+    
+  //     if (curPen.mode == "Pencil") {
+  //       curPen.mode = "White out";
+  //       curPen.penSize = Tools.getSize();
+  //       Tools.setSize(curPen.eraserSize);
+  //       Tools.showMarker = false;
+  //       index = 1;
+      
+      
+  //   }
+	// console.log(index,"index")
+  //   elem.getElementsByClassName("tool-icon")[0].innerHTML = penIcons[index];
+
+  //   // Update the title attribute based on the current mode
+  //   elem.setAttribute(
+  //     "title",
+  //     curPen.mode === "Pencil"
+  //       ? "For Eraser click to toggle"
+  //       : "For Pencil click to toggle"
+  //   );
+  // }
+
   function toggle(elem) {
-    var index = 0;
-    var getEleLanEraser = null;
-    var getEleLanPencil = null;
-
-    if (document.getElementById("tool-eraser-localization")) {
-      getEleLanEraser = document.getElementById(
-        "tool-eraser-localization"
-      ).innerHTML;
+    if (curPen.mode === "Pencil") {
+      // If the current mode is already pencil, do nothing
+      return;
     }
-    if (document.getElementById("tool-pencil-localization")) {
-      getEleLanPencil = document.getElementById(
-        "tool-pencil-localization"
-      ).innerHTML;
-    }
-
-    if (getEleLanEraser === "इरेजर") {
-      curPen.mode = "Pencil";
-      curPen.eraserSize = Tools.getSize();
-      Tools.setSize(curPen.penSize);
-      Tools.showMarker = false;
-      var cursor = Tools.svg.getElementById("mycursor");
-      if (cursor) {
-        cursor.remove();
-      }
-      index = 2;
-    } else if (getEleLanPencil === "पेंसिल") {
-      console.log("enter");
-      curPen.mode = "White out";
-      curPen.penSize = Tools.getSize();
-      Tools.setSize(curPen.eraserSize);
-      Tools.showMarker = true;
-      index = 3;
-    } else {
-      if (curPen.mode == "Pencil") {
-        curPen.mode = "White out";
-        curPen.penSize = Tools.getSize();
-        Tools.setSize(curPen.eraserSize);
-        Tools.showMarker = true;
-        index = 1;
-      } else {
-        curPen.mode = "Pencil";
-        curPen.eraserSize = Tools.getSize();
-        Tools.setSize(curPen.penSize);
-        Tools.showMarker = false;
-        var cursor = Tools.svg.getElementById("mycursor");
-        if (cursor) {
-          cursor.remove();
-        }
-      }
-    }
-	console.log(index,"index")
-    elem.getElementsByClassName("tool-icon")[0].innerHTML = penIcons[index];
-
-    // Update the title attribute based on the current mode
-    elem.setAttribute(
-      "title",
-      curPen.mode === "Pencil"
-        ? "For Eraser click to toggle"
-        : "For Pencil click to toggle"
-    );
+  
+    curPen.mode = "Pencil"; // Set the mode to Pencil
+    curPen.penSize = Tools.getSize(); // Store the current pen size
+    Tools.setSize(curPen.penSize); // Set the pen size for drawing
+  
+    // Update the pencil icon
+    elem.getElementsByClassName("tool-icon")[0].innerHTML = penIcons[0];
+  
+    // Update the title attribute
+    elem.setAttribute("title", "Pencil");
   }
 
+
   Tools.add({
-    //The new tool
-    // "name": "Pencil",
-    // "icon": "✏",
-    iconHTML: pencilSVG,
+    iconHTML: pencilSVG, // Replace with the SVG icon for the pencil tool
     name: "Pencil",
-    title: " For Eraser",
+    title: "Pencil",
+    isExtra:false,
     listeners: {
       press: startLine,
       move: continueLine,
       release: stopLine,
     },
-    // "shortcuts": {
-    //     "changeTool":"1"
-    // },
     draw: draw,
     toggle: toggle,
     onstart: onStart,
     onquit: onQuit,
     mouseCursor: "crosshair",
-    stylesheet: "tools/pencil/pencil.css",
   });
 })(); //End of code isolation

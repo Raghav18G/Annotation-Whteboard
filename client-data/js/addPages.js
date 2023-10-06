@@ -14,6 +14,16 @@ async function addNewPage() {
   let pageTiles = document.querySelectorAll(".page-tile");
   console.log("Page Tiles", pageTiles);
 
+  
+  const modal = document.getElementById("addNewPageModal");
+  const modalContent = document.querySelector(".addNewPageModal-content");
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal || event.target === modalContent) {
+      modal.style.display = "none";
+    }
+  });
+
   const files = [];
 
   structure.map((path) => {

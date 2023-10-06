@@ -96,7 +96,7 @@
   })
 
   var bgChangeSVG =
-    '<svg class="tool-icon-svg background-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="22" fill="currentColor" class="bi bi-image-fill" viewBox="0 0 16 16"><path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z"/></svg><label id="tool-background-localization" class="label-tool" style="font-size:10px;font-weight:400;line-height: 2px; margin-top: 14px;"><p>Background</p></label>'
+    '<div class="tool-selected"><svg class="tool-icon-svg background-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="22" fill="currentColor" class="bi bi-image-fill" viewBox="0 0 16 16"><path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z"/></svg></div><label id="tool-background-localization" class="label-tool" style="font-size:10px;font-weight:400;line-height: 2px; margin-top: 14px;"><p>Background</p></label>'
 
   function toggleColorPicker(evt) {
     // if($("#menu").width()>Tools.menu_width+3)return;
@@ -153,6 +153,7 @@
     },
     listeners: {},
     draw: backgroundChange,
+    isExtra: true,
    // oneTouch: true,
     onstart: toggleColorPicker, // start the fn while tool is selected
     mouseCursor: "crosshair",

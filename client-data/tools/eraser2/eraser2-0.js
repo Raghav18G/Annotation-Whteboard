@@ -166,6 +166,7 @@
 
 
 	Tools.add({ //The new tool
+		isExtra:true,
 		 "icon": "E",
         	"name": "Eraser2",
 		"listeners": {

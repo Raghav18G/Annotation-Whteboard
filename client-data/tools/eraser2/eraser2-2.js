@@ -171,6 +171,7 @@ masks.push('<mask id="mask-path-'+(Tools.layer-1)+'" class="masks" maskUnits="us
 
 
 	Tools.add({ //The new tool
+		isExtra: true,
 		 "icon": "E",
         	"name": "Eraser2",
 		"listeners": {

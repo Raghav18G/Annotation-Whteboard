@@ -121,10 +121,16 @@ var loading = true;
       }
 
       if (loading) {
-        var loadingEl = document.getElementById("loadingMessage");
-        loadingEl.classList.add("hidden");
-        loading = false;
+        setTimeout(function() {
+          var loadingEl = document.getElementById("loadingMessage");
+          var loadingStrip = document.getElementById("toolbarLoadingStrip");
+          loadingEl.classList.add("hidden");
+          loadingStrip.style.display = "none";
+          document.getElementById("draggableToolbar").style.display = "flex";
+          loading = false;
+        }, 500);
       }
+
     });
 
     this.socket.on("reconnect", function onReconnection() {
@@ -368,7 +374,7 @@ Tools.clearBoard = function (deleteMsgs) {
 
 Tools.HTML = {
   template: new Minitpl("#tools > .tool"),
-  // templateExtra: new Minitpl("#tool-list > .tool-extra"),
+  templateExtra: new Minitpl("#tool-list > .tool-extra"),
   addTool: function (
     toolName,
     toolIcon,
@@ -381,12 +387,10 @@ Tools.HTML = {
 
     if (oneTouch) {
       callback = function (evt) {
-        console.log("TOOL ONCLICK");
         Tools.onClick(toolName, evt);
       };
     } else {
       callback = function () {
-        console.log("TOOL Change");
         Tools.change(toolName);
       };
     }
@@ -438,11 +442,10 @@ Tools.HTML = {
                 </div>`);
         document.getElementById("template").innerHTML = container;
 
-        console.log("TEMPLATE", document.getElementById("template"));
-
         Tools.menus[toolName].menu = document.getElementById(
           "popover-" + toolName
         );
+
         document.body.appendChild(Tools.menus[toolName].menu);
 
         (function () {
@@ -521,13 +524,14 @@ Tools.HTML = {
       } else {
         elem.getElementsByClassName("tool-icon")[0].textContent = toolIcon;
       }
-      elem.title =
-        Tools?.i18n?.t(Tools?.list[toolName]?.title || toolName) +
-        (Tools?.list[toolName]?.toggle ? "  Click to toggle" : "");
+      //   elem.title =
+      //     Tools?.i18n?.t(Tools?.list[toolName]?.title || toolName) +
+      //     (Tools?.list[toolName]?.toggle ? "  Click to toggle" : "");
+      // });
+      elem.title = Tools?.i18n?.t(Tools?.list[toolName]?.title || toolName);
     });
   },
   changeTool: function (oldToolName, newToolName) {
-    console.log("OLD TOOL", oldToolName, "NEW TOOL", newToolName);
     var oldTool = document.getElementById("toolID-" + oldToolName);
     var newTool = document.getElementById("toolID-" + newToolName);
     if (oldTool) oldTool.classList.remove("curTool");
@@ -567,7 +571,14 @@ wb_comp.add = function (newComp) {
 Tools.list = {}; // An array of all known tools. {"toolName" : {toolObject}}
 
 Tools.add = function (newTool) {
-  console.log("TOOLs aDD CALLED", newTool.name);
+  // console.log("TOOLs aDD CALLED", newTool.name);
+  //    // Define an array of allowed tools
+    //  var notAllowedTools = ["Grid", "Zoom In", "Zoom Out", "Background", "Download"]; // Add the names of the allowed tools
+
+    //  if (notAllowedTools.includes(newTool.name)) {
+    //    console.log("Tool '" + newTool.name + "' is not in the allowed list.");
+    //    return; // Exit the function if tool is not allowed
+    //  }
   if (newTool.name in Tools.list) {
     console.log(
       "Tools.add: The tool '" +
@@ -577,6 +588,7 @@ Tools.add = function (newTool) {
     );
   }
 
+  console.log("Tools List ", Tools.list);
   //Format the new tool correctly
   Tools.applyHooks(Tools.toolHooks, newTool);
 
@@ -614,7 +626,7 @@ Tools.add = function (newTool) {
 };
 
 Tools.onClick = function (toolName, evt) {
-  console.log("TOOLNAME", toolName);
+  document.getElementById("moreTools").style.display = "none";
   if (!(toolName in Tools.list)) {
     throw new Error("Trying to select a tool that has never been added!");
   }
@@ -628,7 +640,7 @@ Tools.onClick = function (toolName, evt) {
 };
 
 Tools.change = function (toolName) {
-  console.log("Tool Change in Function", toolName);
+  document.getElementById("moreTools").style.display = "none";
 
   if (toolName == "Rectangle") {
     if (document.getElementById("shapesArrow")) {
@@ -647,7 +659,7 @@ Tools.change = function (toolName) {
   //Update the GUI
   var curToolName = Tools.curTool ? Tools.curTool.name : "";
   try {
-    console.log("TOOL In TRY  BLOCK");
+    console.log("Current Tool", curToolName);
     Tools.HTML.changeTool(curToolName, toolName);
   } catch (e) {
     console.error("Unable to update the GUI with the new tool. " + e);
@@ -661,7 +673,7 @@ Tools.change = function (toolName) {
     if (newtool === Tools.curTool) {
       if (newtool.toggle) {
         var elem = document.getElementById("toolID-" + newtool.name);
-        console.log("TOOL Toogling New Tool");
+
         newtool.toggle(elem);
       }
       //return;
@@ -936,7 +948,7 @@ Tools.toolHooks = [
   },
   function compileListeners(tool) {
     //compile listeners into compiledListeners
-    console.log("ture");
+
     var listeners = tool.listeners;
     //A tool may provide precompiled listeners
     var compiled = tool.compiledListeners || {};
@@ -962,7 +974,7 @@ Tools.toolHooks = [
             y = touch.pageY / Tools.getScale();
           return listener(x, y, evt, true);
         }
-        console.log("endddd");
+
         return true;
       };
     }

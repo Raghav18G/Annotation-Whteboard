@@ -30,7 +30,13 @@
 	var msg = {
 		"type": "clear"
 	};
-	var binSVG = '<svg height="18" width="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M11,3a3.48,3.48,0,0,0-6.9,0H0V4H2V14a3,3,0,0,0,3,3h5a3,3,0,0,0,3-3V4h2V3ZM7.5,1A2.5,2.5,0,0,1,10,3H5.05A2.5,2.5,0,0,1,7.5,1ZM12,14a2,2,0,0,1-2,2H5a2,2,0,0,1-2-2V4h9Z"/></g></g></svg>';
+	var binSVG = '<svg height="18" width="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M11,3a3.48,3.48,0,0,0-6.9,0H0V4H2V14a3,3,0,0,0,3,3h5a3,3,0,0,0,3-3V4h2V3ZM7.5,1A2.5,2.5,0,0,1,10,3H5.05A2.5,2.5,0,0,1,7.5,1ZM12,14a2,2,0,0,1-2,2H5a2,2,0,0,1-2-2V4h9Z"/></g></g></svg>';
+	var binIconSVG = `
+	<div class="tool-selected">
+		<img src="assets/clear.svg" alt="Eraser Icon">
+		</div>
+		<label id="tool-clean-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Clear</label>
+	`;
 	function clearBoard(evt) {
 		// if($("#menu").width()>Tools.menu_width+3)return;
 		if (evt) evt.preventDefault();
@@ -56,13 +62,22 @@
 	Tools.add({ //The new tool
 		"name": "Clear",
 		// "icon": "🗑",
-		"iconHTML": binSVG,
+		title: "Clear",
+		 iconHTML : `
+<div class="tool-selected">
+    <img class="tool-img" src="assets/clean.svg" alt="Clear Icon">
+</div>
+<label id="tool-clear-localization" class="label-clear" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Clear</label>
+`,
+		// "iconHTML": `<div class="tool-selected">${binSVG}</div><label id="tool-clear-localization" class="label-clear" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Clear</label>`,
+		// "iconHTML": binIconSVG,
 		"shortcuts": {
 			"actions": [{ "key": "shift-C", "action": clearBoard }]
 		},
 		"listeners": {},
 		"draw": draw,
 		"oneTouch": true,
+		"isExtra": false,
 		"onstart": clearBoard,
 		"mouseCursor": "crosshair",
 	});

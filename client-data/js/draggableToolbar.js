@@ -1,5 +1,5 @@
 // Make the DIV element draggable:
-dragElement(document.getElementById("draggableToolbar"));
+// dragElement(document.getElementById("draggableToolbar"));
 
 function dragElement(elmnt) {
   console.log("DRAAGGING");
@@ -28,16 +28,15 @@ function dragElement(elmnt) {
     // call a function whenever the cursor moves:
     document.onmousemove = elementDrag;
     document.ontouchmove = elementDrag;
-
   }
 
   function elementDrag(e) {
-    const touch = e.touches[0]
+    const touch = e.touches[0];
     e = e || window.event;
     e.preventDefault();
     // calculate the new cursor position:
     pos1 = pos3 - (e.clientX || touch.clientX);
-    pos2 = pos4 - (e.clientY|| touch.clientY);
+    pos2 = pos4 - (e.clientY || touch.clientY);
     pos3 = e.clientX || touch.clientX;
     pos4 = e.clientY || touch.clientY;
     // set the element's new position:
@@ -48,8 +47,8 @@ function dragElement(elmnt) {
   function closeDragElement() {
     // stop moving when mouse button is released:
     document.onmouseup = null;
-    document.ontouchend=null;
+    document.ontouchend = null;
     document.onmousemove = null;
-    document.ontouchmove=null;
+    document.ontouchmove = null;
   }
 }

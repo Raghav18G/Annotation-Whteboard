@@ -10,6 +10,7 @@
 
   Tools.add({
     name: "StickyNotes",
+    isExtra: true,
     // "icon": "🖼️",
     iconHTML: stickNotesSVG,
     shortcuts: {

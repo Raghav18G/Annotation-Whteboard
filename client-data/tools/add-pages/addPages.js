@@ -45,6 +45,7 @@
       actions: [{ key: "a", action: () => {} }],
     },
     listeners: {},
+    isExtra: true,
     oneTouch: true,
     onstart: startAdding, // start the fn while tool is selected
     mouseCursor: "crosshair",

@@ -129,6 +129,7 @@
 
     Tools.add({ //The new tool
         // "name": "Zoom",
+        isExtra:true,
          "icon": "🔎",
 	"iconHTML":"<i style='color: #B10DC9;margin-top:7px' class='fas fa-search-plus'></i>",
         "name": "Zoom",
@@ -141,7 +142,6 @@
         "onstart": onstart,
         "onquit": onquit,
         "mouseCursor": "zoom-in",
-	"isExtra":true,
         "helpText": "Click to zoom in\nPress shift and click to zoom out",
     });
 })(); //End of code isolation

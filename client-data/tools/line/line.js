@@ -28,7 +28,7 @@
   //Code isolation
   //Indicates the id of the line the user is currently drawing or an empty string while the user is not drawing
   var lineSVG =
-  '<svg class="lines-svg" width="40" height="40" style="margin-top: -6px"viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.8922 28.1625C22.8922 28.4937 23.161 28.7625 23.4922 28.7625C23.8234 28.7625 24.0922 28.4937 24.0922 28.1625C24.0922 27.8313 23.8234 27.5625 23.4922 27.5625C23.161 27.5625 22.8922 27.8313 22.8922 28.1625ZM5.86719 13.1367V15.6867H8.41719V13.1367H5.86719ZM24.8044 13.1367H22.2544V15.6867H24.8044V13.1367ZM41.6044 13.1367H39.0544V15.6867H41.6044V13.1367ZM19.279 36.7125H27.8296V34.7613H19.279V36.7125Z" fill="#FBCF26"/><path d="M37.2575 11.3369V13.5113H26.6063V11.3369H20.4575V13.5113H10.2191V11.3369H4.07031V17.4863H10.2191V15.3113H20.4575V17.4863H22.1087C21.5861 18.7451 20.1863 21.4613 17.2313 23.5805L16.5383 24.0797L17.0003 24.7985C18.2303 26.7047 18.5663 28.8131 18.5663 30.5243C18.5663 31.5287 18.4511 32.3861 18.3437 32.9615H17.4827V38.5109H29.6321V32.9615H28.7219C28.6139 32.3861 28.4975 31.5287 28.4987 30.5225C28.4975 28.8125 28.8335 26.7047 30.0647 24.7973L30.5273 24.0797L29.8337 23.5805C27.8213 22.1339 26.5313 20.4197 25.7453 19.0679C25.3769 18.4349 25.1237 17.8877 24.9569 17.4857H26.6075V15.3107H37.2587V17.4857H43.4075V11.3369H37.2575ZM8.41971 15.6863H5.86971V13.1363H8.41971V15.6863ZM22.2569 13.1363H24.8069V15.6863H22.2569V13.1363ZM23.4941 27.5615C23.8253 27.5633 24.0935 27.8297 24.0941 28.1621C24.0929 28.4933 23.8247 28.7609 23.4941 28.7621C23.1635 28.7609 22.8953 28.4933 22.8941 28.1621C22.8953 27.8297 23.1635 27.5633 23.4941 27.5615ZM27.8321 36.7121H19.2815V34.7609H27.8321V36.7121ZM28.1255 24.5435C26.9993 26.6255 26.6987 28.7873 26.6975 30.5237C26.6975 31.4891 26.7905 32.3249 26.8949 32.9627H20.1695C20.2727 32.3267 20.3657 31.4897 20.3657 30.5255C20.3657 28.7891 20.0645 26.6261 18.9389 24.5435C20.6249 23.1941 21.7955 21.7103 22.5941 20.4365V25.9409C21.7151 26.2967 21.0947 27.1553 21.0947 28.1627C21.0947 29.4881 22.1681 30.5621 23.4947 30.5621C24.8201 30.5621 25.8947 29.4881 25.8947 28.1627C25.8947 27.1553 25.2737 26.2973 24.3953 25.9409V20.3189C25.1939 21.6179 26.3885 23.1521 28.1255 24.5435ZM41.6069 15.6863H39.0569V13.1363H41.6069V15.6863Z" fill="#424242"/></svg><label id="tool-lines-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 4px;margin-left: 6px;"><p>Lines</p></label>';
+  '<div class="tool-selected"><svg class="lines-svg line-background-icon" width="35" height="35" style="margin-top: -4px;margin-left: -4px"viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.8922 28.1625C22.8922 28.4937 23.161 28.7625 23.4922 28.7625C23.8234 28.7625 24.0922 28.4937 24.0922 28.1625C24.0922 27.8313 23.8234 27.5625 23.4922 27.5625C23.161 27.5625 22.8922 27.8313 22.8922 28.1625ZM5.86719 13.1367V15.6867H8.41719V13.1367H5.86719ZM24.8044 13.1367H22.2544V15.6867H24.8044V13.1367ZM41.6044 13.1367H39.0544V15.6867H41.6044V13.1367ZM19.279 36.7125H27.8296V34.7613H19.279V36.7125Z" fill="#FBCF26"/><path d="M37.2575 11.3369V13.5113H26.6063V11.3369H20.4575V13.5113H10.2191V11.3369H4.07031V17.4863H10.2191V15.3113H20.4575V17.4863H22.1087C21.5861 18.7451 20.1863 21.4613 17.2313 23.5805L16.5383 24.0797L17.0003 24.7985C18.2303 26.7047 18.5663 28.8131 18.5663 30.5243C18.5663 31.5287 18.4511 32.3861 18.3437 32.9615H17.4827V38.5109H29.6321V32.9615H28.7219C28.6139 32.3861 28.4975 31.5287 28.4987 30.5225C28.4975 28.8125 28.8335 26.7047 30.0647 24.7973L30.5273 24.0797L29.8337 23.5805C27.8213 22.1339 26.5313 20.4197 25.7453 19.0679C25.3769 18.4349 25.1237 17.8877 24.9569 17.4857H26.6075V15.3107H37.2587V17.4857H43.4075V11.3369H37.2575ZM8.41971 15.6863H5.86971V13.1363H8.41971V15.6863ZM22.2569 13.1363H24.8069V15.6863H22.2569V13.1363ZM23.4941 27.5615C23.8253 27.5633 24.0935 27.8297 24.0941 28.1621C24.0929 28.4933 23.8247 28.7609 23.4941 28.7621C23.1635 28.7609 22.8953 28.4933 22.8941 28.1621C22.8953 27.8297 23.1635 27.5633 23.4941 27.5615ZM27.8321 36.7121H19.2815V34.7609H27.8321V36.7121ZM28.1255 24.5435C26.9993 26.6255 26.6987 28.7873 26.6975 30.5237C26.6975 31.4891 26.7905 32.3249 26.8949 32.9627H20.1695C20.2727 32.3267 20.3657 31.4897 20.3657 30.5255C20.3657 28.7891 20.0645 26.6261 18.9389 24.5435C20.6249 23.1941 21.7955 21.7103 22.5941 20.4365V25.9409C21.7151 26.2967 21.0947 27.1553 21.0947 28.1627C21.0947 29.4881 22.1681 30.5621 23.4947 30.5621C24.8201 30.5621 25.8947 29.4881 25.8947 28.1627C25.8947 27.1553 25.2737 26.2973 24.3953 25.9409V20.3189C25.1939 21.6179 26.3885 23.1521 28.1255 24.5435ZM41.6069 15.6863H39.0569V13.1363H41.6069V15.6863Z" fill="#424242"/></svg></div><label id="tool-lines-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Lines</p></label>';
 
     var curLineId = "",
     end = false,
@@ -46,36 +46,20 @@
 
   var icons = {
     line: {
-      icon: "—",
-      isHTML: false,
+      icon: `— <br> <label id="tool-solidline-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400;margin-top: 7px; margin-left: -3px;">Solid Line</label>`,
+      isHTML: true,
       isSVG: false,
     },
     arrw: {
-      icon: "→",
+      icon: `→<br> <label id="tool-arrow-line-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400;margin-top: 7px; margin-left: -3px;">Arrow Line</label>`,
       isHTML: true,
       isSVG: false,
     },
     dashline: {
       icon:
-        `<span><img style = 'margin-top:-7px;' draggable="false" src='data:image/svg+xml;utf8,` +
-        dashmode +
-        `black` +
-        dashmode2 +
-        `' ></span>`,
-      menuIcon:
-        `<span><img style = 'margin-top:-7px;' draggable="false" src='data:image/svg+xml;utf8,` +
-        dashmode +
-        `gray` +
-        dashmode2 +
-        `' ></span>`,
-      menuIconActive:
-        `<span><img style = 'margin-top:-7px;' draggable="false" src='data:image/svg+xml;utf8,` +
-        dashmode +
-        `green` +
-        dashmode2 +
-        `' ></span>`,
+        `--- <br> <label id="tool-dashed-line-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400;margin-top: 7px; margin-left: -3px;">Dashed Line</label>`,
       isHTML: true,
-      isSVG: true,
+      isSVG: false,
     },
   };
 
@@ -465,6 +449,7 @@
     iconHTML: lineSVG,
     title: "Lines",
     name: "Line",
+    isExtra: true,
     //"icon": "",
     listeners: {
       press: startLine,
@@ -483,15 +468,11 @@
 						</div>
 
 						<div class="tool-extra submenu-line" id="submenu-line-arrw">
-							<span title="solid arrow" class="tool-icon" id="line2">` +
-        icons["arrw"].icon +
-        `</span>
+							<span title="solid arrow" class="tool-icon" id="line2">→</span>
 						</div>
 
 						<div class="tool-extra submenu-line" id="submenu-line-dashline">
-							<span title="dashed line" class="tool-icon"  id="line3">` +
-        icons["dashline"].icon +
-        `</span>
+							<span title="dashed line" class="tool-icon"  id="line3">---</span>
 						</div>
 
 						<div style="width:143px;display:block" class="tool-extra"  id="submenu-line-angleLock">

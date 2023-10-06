@@ -18,8 +18,60 @@
   <body>
     <div id="zmmtg-root"></div>
     <div id="aria-notify-area"></div>
+    <div class="landing">
+      <div class="landing-left">
+        <div class="iprepLanding--navbar">
+          <span>Change Language</span>
+          <select id="languageSelect" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="hi">हिंदी</option>
+          </select>
+        </div>
+    
+        <div class="iprepLanding">
+          <div class="card">
 
-    <div class="iprepLanding--navbar">
+            <img src="./assets/iPrepLogo.png" class="logo" />
+            <p class="iprepLanding--header" id="iprepLanding--header">
+              Welcome to iPrep Play
+            </p>
+            <p class="iprepLanding--body" id="iprepLanding--body">
+              To get started, either select an existing board or create a new one.
+            </p>
+            <button class="newBoard--btn" id="modalBtn">Start new board</button>
+           
+      
+            <p class="iprepLanding--body" id="iprepLanding-or-text">Or</p>
+            <form id="existingBoardForm">
+              <select
+                class="newBoard--Select"
+                name="board"
+                id="newBoard--Select"
+                onchange="checkDisable()"
+              >
+                <option value="" disabled selected id="newBoard--placeholder">
+                  Select an existing board
+                </option>
+              </select>
+              <button type="submit" id="go-btn">Go</button>
+            </form>
+          </div>
+          </div>
+      </div>
+      <div class="landing-right">
+
+        <h2>With IPrep you can</h2>
+        <img src="./assets/landing.png" alt="Image Description">
+        <ul>
+          <li>Text akskdjlk</li>
+          <li>Text kajsdlkasjdlkajsd</li>
+          <li>Text qweioas akskdjlkac ,acs,,mdnlkkn</li>
+          <li>Text iqwe asjdqwe sdkjaslkdjlk aksjdlajweoiqwe</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- <div class="iprepLanding--navbar">
       <select id="languageSelect" onchange="changeLanguage()">
         <option value="en">English</option>
         <option value="hi">हिंदी</option>
@@ -50,7 +102,7 @@
 
       <p class="iprepLanding--body" id="iprepLanding-or-text">Or</p>
       <button class="newBoard--btn" id="modalBtn">Start new board</button>
-    </div>
+    </div> -->
 
     <!-- MODAL FOR THE BOARD NAME INPUT -->
 

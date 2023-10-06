@@ -1,7 +1,7 @@
 $(document).ready(() => {
-  const element = `
-    <svg class="close__meeting" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon points="23 1.36 21.64 0 11.5 10.14 1.36 0 0 1.36 10.14 11.5 0 21.64 1.36 23 11.5 12.86 21.64 23 23 21.64 12.86 11.5 23 1.36"/></g></g></svg>`;
-  $("#top_left_tools").append(element);
+  const element = '<div class="tool-selected"><svg class="close__meeting" id="close-meet" style="width: 18px; height: 25px; margin-top:-1px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23" title="Close"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon points="23 1.36 21.64 0 11.5 10.14 1.36 0 0 1.36 10.14 11.5 0 21.64 1.36 23 11.5 12.86 21.64 23 23 21.64 12.86 11.5 23 1.36"/></g></g></svg></div><label id="tool-close-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 13px;"><p>Close</p></label>';
+  // $("#top_left_tools").append(element); 
+  
   const toolExtender = `
 <?xml version="1.0" encoding="iso-8859-1"?>
 <svg version="1.1" id="Capa_1" class="extend_tools" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -53,5 +53,28 @@ $(document).ready(() => {
     $(
       "#toolID-Undo, #toolID-Redo, #toolID-Clear + .tool, #toolID-Clear"
     ).toggleClass("hideExtenders");
+  });
+
+  Tools.add({
+    name: "close",
+    title:"Close",
+    // "icon": "🖼️",
+    // iconHTML: element,
+    iconHTML : `
+    <div class="tool-selected">
+        <img class="tool-img close__meeting" id="close-meet" src="assets/close.svg" alt="Close Icon">
+    </div>
+    <label id="tool-close-localization" class="label-close" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Close</label>
+    `,
+    // shortcuts: {
+    //   actions: [{ key: "19", action: onstart }],
+    // },
+    listeners: {},
+    // draw: draw,
+    // onstart: onstart,
+    isExtra: false,
+    //oneTouch: true,
+    // "onquit":onQuit,
+    mouseCursor: "auto",
   });
 });

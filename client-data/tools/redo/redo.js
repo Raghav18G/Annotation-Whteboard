@@ -48,13 +48,16 @@
 				break;
 		}
 	}
+	var redoSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path d="M36.728 36.728A17.943 17.943 0 0 1 24 42c-9.941 0-18-8.059-18-18S14.059 6 24 6c4.97 0 9.47 2.015 12.728 5.272C38.386 12.93 42 17 42 17"/><path d="M42 8v9h-9"/></g></svg>`
 
 
 	Tools.add({ //The new tool
 		"name": "Redo",
 		// "icon": "🗑",
+		"iconHTML": `<div class="tool-selected">${redoSvg}</div><label id="tool-redo-localization" class="label-redo" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Redo</label>`,
+
 		// "iconHTML":"<i style='color: #3D9970;margin-top:7px' class='fas fa-redo-alt'></i>",
-		"iconHTML":"<p style='font: normal normal normal 15px/20px CircularXX; font-family: CircularXXWeb-Book; letter-spacing: 0px; color: #8B8B8B;opacity: 1;'id='redo-tag'>Redo</p>",
+		// "iconHTML":"<p style='font: normal normal normal 15px/20px CircularXX; font-family: CircularXXWeb-Book; letter-spacing: 0px; color: #8B8B8B;opacity: 1;'id='redo-tag'>Redo</p>",
 		"shortcuts": {
             "actions":[{"key":"shift-R","action":redo}]
         },

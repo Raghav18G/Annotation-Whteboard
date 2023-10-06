@@ -80,9 +80,10 @@ function checkDisable() {
       console.log("DATA 1", data);
       var dropdown = document.getElementsByClassName("newBoard--Select");
       data.boardNames.map((name) => {
+        let formatName = decodeURIComponent(name).replace(/%20/g, ' ');
         dropdown[0].innerHTML =
           dropdown[0].innerHTML +
-          `<option  value=${name}>${decodeURI(name)}</option>`;
+          `<option  value=${name}>${formatName}</option>`;
       });
       window.localStorage.setItem("structure", data.structure);
     });

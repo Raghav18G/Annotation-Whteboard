@@ -246,8 +246,10 @@
 	Tools.add({ //The new tool
 		 "icon": "E",
 		//  "iconHTML":"<i style='color: #e75480;margin-top:7px' class='fas fa-eraser'></i>",
-		"iconHTML": eraserSVG,
-        	"name": '"Touch Up" Eraser',
+		// "iconHTML": eraserSVG,
+		"iconHTML": `<div class="tool-selected">${eraserSVG}</div><label id="tool-touch-up-eraser-localization" class="label-touch-up-eraser" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Touch Up Eraser</label>`,
+
+        	"name": 'Touch-Up-Eraser',
 		"listeners": {
 			"press": startPath,
 			"move": continuePath,
@@ -256,7 +258,7 @@
 		"draw": draw,
 		"onstart":onStart,
 		"onquit":onQuit,
-		"isExtra":false,
+		"isExtra":true,
 		"mouseCursor": "crosshair",
 		//"stylesheet": "tools/pencil/pencil.css"
 	});
