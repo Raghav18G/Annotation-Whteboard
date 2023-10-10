@@ -40,7 +40,7 @@
     <script src="socket.io.js"></script>
 
 
-    <script src="node_modules/pdfjs-dist/build/pdf.min.js"></script>
+    <!-- <script src="node_modules/pdfjs-dist/build/pdf.min.js"></script> -->
 
     <meta name="description" content="A free and opensource online collaborative drawing tool." />
     <meta name="keywords" content="Collaborative whiteboard,online,draw,paint,shared,realtime" />
@@ -622,7 +622,7 @@
 
        
         <!-- Tool Size Indicator -->
-        <div class="tool size_selector_container hidden">
+        <div class="tool size_selector_container">
             <span class="tool-icon" id="tool-size-selector" title="Tool size selector">
                 <svg viewBox="-60 -70 120 120" class="tool-icon-sizeIndicator" style="display:none">
                     <circle id="sizeIndicator" cx=0 cy=0 r=10 />
@@ -765,6 +765,7 @@
         <!-- <img id="destination" /> -->
 
         <div class="localization">
+            <img src="Left-Logo.svg" width="200" style="margin-right: 4px" />
             <select id="languageSelect" onchange="changeLanguage()">
                 <option value="en">English</option>
                 <option value="hi">हिंदी</option>
@@ -879,8 +880,8 @@
         </div>
         <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser" data-toggle="tooltip"
         data-trigger="hover">Search</button> -->
-        <input type="text" placeholder="Type Something...." id="searchBrowser"
-            class="wb-button wb-edit-button searchBrowser" data-trigger="hover"></input>
+        <textarea type="text" placeholder="Type Something...." id="searchBrowser" rows="30" cols="40"
+            class="wb-button wb-edit-button searchBrowser" data-trigger="hover"></textarea>
         <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser">Search</button> -->
         <div id="wb-editor">
             <div class="row wb-editor">
@@ -1058,7 +1059,7 @@
     <script src="tools/editor/editor.js"></script>
     <!-- END EDITOR TOOL-->
 
-    <!-- <script src="tools/handNew/hand.js"></script> -->
+    <script src="tools/handNew/hand.js"></script>
     <!-- <script src="tools/hand/hand.js"></script> -->
     <script src="tools/grid/grid.js"></script>
     <script src="tools/eraser2/eraser2.js"></script>
@@ -1189,22 +1190,22 @@ tooll.forEach(button => {
                     document.getElementById("toolID-Screenshot").title = `स्क्रीनशॉट`;                    
                     document.getElementById("toolID-Recorder").title = `रिकॉर्डर`;
                     document.getElementById("toolID-Transform").title = `ट्रांसफोर्म `;
-                    document.getElementById("toolID-Document").title = `डॉक्यूमेंट`;
-                    document.getElementById("toolID-Download").title = `डाउनलोड`;
+                    // document.getElementById("toolID-Document").title = `डॉक्यूमेंट`;
+                    // document.getElementById("toolID-Download").title = `डाउनलोड`;
 
                     document.getElementById("toolID-Editor").title = `एडीटर`;
-                    document.getElementById("toolID-Hand").title = `हैंड`;
+                    // document.getElementById("toolID-Hand").title = `हैंड`;
                     document.getElementById("toolID-Grid").title = `ग्रिड`;
                     document.getElementById("toolID-Calculator").title = `कैलक्युलेटर`;
                     document.getElementById("toolID-Zoom In").title = `जूम इन`;
                     document.getElementById("toolID-Zoom Out").title = `जूम आउट`;
                     document.getElementById("toolID-Background").title = `बैकग्राउंड`;
                     document.getElementById("toolID-Table").title = `टेबल`;
-                    document.getElementById("toogle-tranparency").title = `व्हाइट बोर्ड`;
-                    document.getElementById("toolID-Undo").title = `अन्डू`;
-                    document.getElementById("toolID-Redo").title = `रीडू`;
-                    document.getElementById("toolID-Clear").title = `इरेजर`;
-                    document.getElementById('toolID-"Touch Up" Eraser').title = `टच अप`;
+                    // document.getElementById("toogle-tranparency").title = `व्हाइट बोर्ड`;
+                    document.getElementById("tool-undo-localization").innerHTML = `अन्डू`;
+                    document.getElementById("tool-redo-localization").innerHTML = `रीडू`;
+                    document.getElementById("tool-clear-localization").title = `क्लिर`;
+                    document.getElementById('tool-touch-up-eraser-localization').innerHTML = `टच अप इरेज़र`;
 
                     document.getElementById("shape2d-rectangle").title = `रेक्टेंगल`;
                     document.getElementById("shape2d-circle").title = `सर्किल`;
@@ -1251,10 +1252,10 @@ tooll.forEach(button => {
                     document.getElementById("tool-mathstools-localization").innerHTML = `टूल्स`;
                     document.getElementById("tool-screenshot-localization").innerHTML = `स्क्रीनशॉट`;
                     document.getElementById("tool-transform-localization").innerHTML = `ट्रांसफोर्म`;
-                    document.getElementById("tool-document-localization").innerHTML = `डॉक्यूमेंट`;
-                    document.getElementById("tool-download-localization").innerHTML = `डाउनलोड`;
+                    // document.getElementById("tool-document-localization").innerHTML = `डॉक्यूमेंट`;
+                    // document.getElementById("tool-download-localization").innerHTML = `डाउनलोड`;
                     document.getElementById("tool-editor-localization").innerHTML = `एडीटर`;
-                    document.getElementById("tool-hand-localization").innerHTML = `हैंड`;
+                    // document.getElementById("tool-hand-localization").innerHTML = `हैंड`;
                     document.getElementById("tool-grid-localization").innerHTML = `ग्रिड`;
                     document.getElementById("tool-calculator-localization").innerHTML = `कैलक्युलेटर`;
                     document.getElementById("tool-zoomin-localization").innerHTML = `जूम इन`;
@@ -1263,7 +1264,7 @@ tooll.forEach(button => {
                     document.getElementById("tool-table-localization").innerHTML = `टेबल`;                  
                     document.getElementById("tool-close-localization").innerHTML = `क्लोज़`; 
                     document.getElementById("tool-recorder-localization").innerHTML = `रिकॉर्डर`;               
-                    document.getElementById("tool-toggle-localization").innerHTML = `वाइट बोर्ड`;
+                    // document.getElementById("tool-toggle-localization").innerHTML = `वाइट बोर्ड`;
 
                     document.getElementById("img-library").innerHTML = `इमेज लाइब्रेरी`;
                     document.getElementById("SelectFromDevice").innerHTML = `ऐड इमेज from डिवाइस `;
@@ -1285,8 +1286,6 @@ tooll.forEach(button => {
 
                     document.getElementById("two-dimension").innerHTML = `2डी शेपस`;
                     document.getElementById("three-dimension").innerHTML = `3डी शेपस`;
-                    document.getElementById("undo-tag").innerHTML = `अन्डू`;
-                    document.getElementById("redo-tag").innerHTML = `रीडू`;
              
                     shapesText.querySelector(".popover-header").innerHTML = `शेपस`;                  
                     linesText.querySelector(".popover-header").innerHTML = `लाइनस`;
@@ -1304,6 +1303,7 @@ tooll.forEach(button => {
                     // Pencil-eraser                     
                     document.getElementById("tool-pencil-localization").innerHTML = `पेंसिल`;
                     document.getElementById("tool-eraser-localization").innerHTML = `इरेजर`;
+                    document.getElementById("tool-more-localization").innerHTML = `मोर`;
 
                     //  table modal title                                  
                     // document.getElementById("add-row").innerHTML = "ऐड रो";  
@@ -1338,7 +1338,8 @@ tooll.forEach(button => {
                     document.getElementById("line1").title = `Solid line`;
                     document.getElementById("line2").title = `Solid arrow`;
                     document.getElementById("line3").title = `Dashed line`;
-
+                    document.getElementById("tool-undo-localization").innerHTML = `Undo`;
+                    document.getElementById("tool-redo-localization").innerHTML = `Redo`;
                     document.getElementById("color-pick").title = `Color Picker`;
                     document.getElementById("opacity-picker").title = `Opacity Picker`;
                     document.getElementById("tool-size-selector").title = `Tool Size Selector`;
@@ -1354,22 +1355,22 @@ tooll.forEach(button => {
                     document.getElementById("toolID-Screenshot").title = `Screenshot`;
                     document.getElementById("toolID-Recorder").title = `Recorder`;
                     document.getElementById("toolID-Transform").title = `Transform`;
-                    document.getElementById("toolID-Document").title = `Document`;
-                    document.getElementById("toolID-Download").title = `Download`;
+                    // document.getElementById("toolID-Document").title = `Document`;
+                    // document.getElementById("toolID-Download").title = `Download`;
 
                     document.getElementById("toolID-Editor").title = `Editor`;
-                    document.getElementById("toolID-Hand").title = `Hand`;
+                    // document.getElementById("toolID-Hand").title = `Hand`;
                     document.getElementById("toolID-Grid").title = `Grid`;
                     document.getElementById("toolID-Calculator").title = `Calculator`;
                     document.getElementById("toolID-Zoom In").title = `Zoom In`;
                     document.getElementById("toolID-Zoom Out").title = `Zoom Out`;
                     document.getElementById("toolID-Background").title = `Background`;
                     document.getElementById("toolID-Table").title = `Table`;                                         
-                    document.getElementById("toogle-tranparency").title = `White Board`;
+                    // document.getElementById("toogle-tranparency").title = `White Board`;
                     document.getElementById("toolID-Undo").title = `Undo`;
                     document.getElementById("toolID-Redo").title = `Redo`;
-                    document.getElementById("toolID-Clear").title = `Eraser`;
-                    document.getElementById('toolID-"Touch Up" Eraser').title = `Touch Up`;
+                    document.getElementById("tool-clear-localization").title = `Clear`;
+                    document.getElementById('tool-touch-up-eraser-localization').innerHTML = `Touch Up Eraser`;
 
                     document.getElementById("shape2d-rectangle").title = `Rectangle`;
                     document.getElementById("shape2d-circle").title = `Circle`;
@@ -1415,10 +1416,10 @@ tooll.forEach(button => {
                     document.getElementById("tool-mathstools-localization").innerHTML = `Tools`;
                     document.getElementById("tool-screenshot-localization").innerHTML = `Screenshot`;
                     document.getElementById("tool-transform-localization").innerHTML = `Transform`;                   
-                    document.getElementById("tool-document-localization").innerHTML = `Document`;         
-                    document.getElementById("tool-download-localization").innerHTML = `Download`;                  
+                    // document.getElementById("tool-document-localization").innerHTML = `Document`;         
+                    // document.getElementById("tool-download-localization").innerHTML = `Download`;                  
                     document.getElementById("tool-editor-localization").innerHTML = `Editor`;
-                    document.getElementById("tool-hand-localization").innerHTML = `Hand`;
+                    // document.getElementById("tool-hand-localization").innerHTML = `Hand`;
                     document.getElementById("tool-grid-localization").innerHTML = `Grid`;
                     document.getElementById("tool-calculator-localization").innerHTML = `Calculator`;              
                     document.getElementById("tool-zoomin-localization").innerHTML = `Zoom in`;                    
@@ -1427,7 +1428,7 @@ tooll.forEach(button => {
                     document.getElementById("tool-table-localization").innerHTML = `Table`; 
                     document.getElementById("tool-close-localization").innerHTML = `Close`; 
                     document.getElementById("tool-recorder-localization").innerHTML = `Recorder`;                                
-                    document.getElementById("tool-toggle-localization").innerHTML = `White Board`;
+                    // document.getElementById("tool-toggle-localization").innerHTML = `White Board`;
 
                     document.getElementById("img-library").innerHTML = `Image Library`;
                     document.getElementById("SelectFromDevice").innerHTML = `Add Image from Device`;
@@ -1450,8 +1451,6 @@ tooll.forEach(button => {
                     document.getElementById("two-dimension").innerHTML = `Two Dimensional Shapes (2D)`;
                     document.getElementById("three-dimension").innerHTML = `Three Dimensional Shapes (3D)`;
 
-                    document.getElementById("undo-tag").innerHTML = `Undo`;
-                    document.getElementById("redo-tag").innerHTML = `Redo`;
 
                     
                     shapesText.querySelector(".popover-header").innerHTML = `Shapes`;                   
@@ -1470,6 +1469,7 @@ tooll.forEach(button => {
                     // Pencil-Erase
                     document.getElementById("tool-pencil-localization").innerHTML = `Pencil`;
                     document.getElementById("tool-eraser-localization").innerHTML = `Eraser`;
+                    document.getElementById("tool-more-localization").innerHTML = `More`;
 
                     
                     // table modal title                                 

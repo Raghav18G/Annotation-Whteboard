@@ -88,7 +88,7 @@ ul {
   border: none;
   margin-right: 5px;
   margin-bottom: 20px;
-  align-items: center
+  align-items: center;
 }
 .stickyNotesModal-content {
   background-color: #fefefe;
@@ -284,7 +284,7 @@ iframe {
   align-items: center;
   top: 280px;
   left: 165px;
-  box-shadow: 0px 6px 8px 0px #e0e0e0; */ 
+  box-shadow: 0px 6px 8px 0px #e0e0e0; */
 }
 
 .loading-strip {
@@ -411,7 +411,7 @@ iframe {
   overflow: auto;
   gap: 8px; /* Adjust the gap between items if needed */
 }
-.tool-img{
+.tool-img {
   width: 24px;
   height: 24px;
   margin-bottom: 10px;
@@ -448,10 +448,15 @@ iframe {
 }
 
 .localization {
-  margin-left: 55px;
-  /* margin-top: -45px; */
+  position: absolute;
+  top: 10px;
+  margin-left: 55px;  /* margin-top: -45px; */
   /* margin-top: -11rem; */
   /* padding-top:.1rem; */
+}
+.localization-children{
+  display: flex;
+  justify-content: space-between
 }
 
 @keyframes minimize {
@@ -868,7 +873,7 @@ button.close.window-button {
   height: 1rem;
   left: 9.5rem; */
   top: -65px;
-  right: 196px;
+  right: 72px;
   transform: translateX(-50%) rotate(-90deg);
   border: 0;
   position: absolute;
@@ -1174,7 +1179,7 @@ div#msr-pod-up {
 }
 
 #languageSelect {
-  position: fixed;
+  /* position: fixed; */
   width: 103px;
   height: 38px;
   border-radius: 2rem;
@@ -2292,7 +2297,9 @@ div#msr-pod-up {
 }
 
 .cross-div {
-  margin: -40px;
+  left: -47px;
+  position: absolute;
+  top: -24px;
 }
 
 /* Rounded Compass*/
@@ -2320,8 +2327,6 @@ div#msr-pod-up {
   cursor: crosshair;
   z-index: 9999;
 }
-
-
 
 .hidden {
   display: none !important;
@@ -2520,4 +2525,60 @@ div#msr-pod-up {
   width: 10rem;
   cursor: pointer;
   position: relative;
+}
+
+.roundCompass--container {
+  display: flex;
+  flex-direction: column;
+  height: 560px;
+  width: 420px;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+#drawButton {
+  display: block;
+  padding: 12px 20px;
+  background-color: #007bff;
+  margin-top: 5px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+canvas {
+  border: 1px solid #000;
+  /* height: 400px; Set the canvas height in pixels */
+  height: 100%;
+}
+
+.controls {
+  margin-top: 20px;
+  text-align: center;
+}
+
+label {
+  font-weight: bold;
+}
+
+button {
+  display: block;
+  margin-top: 10px;
+}
+
+#compassCanvas {
+  cursor: move;
+}
+
+/* <calutor css> */
+.calc-box{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px
 }

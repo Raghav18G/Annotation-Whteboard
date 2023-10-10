@@ -2,7 +2,7 @@
 	/* CSS rules here for screens above 450px */
 		#wb-editor {
 			width:280px;
-			height:465px;
+			height:10px;
 		}
 	}
 
@@ -10,7 +10,7 @@
 	/* CSS rules here for screens above 550px */
 		#wb-editor {
 			width:400px;
-			height:465px;
+			height:10px;
 		}
 	}
 
@@ -19,7 +19,7 @@
 /* CSS rules here for screens above 650px */
 	#wb-editor {
 		width:500px;
-		height:465px;
+		height:10px;
 	}
 }
 
@@ -27,7 +27,7 @@
 	/* CSS rules here for screens above 650px */
 		#wb-editor {
 			width:600px;
-			height:465px;
+			height:10px;
 		}
 	}
 
@@ -36,7 +36,7 @@
 
 	#wb-editor {
 		width:600px;
-		height:465px;
+		height:10px;
 	}
 }
 

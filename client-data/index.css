@@ -53,6 +53,7 @@ main {
   flex-direction: column;
   /* padding: 20px; */
   justify-items:center;
+  max-width: 50%;
   gap: 20px;
   align-items:center;
   flex-grow: 1;
@@ -73,7 +74,22 @@ main {
   display: inline-block; /* Make ul elements inline-block */
   max-width: 75%; /* Set max width */
 }
+.landing-right ul li {
+  color:"#666666";
 
+}
+
+.landing-right .li-item{
+  font-family: "Inter";
+
+margin-bottom:2rem;
+}
+
+.landing-right .li-item .li-item-bold{
+  font-family: "Inter";
+  font-weight: 800;
+  color:"#212121"
+}
 
 
 

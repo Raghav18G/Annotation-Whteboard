@@ -449,7 +449,7 @@
     iconHTML: lineSVG,
     title: "Lines",
     name: "Line",
-    isExtra: true,
+    isExtra: false,
     //"icon": "",
     listeners: {
       press: startLine,

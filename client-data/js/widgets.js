@@ -511,6 +511,7 @@ const calculatorWidget = (e) => {
   <div id="calculatorWidget">
 <input type="text" id="result" disabled="true" ></input>
 <div>
+<div class="calc-box">
 <button id="number7" class="calc-btn">7</button>
 <button id="number8" class="calc-btn">8</button>
 <button id="number9" class="calc-btn">9</button>
@@ -528,6 +529,7 @@ const calculatorWidget = (e) => {
 <button id="subtract" class="calc-btn">-</button>
 <button id="add" class="calc-btn">+</button>
 <button id="calculate" class="calc-btn">=</button>
+</div>
 </div>
 </div>`;
 
@@ -899,58 +901,61 @@ const stopWatchWidget = (e) => {
   resetButton.addEventListener("click", () => reset());
 };
 
-const protractorWidget = (e) => {
-  console.log("protractor", e);
-  createDrag = new Draggable();
+const protractorWidget = e => {
+  console.log("protractor", e)
+  createDrag = new Draggable()
 
   const protractorforeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
     "foreignObject"
-  );
-  const protractorWidgetElement = document.createElement("div");
-  protractorWidgetElement.id = "protractorWidget";
-  let uid = Tools.generateUID("doc");
+  )
+  const protractorWidgetElement = document.createElement("div")
+  protractorWidgetElement.id = "protractorWidget"
+  let uid = Tools.generateUID("doc")
 
   const protractorWidgetHTML = `
     <div class="protractor-parent">
       <div class="rotational-container">
         <div class="rotational-division">
-          <input type="text" id="rotation-angle" value="0°"></input>
+         <input type="number" id="rotation-angle" value="0°" min="-360" max="360">
         </div>
       </div>
-    </div>`;
+    </div>`
 
-  protractorWidgetElement.innerHTML = protractorWidgetHTML;
+  protractorWidgetElement.innerHTML = protractorWidgetHTML
 
-  protractorforeignObject.style.x = `${e.clientX + window.scrollX}px`;
-  protractorforeignObject.style.y = `${e.clientY + window.scrollY}px`;
+  protractorforeignObject.style.x = `${e.clientX + window.scrollX}px`
+  protractorforeignObject.style.y = `${e.clientY + window.scrollY}px`
   // protractorforeignObject.style.x = e.clientX;
   // protractorforeignObject.style.y = e.clientY;
-  protractorforeignObject.style.width = "1px";
-  protractorforeignObject.style.height = "1px";
-  protractorforeignObject.setAttribute("id", uid);
-  protractorforeignObject.setAttribute("overflow", "visible");
+  protractorforeignObject.style.width = "1px"
+  protractorforeignObject.style.height = "1px"
+  protractorforeignObject.setAttribute("id", uid)
+  protractorforeignObject.setAttribute("overflow", "visible")
 
-  protractorforeignObject.appendChild(protractorWidgetElement);
+  protractorforeignObject.appendChild(protractorWidgetElement)
 
-  Tools.group.appendChild(protractorforeignObject);
-  const dragDiv = document.createElement("div");
+  Tools.group.appendChild(protractorforeignObject)
+  const dragDiv = document.createElement("div")
   dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>';
-  dragDiv.classList.add("drag-widget");
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>'
+  dragDiv.classList.add("drag-widget")
 
-  protractorforeignObject.appendChild(dragDiv);
-  createDrag.addDrag(dragDiv, protractorforeignObject);
+  protractorforeignObject.appendChild(dragDiv)
+  
+  createDrag.addDrag(dragDiv, protractorforeignObject)
 
-  const crossDiv = document.createElement("div");
+
+
+  const crossDiv = document.createElement("div")
   crossDiv.innerHTML =
-    '<img src="./assets/x-circle.svg" class="dragLogo" height="30" draggable="false" ></img>';
+    '<img src="./assets/x-circle.svg" class="dragLogo" height="30" draggable="false" ></img>'
 
-  crossDiv.classList.add("cross-div");
+  crossDiv.classList.add("cross-div")
 
-  foreignObjectCompass.appendChild(crossDiv);
+  protractorforeignObject.appendChild(crossDiv)
 
-  crossDiv.addEventListener("click", () => widgetRemove(uid));
+  crossDiv.addEventListener("click", ()=>widgetRemove(uid))
   //makeDraggeble(protractorforeignObject);
 
   // Make the widget draggable
@@ -985,19 +990,19 @@ const protractorWidget = (e) => {
 
   // Prevent automatic changing of input field while dragging
   $(document).ready(function () {
-    const rotationalContainer = $(".rotational-container");
-    const rotationalDiv = $(".rotational-division");
-    const rotationAngleInput = $("#rotation-angle");
-    let initialAngle = 0;
-    let rotationAngle = 0;
+    const rotationalContainer = $(".rotational-container")
+    const rotationalDiv = $(".rotational-division")
+    const rotationAngleInput = $("#rotation-angle")
+    let initialAngle = 0
+    let rotationAngle = 0
 
     rotationalContainer.on("mousedown", function (e) {
-      isDragging = true;
+      isDragging = true
       initialAngle = Math.atan2(
         e.clientY - window.innerHeight / 2,
         e.clientX - window.innerWidth / 2
-      );
-    });
+      )
+    })
 
     // $(document).on("mousemove", function (e) {
     //   if (isDragging) {
@@ -1019,20 +1024,20 @@ const protractorWidget = (e) => {
     // });
 
     rotationAngleInput.on("input", function () {
-      const inputValue = parseInt(rotationAngleInput.val());
+      const inputValue = parseInt(rotationAngleInput.val())
       if (!isNaN(inputValue)) {
-        let newRotationAngle = inputValue % 360;
-        if (newRotationAngle < 0) newRotationAngle += 360;
-        rotationalDiv.css("transform", `rotate(${newRotationAngle}deg)`);
-        rotationAngle = newRotationAngle;
+        let newRotationAngle = inputValue % 360
+        if (newRotationAngle < 0) newRotationAngle += 360
+        rotationalDiv.css("transform", `rotate(${newRotationAngle}deg)`)
+        rotationAngle = newRotationAngle
       }
-    });
+    })
 
     // $(document).on("mouseup", function () {
     //   isDragging = false;
     // });
-  });
-};
+  })
+}
 
 // ruler widget
 
@@ -1146,7 +1151,6 @@ const rulerWidget = (e) => {
 };
 
 const roundCompassWidget = (e) => {
-  console.log("roundCompass", e);
   createDrag = new Draggable();
 
   const roundCompassforeignObject = document.createElementNS(
@@ -1159,29 +1163,17 @@ const roundCompassWidget = (e) => {
   let uid = Tools.generateUID("doc");
 
   const roundCompassWidgetHTML = `
-  <div class="rounded-compass ">
-<div class="rounded-compass-input" style="display:"block">
-<div style="display:flex;margin-bottom: 11px;">
-<label for="radius" style="color: red;">Radius:</label>
-<input type="number" id="radius" min="0" max="10" step="0.1px" value="4.5" style="color: red; margin: -4px 0px 0px 8px;">
-</div>
-<div style="display:flex">
-    <label for="degree" style="color: green;">Degree:</label>
-    <input
-      type="number"
-      id="degree"
-      min="0"
-      max="360"
-      value="0"
-      style="color: green;margin: -4px 0px 0px 8px;"
-    />
+    <div class="roundCompass--container">
+    <canvas id="compassCanvas" height="400" width="400"></canvas>
+     <div class="controls">
+        <label for="radiusInput">Radius:</label>
+        <input type="number" id="radiusInput" value="100" max="196" min="0">
+        <label for="angleInput">Angle (0-360°):</label>
+        <input type="number" id="angleInput" value="0" min="0" max="360">
+      </div>
+      <button id="drawButton">Draw</button>
     </div>
-    </div>
-
-    <canvas id="canvas-roundcompass"> </canvas>
-    </div>
-    `;
-
+      `;
   roundCompassWidgetElement.innerHTML = roundCompassWidgetHTML;
 
   roundCompassforeignObject.style.x = `${e.clientX + window.scrollX}px`;
@@ -1217,111 +1209,219 @@ const roundCompassWidget = (e) => {
 
   createDrag.addDrag(dragDiv, roundCompassforeignObject);
 
-  const canvas = document.getElementById("canvas-roundcompass");
+  const canvas = document.getElementById("compassCanvas");
   const ctx = canvas.getContext("2d");
+  const radiusInput = document.getElementById("radiusInput");
+  const angleInput = document.getElementById("angleInput");
+  const drawButton = document.getElementById("drawButton");
 
-  const radiusInput = document.getElementById("radius");
-  const degreeInput = document.getElementById("degree");
+  const canvasWidth = canvas.width;
+  const canvasHeight = canvas.height;
+  const A = { x: canvasWidth / 2, y: canvasHeight / 2 };
+  let B = { x: A.x + 100, y: A.y }; // Initial position of B
+  let isDraggingRedArm = false;
+  let isDraggingGreenArm = false;
 
-  let radius = parseFloat(radiusInput.value);
-  let degree = parseInt(degreeInput.value);
+  const arcs = []; // Array to store arc properties
 
-  let isDragging = false;
-  let prevX = 0;
-
-  function drawArc() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Draw the arc/circle
-
-    ctx.beginPath();
-
-    ctx.arc(
-      canvas.width / 2,
-      canvas.height / 2,
-      radius * 25,
-      0,
-      (degree * Math.PI) / 180
-    );
-    ctx.strokeStyle = "green";
-    ctx.lineWidth = 5;
-    ctx.stroke();
-    ctx.closePath();
-    // Draw the radius line
-    ctx.beginPath();
-    ctx.moveTo(canvas.width / 2, canvas.height / 2);
-    const endX =
-      canvas.width / 2 + radius * 25 * Math.cos((degree * Math.PI) / 180);
-    const endY =
-      canvas.height / 2 + radius * 25 * Math.sin((degree * Math.PI) / 180);
-    ctx.lineTo(endX, endY);
-    ctx.strokeStyle = "red";
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    ctx.closePath();
+  function wrapAngle(angle) {
+    if (angle < 0) return 359;
+    if (angle >= 360) return 0;
+    return angle;
   }
 
-  canvas.addEventListener("mousedown", (e) => {
-    const x = e.clientX - canvas.getBoundingClientRect().left;
-    const y = e.clientY - canvas.getBoundingClientRect().top;
+  function drawTriangle() {
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    const deltaX = x - canvas.width / 2;
-    const deltaY = y - canvas.height / 2;
-    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    const radius = parseFloat(radiusInput.value);
+    let angle = parseFloat(angleInput.value);
 
-    // Check if the click is within the radius
-    if (distance <= radius * 50) {
-      isDragging = true;
-      prevX = x;
+    angle = wrapAngle(angle);
+
+    B.x = A.x + radius * Math.cos(angle * (Math.PI / 180));
+    B.y = A.y + radius * Math.sin(angle * (Math.PI / 180));
+
+    // Calculate the position of point C
+    const C = {
+      x: A.x + radius,
+      y: A.y,
+    };
+
+    ctx.lineWidth = 5;
+
+    // Draw all the stored arcs
+    arcs.forEach((arc) => {
+      ctx.beginPath();
+      ctx.arc(
+        arc.center.x,
+        arc.center.y,
+        arc.radius,
+        arc.startAngle,
+        arc.endAngle
+      );
+      ctx.strokeStyle = arc.color;
+      ctx.stroke();
+    });
+
+    // Draw red arm (line AB)
+    ctx.beginPath();
+    ctx.moveTo(A.x, A.y);
+    ctx.lineTo(B.x, B.y);
+    ctx.strokeStyle = "orange";
+    ctx.stroke();
+
+    // Draw green arm (line AC)
+    ctx.beginPath();
+    ctx.moveTo(A.x, A.y);
+    ctx.lineTo(C.x, C.y);
+    ctx.strokeStyle = "green";
+    ctx.stroke();
+
+    // Draw the current arc
+    ctx.beginPath();
+    ctx.arc(A.x, A.y, radius, 0, angle * (Math.PI / 180));
+    ctx.strokeStyle = "gray";
+    ctx.stroke();
+  }
+
+  let initialAngle = 0; // Store the initial angle when dragging starts
+
+  function handleMouseDown(event) {
+    const mouseX = event.clientX - canvas.getBoundingClientRect().left;
+    const mouseY = event.clientY - canvas.getBoundingClientRect().top;
+
+    // Check if the user clicked near the red arm (point B) for red arm dragging
+    const distanceToB = Math.sqrt((mouseX - B.x) ** 2 + (mouseY - B.y) ** 2);
+    if (distanceToB <= 10) {
+      isDraggingRedArm = true;
+      canvas.style.cursor = "grabbing"; // Change cursor to "grabbing"
+
+      // Calculate the initial angle when dragging starts
+      initialAngle = Math.atan2(mouseY - A.y, mouseX - A.x);
+      initialAngle = (initialAngle * 180) / Math.PI;
+      initialAngle = wrapAngle(initialAngle);
+
+      angleInput.value = initialAngle;
+      drawTriangle();
     }
-  });
 
-  canvas.addEventListener("mouseup", () => {
-    isDragging = false;
-  });
+    // Check if the user clicked near the green arm (point C) for green arm dragging
+    const distanceToC = Math.sqrt((mouseX - C.x) ** 2 + (mouseY - C.y) ** 2);
+    if (distanceToC <= 10) {
+      isDraggingGreenArm = true;
+      canvas.style.cursor = "grab"; // Change cursor to "grab"
+    }
+  }
 
-  canvas.addEventListener("mousemove", (e) => {
-    if (isDragging) {
-      const x = e.clientX - canvas.getBoundingClientRect().left;
-      const y = e.clientY - canvas.getBoundingClientRect().top;
-      const deltaX = x - canvas.width / 2;
-      const deltaY = y - canvas.height / 2;
+  function handleMouseMove(event) {
+    if (isDraggingRedArm) {
+      const mouseX = event.clientX - canvas.getBoundingClientRect().left;
+      const mouseY = event.clientY - canvas.getBoundingClientRect().top;
 
-      // Calculate the angle from the x-axis to the current point
-      let newDegree = (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
-      if (newDegree < 0) {
-        newDegree += 360;
+      // Calculate the angle based on the mouse position
+      let newAngle = Math.atan2(mouseY - A.y, mouseX - A.x);
+      newAngle = (newAngle * 180) / Math.PI;
+      newAngle = wrapAngle(newAngle);
+
+      // Calculate the angle change since the initial angle
+      let angleChange = newAngle - initialAngle;
+
+      // Handle wrapping when crossing the 0/359-degree boundary
+      if (Math.abs(angleChange) > 180) {
+        if (angleChange > 0) {
+          angleChange = -360 + angleChange;
+        } else {
+          angleChange = 360 + angleChange;
+        }
       }
 
-      degree = newDegree;
-      degreeInput.value = Math.round(degree);
-      drawArc();
+      // Update the initial angle for the next iteration
+      initialAngle = newAngle;
+
+      // Calculate the new angle
+      let updatedAngle = parseFloat(angleInput.value) + angleChange;
+      updatedAngle = wrapAngle(updatedAngle);
+
+      // Update the angle input and redraw the compass
+      angleInput.value = updatedAngle;
+      drawTriangle();
     }
-  });
 
-  radiusInput.addEventListener("input", () => {
-    radius = parseFloat(radiusInput.value);
-    drawArc();
-  });
+    if (isDraggingGreenArm) {
+      const mouseX = event.clientX - canvas.getBoundingClientRect().left;
 
-  degreeInput.addEventListener("input", () => {
-    degree = parseInt(degreeInput.value);
-    drawArc();
-  });
+      // Calculate the new radius based on the mouse position
+      let newRadius = Math.abs(mouseX - A.x);
 
-  canvas.addEventListener("mouseover", () => {
-    if (!isDragging) {
-      canvas.style.cursor = "pointer"; // Set the custom cursor when hovering over the radius
+      // Ensure the radius stays within reasonable bounds
+      if (newRadius < 10) {
+        newRadius = 10; // Minimum radius
+      }
+
+      // Update the radius input with the new radius
+      radiusInput.value = newRadius;
+
+      // Update the position of point C
+      C.x = A.x + newRadius;
+
+      // Calculate the new angle based on the current radius
+      let newAngle = Math.atan2(B.y - A.y, B.x - A.x);
+      newAngle = (newAngle * 180) / Math.PI;
+      newAngle = wrapAngle(newAngle);
+
+      // Update the angle input with the new angle
+      angleInput.value = newAngle;
+
+      // Redraw the compass with the updated values
+      drawTriangle();
     }
-  });
+  }
 
-  canvas.addEventListener("mouseout", () => {
-    if (!isDragging) {
-      canvas.style.cursor = "default"; // Reset to the default pointer when not hovering over the radius
+  function handleMouseUp() {
+    isDraggingRedArm = false;
+    isDraggingGreenArm = false;
+    canvas.style.cursor = "default"; // Restore default cursor
+  }
+
+  canvas.addEventListener("mousedown", handleMouseDown);
+  canvas.addEventListener("mousemove", handleMouseMove);
+  canvas.addEventListener("mouseup", handleMouseUp);
+
+  radiusInput.addEventListener("input", drawTriangle);
+
+  angleInput.addEventListener("input", () => {
+    let angle = parseFloat(angleInput.value);
+
+    if (angle < 0) {
+      angle = 359;
+    } else if (angle >= 360) {
+      angle = 0;
     }
+
+    angleInput.value = angle;
+
+    drawTriangle();
   });
 
-  drawArc();
+  drawButton.addEventListener("click", () => {
+    // Store the current arc's properties and color
+    const currentRadius = parseFloat(radiusInput.value);
+    const currentAngle = parseFloat(angleInput.value);
+    const currentColor = "black"; // You can choose any color
+
+    arcs.push({
+      center: { x: A.x, y: A.y },
+      radius: currentRadius,
+      startAngle: 0,
+      endAngle: (currentAngle * Math.PI) / 180,
+      color: currentColor,
+    });
+
+    // Redraw the compass with the new arc
+    drawTriangle();
+  });
+
+  // drawTriangle()
 };
 
 // function makeDraggeble(parentRef) {

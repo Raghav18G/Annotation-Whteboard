@@ -769,7 +769,7 @@
     //The new tool
     // "name": "Rectangle",
     //  "icon": "▢",
-    isExtra: true,
+    isExtra: false,
     iconHTML: shapeSVG,
     name: "Rectangle",
     title: "Shapes",

@@ -3,5 +3,9 @@ function launchScannerApp() {
 }
 
 function launchScreenshotScript() {
-  console.log("ScreenshotToolTriggered");
+  var screenshotEvent = new Event("ScreenshotToolTriggered")
+
+  document.dispatchEvent(screenshotEvent)
+  
+  console.log("ScreenshotToolTriggered")
 }

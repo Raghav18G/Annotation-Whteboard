@@ -964,7 +964,7 @@ function getDocument(src) {
   }
   const fetchDocParams = {
     docId,
-    apiVersion: '4.0.14',
+    apiVersion: '3.11.174',
     data,
     password,
     disableAutoFetch,
