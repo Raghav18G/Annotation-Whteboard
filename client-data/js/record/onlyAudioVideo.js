@@ -13,8 +13,13 @@ const audioVideo = async () => {
     $(".video__recorder__screen_container").draggable().resizable();
     $(".video__recorder__screen").draggable();
     if ("srcObject" in video) {
+      
+      console.log("clicked video1");
       video.srcObject = audioStream;
+      video.style.display= "block";  
     } else {
+      console.log("clicked video2");
+
       video.src = window.URL.createObjectURL(audioStream);
     }
     video.onloadedmetadata = function (e) {
@@ -23,6 +28,7 @@ const audioVideo = async () => {
 
     // start video
     $("body").on("click", ".hide__video", () => {
+      // video.classList.add("show-video")
       if ("srcObject" in video) {
         video.srcObject = audioStream;
       } else {
@@ -35,6 +41,8 @@ const audioVideo = async () => {
 
     // stop video
     $("body").on("click", ".video__recorder", () => {
+      video.style.display= "none";  
+      
       const stream = video.srcObject;
       video.onloadedmetadata = function (e) {
         video.pause();

@@ -12,7 +12,7 @@
  * General Public License (GNU GPL) as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option)
  * any later version.  The code is distributed WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * without even the implied warranty of MERCHANTABILITY or FITNESS</body
  * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
  *
  * As additional permission under GNU GPL version 3 section 7, you
@@ -35,8 +35,9 @@ var svgWidth, svgHeight;
 var isTouchDevice = "ontouchstart" in document.documentElement;
 
 Tools.board = document.getElementById("board");
+
 Tools.svg = document.getElementById("canvas");
-console.log("CANAVS", Tools.svg);
+
 Tools.group = Tools.svg.getElementById("layer-1");
 Tools.compass = document.getElementById("compass");
 
@@ -65,6 +66,7 @@ Tools.suppressPointerMsg = false;
 const MAX_CURSOR_UPDATES_PER_SECOND = 20;
 const DISPLAY_ACTIVITY_MONITOR = true;
 var loading = true;
+var isDataEmpty = false;
 
 (Tools.socket = null),
   (Tools.connect = function () {
@@ -94,7 +96,6 @@ var loading = true;
     });
 
     this.socket.on("broadcast", function (msg) {
-      console.log("Total live users " + msg?.userCount);
       window.localStorage.removeItem("structure");
       window.localStorage.setItem("structure", msg?.structure);
       const selectedBoard = window.location.search
@@ -115,13 +116,13 @@ var loading = true;
       ) {
         if (Tools.msgs.length > msg.msgCount) {
           var msgs = Tools.msgs.slice(msg.msgCount);
-          console.log("out of sync: " + JSON.stringify(msgs));
+
           handleMessage({ _children: msgs });
         }
       }
 
       if (loading) {
-        setTimeout(function() {
+        setTimeout(function () {
           var loadingEl = document.getElementById("loadingMessage");
           var loadingStrip = document.getElementById("toolbarLoadingStrip");
           loadingEl.classList.add("hidden");
@@ -130,7 +131,6 @@ var loading = true;
           loading = false;
         }, 500);
       }
-
     });
 
     this.socket.on("reconnect", function onReconnection() {
@@ -147,7 +147,7 @@ Tools.boardName = (function () {
   const urlParams = new URLSearchParams(path);
   const fileName = urlParams.get("file").split("#")[0];
   const folderName = window.location.search.split("?board=")[1].split("&")[0];
-  console.log("FILENAME", fileName, "Folder NAme", folderName);
+
   return encodeURIComponent(folderName) + "/" + fileName;
 })();
 
@@ -160,7 +160,6 @@ Tools.svg.addEventListener("touchmove", handleMarker, { passive: false });
 //}
 
 //Adding Genrated Images For board
-
 var lastPointerUpdate = 0;
 var cursorLastUse = {};
 var cursors = {};
@@ -181,7 +180,9 @@ var ptrMessage = {
 
 function handleMarker(evt) {
   //evt.preventDefault();
+
   var cur_time = Date.now();
+  Tools.socket.emit("broadcast", "TEST");
   if (wb_comp.list["Measurement"] && !Tools.suppressPointerMsg) {
     wb_comp.list["Measurement"].update({
       type: "pointer",
@@ -573,12 +574,12 @@ Tools.list = {}; // An array of all known tools. {"toolName" : {toolObject}}
 Tools.add = function (newTool) {
   // console.log("TOOLs aDD CALLED", newTool.name);
   //    // Define an array of allowed tools
-    //  var notAllowedTools = ["Grid", "Zoom In", "Zoom Out", "Background", "Download"]; // Add the names of the allowed tools
+  //  var notAllowedTools = ["Grid", "Zoom In", "Zoom Out", "Background", "Download"]; // Add the names of the allowed tools
 
-    //  if (notAllowedTools.includes(newTool.name)) {
-    //    console.log("Tool '" + newTool.name + "' is not in the allowed list.");
-    //    return; // Exit the function if tool is not allowed
-    //  }
+  //  if (notAllowedTools.includes(newTool.name)) {
+  //    console.log("Tool '" + newTool.name + "' is not in the allowed list.");
+  //    return; // Exit the function if tool is not allowed
+  //  }
   if (newTool.name in Tools.list) {
     console.log(
       "Tools.add: The tool '" +
@@ -588,7 +589,6 @@ Tools.add = function (newTool) {
     );
   }
 
-  console.log("Tools List ", Tools.list);
   //Format the new tool correctly
   Tools.applyHooks(Tools.toolHooks, newTool);
 
@@ -659,7 +659,6 @@ Tools.change = function (toolName) {
   //Update the GUI
   var curToolName = Tools.curTool ? Tools.curTool.name : "";
   try {
-    console.log("Current Tool", curToolName);
     Tools.HTML.changeTool(curToolName, toolName);
   } catch (e) {
     console.error("Unable to update the GUI with the new tool. " + e);
@@ -708,6 +707,7 @@ Tools.send = function (data, toolName) {
     board: Tools.boardName,
     data: d,
   };
+
   Tools.socket.emit("broadcast", message);
   // dont save cursor or echo messages
   if (message.data.type != "c" && message.data.type != "e") {

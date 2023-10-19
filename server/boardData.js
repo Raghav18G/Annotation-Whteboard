@@ -518,17 +518,15 @@ BoardData.prototype.save = function (file) {
   this.lastSaveDate = Date.now();
   this.clean();
   if (config.SAVE_BOARDS) {
-    //TODO Need to updat this
-    console.log({ file });
     if (!file) file = this.file;
     file = file.replace(/\\/g, "/");
-    console.log({ file });
+
     const fileName = file.split("/")[file.split("/").length - 1];
-    console.log({ fileName });
+
     const dirPath = file.replace("/" + fileName, "");
-    console.log({ dirPath, file });
+
     const isFolderExists = fs.existsSync(path.resolve(dirPath));
-    console.log({ isFolderExists });
+
     if (!isFolderExists) {
       fs.mkdirSync(path.resolve(dirPath));
     }
@@ -637,8 +635,6 @@ BoardData.load = function loadBoard(name) {
       try {
         if (err) throw err;
         boardData.elements = JSON.parse(data);
-        //for (id in boardData.elements) boardData.validate(boardData.board[id]);
-        console.log(boardData.name + " loaded from file.");
       } catch (e) {
         if (config.SAVE_BOARDS)
           console.error(

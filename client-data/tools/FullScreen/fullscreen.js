@@ -14,11 +14,12 @@ $(document).ready(() => {
   $("body").on("click", ".fullscreen_icon", () => {
     $("body").fullscreen();
     $(".fullscreen__container").empty().append(exitFullScreen);
-    document.getElementById("rect_1").setAttribute("fill","white")
+    // document.getElementById("rect_1").setAttribute("fill", "white");
     return false;
   });
   $("body").on("click", ".exit__fullscreen", () => {
     $.fullscreen.exit();
+
     $(".fullscreen__container").empty().append(fullScreen);
     return false;
   });

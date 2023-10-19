@@ -38,6 +38,7 @@ var io = sockets.start(app);
 
 app.listen(config.PORT);
 log("server started", { port: config.PORT });
+log("You Can Acess The Whiteboard By Typing localhost:8090 On Any Browser");
 
 var CSP =
   "default-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss:";

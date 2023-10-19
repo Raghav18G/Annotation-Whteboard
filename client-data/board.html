@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no" />
-    <title>Iprep  Whiteboard</title>
+    <title>Iprep Whiteboard</title>
     <link rel="stylesheet" href="Fonts/stylesheet.css">
     <link rel="stylesheet" href="tools/table/table.css">
-    
+
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="tools/background-manangement/backgorund.css">
@@ -17,7 +17,7 @@
     <!-- <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.0/css/bootstrap.css" /> -->
     <link type="text/css" rel="stylesheet" href="OfflineCDN/source.zoom.us/1.8.0/css/bootstrap.css" />
     <!-- <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.0/css/react-select.css" /> -->
-    <link type="text/css" rel="stylesheet" href="OfflineCDN/source.zoom.us/1.8.0/css/react-select.css" />
+    <!-- <link type="text/css" rel="stylesheet" href="OfflineCDN/source.zoom.us/1.8.0/css/react-select.css" /> -->
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
 
@@ -39,17 +39,12 @@
     <script src="OfflineCDN/kit.fontawesome.com/0166a4ad2b.js" crossorigin="anonymous"></script>
     <script src="socket.io.js"></script>
 
-
-    <!-- <script src="node_modules/pdfjs-dist/build/pdf.min.js"></script> -->
-
     <meta name="description" content="A free and opensource online collaborative drawing tool." />
     <meta name="keywords" content="Collaborative whiteboard,online,draw,paint,shared,realtime" />
     <link rel="icon" type="image/png" sizes="32x32" href="assets/Fevicon.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="assets/Fevicon.png" />
-    <link
-      rel="manifest"
-      href="https://res.cloudinary.com/ddwbbzuxw/raw/upload/v1597236051/fevicon/site_uzghky.webmanifest"
-    />
+    <link rel="manifest"
+        href="https://res.cloudinary.com/ddwbbzuxw/raw/upload/v1597236051/fevicon/site_uzghky.webmanifest" />
     <style>
         .modal-backdrop {
             opacity: 0.25 !important;
@@ -85,13 +80,14 @@
     <script>
         $(window).on("load", function () {
             init();
-            document.getElementById("openMoreTools").addEventListener("click",()=>{
-                document.getElementById("moreTools").style.display="block"
+            document.getElementById("openMoreTools").addEventListener("click", () => {
+                document.getElementById("moreTools").style.display = "block"
             })
-            
-            document.getElementById("moreToolsClose").addEventListener("click",()=>{
-                document.getElementById("moreTools").style.display="none"
+
+            document.getElementById("moreToolsClose").addEventListener("click", () => {
+                document.getElementById("moreTools").style.display = "none"
             })
+
         });
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
@@ -136,47 +132,52 @@
     </div>
 
 
-    
+
     <!-- Add new Page modal -->
     <div id="addNewPageModal" class="addNewPageModal">
         <div class="addNewPageModal-content">
-          <span class="pagesModalClose" id="pagesModalClose">&times;</span>
-          <h2>Page Navigation</h2>
-          <div class="page-container" id="pageContainer">
-            <!-- Pages will be dynamically added here -->
-          </div>
-          <button id="addPageBtn">Add Page</button>
+            <span class="pagesModalClose" id="pagesModalClose">&times;</span>
+            <h2>Page Navigation</h2>
+            <div class="page-container" id="pageContainer">
+                <!-- Pages will be dynamically added here -->
+            </div>
+            <button id="addPageBtn">Add Page</button>
         </div>
-      </div>
+    </div>
 
     <!-- Download Content Modal -->
     <div class="downloadModal" id="downloadModal">
-    <div class="downloadModal-content">
+        <div class="downloadModal-content">
             <span class="close" id="downloadModalClose"><img src="./assets/CloseCircle.svg" /></span>
 
             <div class="downloadItems">
                 <h3 style="font-weight: 800;"> Download Current Page in the Following Formats</h3>
                 <div class="downloadItems--container">
-                    <div  class="download-chip">
-                        <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsSVG">SVG</h4>
+                    <div class="download-chip">
+                        <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsSVG">SVG
+                        </h4>
                     </div>
-                    <div  class="download-chip">
-                        <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPDF">PDF</h4>    
+                    <div class="download-chip">
+                        <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPDF">PDF
+                        </h4>
                     </div>
-                    <div  class="download-chip">
-                        <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPNG">PNG</h4>
+                    <div class="download-chip">
+                        <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPNG">PNG
+                        </h4>
                     </div>
-                    <div  class="download-chip">
-                        <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsJPG">JPG</h4>
+                    <div class="download-chip">
+                        <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsJPG">JPG
+                        </h4>
                     </div>
-                  
+
                 </div>
             </div>
-          
+
             <div class="donwnloadAllPages" id="downloadingMulyipageOption">
                 <h3 style="font-weight: 800;">OR</h3>
-                <div  class="download-chip">
-                    <h3  style="text-align: center; cursor: pointer;" id="downlaodAllPages" class="downloadOption">Download All Pages</h3>
+                <div class="download-chip">
+                    <h3 style="text-align: center; cursor: pointer;" id="downlaodAllPages" class="downloadOption">
+                        Download All Pages</h3>
 
                 </div>
             </div>
@@ -221,7 +222,7 @@
 
             <div id="addPDFPages">
             </div>
-            <p>
+            <p style="display: flex;gap: 5px">
                 <button id="select-All" class="pdfBtn" onclick="handleAddAllPDF()">Select All</button>
                 <button id="remove-All" class="pdfBtn" onclick="deselectAllPDF()">Remove ALL</button>
 
@@ -575,13 +576,13 @@
 
 
     <!-- Loading Toolbar Strip -->
-   
-        <div id="toolbarLoadingStrip">
-            <div class="loading-strip" id="strip">
-            </div>
-            <div class="loading-text" id="loadingText">Loading...</div>
+
+    <div id="toolbarLoadingStrip">
+        <div class="loading-strip" id="strip">
         </div>
-  
+        <div class="loading-text" id="loadingText">Loading...</div>
+    </div>
+
     <div class="moreTools" id="moreTools">
         <ul id="tool-list" class="tool-list">
             <li class="tool-extra">
@@ -589,7 +590,7 @@
                     <span class=" tool-icon tool-icon-modal "></span>
                 </div>
 
-               
+
             </li>
         </ul>
         <button id="moreToolsClose">Close</button>
@@ -597,32 +598,36 @@
     <!-- Draggable Toolbar  -->
     <div id="draggableToolbar">
         <!-- Tools -->
-         <!-- Color Picker -->
-         <div class="parent-color-picker" style="margin-top: -37px;margin-left:16px;margin-right: 16px;">
+      
+        <ul id="tools" class="tools">
+            <li class="tool"><span class="tool-icon"></span></li>
+        </ul>
+          <!-- Color Picker -->
+          <div class="parent-color-picker" style="margin-top: -37px;margin-left:16px;margin-right: 16px;">
             <div class="tool-selected">
                 <span class="tool-icon color-tool-pick" style="margin: -12px -7px 27px -10px;">
-          
-                <!-- <div class="color-pick"  id="color-pick" title="Color Picker">
+
+                    <!-- <div class="color-pick"  id="color-pick" title="Color Picker">
                         <input type="color" value="#ff00ff" id="chooseColor" />
                 </div> -->
                     <div class="input-container" id="color-pick" title="Color Picker">
                         <input type="color" class="icon-input" id="chooseColor">
                     </div>
-                  
-                
-                
-                <label id="tool-color-localization" class="label-tool" style="font-size:10px;font-weight:400;margin-top: 12px;line-height: 12px;"><p>Color Picker</p></label>
+
+
+
+                    <label id="tool-color-localization" class="label-tool"
+                        style="font-size:10px;font-weight:400;margin-top: 12px;line-height: 12px;">
+                        <p>Color Picker</p>
+                    </label>
                 </span>
             </div>
         </div>
-        <ul id="tools" class="tools">
-            <li class="tool"><span class="tool-icon"></span></li>
-        </ul>
-      
 
-       
+
+
         <!-- Tool Size Indicator -->
-        <div class="tool size_selector_container">
+        <div class="tool size_selector_container ">
             <span class="tool-icon" id="tool-size-selector" title="Tool size selector">
                 <svg viewBox="-60 -70 120 120" class="tool-icon-sizeIndicator" style="display:none">
                     <circle id="sizeIndicator" cx=0 cy=0 r=10 />
@@ -634,15 +639,15 @@
                     <path d="M0.706387 25.2591C-0.235463 26.201 -0.235463 27.7359 0.706387 28.6777L12.425 40.3963C12.4708 40.4443 12.5297 40.4792 12.5907 40.501L16.8617 41.9704C17.0187 42.0249 17.1931 41.9835 17.3109 41.8658C17.3937 41.7829 17.4395 41.6718 17.4395 41.5584C17.4395 41.5104 17.4308 41.4625 17.4155 41.4167L15.946 37.1456C15.9242 37.0824 15.8894 37.0257 15.8414 36.9799L4.12277 25.2613C3.66711 24.8057 3.05883 24.5528 2.41349 24.5528C1.76815 24.5528 1.15987 24.8035 0.704206 25.2613L0.706387 25.2591ZM3.38586 30.1232L4.17074 29.3383L13.5173 38.6849L12.7324 39.4697L3.38586 30.1232ZM16.3014 40.8542L13.5347 39.9036L14.4417 38.9966L15.3487 38.0897L16.2992 40.8564L16.3014 40.8542ZM14.9192 37.2874L14.1343 38.0722L4.78774 28.7257L5.57261 27.9408L14.9192 37.2874ZM4.95561 27.3238L3.86333 28.4161L2.77104 29.5084L2.24997 28.9873L4.43454 26.8027L4.95561 27.3238ZM3.51013 25.8783L3.81754 26.1857L1.63298 28.3703L1.32557 28.0629C0.723829 27.4612 0.723828 26.4801 1.32557 25.8783C1.9273 25.2766 2.9084 25.2766 3.51013 25.8783Z" fill="black"/>
                     <path d="M27.6893 26.0511L27.6893 26.0511C27.554 26.0028 27.4148 25.9229 27.3006 25.8045L9.13735 7.64123C7.54238 6.04627 7.54106 3.44904 9.13338 1.85241L27.6893 26.0511ZM27.6893 26.0511L27.6932 26.0524M27.6893 26.0511L27.6932 26.0524M27.6932 26.0524L34.313 28.33C34.3131 28.33 34.3133 28.3301 34.3134 28.3301C34.6853 28.4591 35.0952 28.3601 35.3704 28.0849C35.5635 27.8918 35.672 27.631 35.672 27.3616C35.672 27.2453 35.6509 27.1336 35.6169 27.0316L35.6169 27.0316M27.6932 26.0524L35.6169 27.0316M35.6169 27.0316L35.6158 27.0284M35.6169 27.0316L35.6158 27.0284M35.6158 27.0284L33.3379 20.4076L33.3379 20.4074M35.6158 27.0284L33.3379 20.4074M33.3379 20.4074C33.288 20.2627 33.2063 20.1271 33.09 20.015M33.3379 20.4074L33.09 20.015M33.09 20.015L14.9268 1.85182C14.1552 1.08023 13.1236 0.651232 12.0304 0.651232C10.9397 0.651232 9.90926 1.07493 9.13735 1.84844C9.13733 1.84846 9.13731 1.84848 9.1373 1.84849L33.09 20.015ZM31.9336 22.6264L32.9917 25.7062L29.912 24.648L30.9228 23.6372L31.9336 22.6264ZM28.0264 23.6304L14.0312 9.63523L14.7544 8.912L28.7496 22.9072L28.0264 23.6304ZM30.9227 20.7408L30.1995 21.4641L16.2043 7.46885L16.9275 6.74564L30.9227 20.7408ZM14.0311 6.74221L12.5846 8.1887L12.2703 7.87442L15.1633 4.98145L15.4776 5.29573L14.0311 6.74221ZM13.4836 3.30173L13.7134 3.53154L10.8204 6.42451L10.5906 6.1947C9.79411 5.39818 9.79411 4.09826 10.5906 3.30173C11.3872 2.50521 12.6871 2.50521 13.4836 3.30173Z" fill="black" stroke="#F6F6F6" stroke-width="0.69786"/>
                 </svg> -->
-                <div class="tool-selected" >
-                    <svg class="tool-icon-svg" style="margin-left: -1px;margin-bottom:1px ;" width="31" height="31" viewBox="0 0 31 31" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M27.1198 3.875L15.9662 6.86359L19.3416 10.239L8.94209 20.6385L5.56671 17.2631L2.57812 28.4167L13.7317 25.4281L10.3563 22.0527L20.7558 11.6532L24.1312 15.0286L27.1198 3.875Z"
-                        fill="#424242" />
-                </svg>
+                <div class="tool-selected">
+                    <svg class="tool-icon-svg" style="margin-left: -1px;margin-bottom:1px ;" width="31" height="31"
+                        viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M27.1198 3.875L15.9662 6.86359L19.3416 10.239L8.94209 20.6385L5.56671 17.2631L2.57812 28.4167L13.7317 25.4281L10.3563 22.0527L20.7558 11.6532L24.1312 15.0286L27.1198 3.875Z"
+                            fill="#424242" />
+                    </svg>
                 </div>
-               
+
 
 
                 <label class="label-tool" style="font-size:10px; line-height:2px;font-weight:400; margin-top:14px">
@@ -660,7 +665,7 @@
 
 
         <!-- Opacity Picker -->
-        <div class="tool opacityPicker hidden">
+        <div class="tool opacityPicker ">
             <span class="tool-icon" id="opacity-picker" title="Opacity Picker">
                 <!-- <svg class="tool-icon-svg" viewBox="0 0 8 8">
                     <pattern id="opacityPattern" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
@@ -672,37 +677,37 @@
                     <circle cx=4 cy=4.6 id="opacityIndicator" r=3.5 fill="url(#opacityPattern)" />
                 </svg> -->
                 <div class="tool-selected">
-                    <svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24"  style="margin-left: 0.5px;" viewBox="0 0 28 28"
-                    fill="none">
-                    <mask id="mask0_8261_28999" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
-                        width="28" height="28">
-                        <circle id="opacityIndicator" cx="14" cy="14" r="14" fill="#D9D9D9" />
-                    </mask>
-                    <g mask="url(#mask0_8261_28999)">
-                        <path d="M-5 0H4V9H-5V0Z" fill="#212121" />
-                        <path d="M-5 18H4V27H-5V18Z" fill="#212121" />
-                        <path d="M-5 9H4V18H-5V9Z" fill="white" />
-                        <path d="M-5 27H4V36H-5V27Z" fill="white" />
-                        <path d="M4 0H13V9H4V0Z" fill="white" />
-                        <path d="M4 18H13V27H4V18Z" fill="white" />
-                        <path d="M4 9H13V18H4V9Z" fill="#212121" />
-                        <path d="M4 27H13V36H4V27Z" fill="#212121" />
-                        <path d="M13 0H22V9H13V0Z" fill="#212121" />
-                        <path d="M13 18H22V27H13V18Z" fill="#212121" />
-                        <path d="M31 9H40V18H31V9Z" fill="white" />
-                        <path d="M31 27H40V36H31V27Z" fill="white" />
-                        <path d="M22 0H31V9H22V0Z" fill="white" />
-                        <path d="M22 18H31V27H22V18Z" fill="white" />
-                        <path d="M22 9H31V18H22V9Z" fill="#212121" />
-                        <path d="M22 27H31V36H22V27Z" fill="#212121" />
-                        <path d="M31 0H40V9H31V0Z" fill="#212121" />
-                        <path d="M31 18H40V27H31V18Z" fill="#212121" />
-                        <path d="M13 9H22V18H13V9Z" fill="white" />
-                        <path d="M13 27H22V36H13V27Z" fill="white" />
-                    </g>
-                </svg>
+                    <svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        style="margin-left: 0.5px;" viewBox="0 0 28 28" fill="none">
+                        <mask id="mask0_8261_28999" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
+                            width="28" height="28">
+                            <circle id="opacityIndicator" cx="14" cy="14" r="14" fill="#D9D9D9" />
+                        </mask>
+                        <g mask="url(#mask0_8261_28999)">
+                            <path d="M-5 0H4V9H-5V0Z" fill="#212121" />
+                            <path d="M-5 18H4V27H-5V18Z" fill="#212121" />
+                            <path d="M-5 9H4V18H-5V9Z" fill="white" />
+                            <path d="M-5 27H4V36H-5V27Z" fill="white" />
+                            <path d="M4 0H13V9H4V0Z" fill="white" />
+                            <path d="M4 18H13V27H4V18Z" fill="white" />
+                            <path d="M4 9H13V18H4V9Z" fill="#212121" />
+                            <path d="M4 27H13V36H4V27Z" fill="#212121" />
+                            <path d="M13 0H22V9H13V0Z" fill="#212121" />
+                            <path d="M13 18H22V27H13V18Z" fill="#212121" />
+                            <path d="M31 9H40V18H31V9Z" fill="white" />
+                            <path d="M31 27H40V36H31V27Z" fill="white" />
+                            <path d="M22 0H31V9H22V0Z" fill="white" />
+                            <path d="M22 18H31V27H22V18Z" fill="white" />
+                            <path d="M22 9H31V18H22V9Z" fill="#212121" />
+                            <path d="M22 27H31V36H22V27Z" fill="#212121" />
+                            <path d="M31 0H40V9H31V0Z" fill="#212121" />
+                            <path d="M31 18H40V27H31V18Z" fill="#212121" />
+                            <path d="M13 9H22V18H13V9Z" fill="white" />
+                            <path d="M13 27H22V36H13V27Z" fill="white" />
+                        </g>
+                    </svg>
                 </div>
-              
+
                 <label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">
                     <p id="tool-opacity-localization">Opacity</p>
                     <p id="tool-picker-localization"> Picker</p>
@@ -710,24 +715,33 @@
             </span>
             <label class="tool-name slider opacitySelector hideOpacity" for="chooseOpacity" id="opacitySelector">
                 <input type="range" id="chooseOpacity" value="1" min="0.2" max="1" step="0.1"
-                    style="-webkit-appearance: slider-vertical" class="rangeChooser rangeChooser-opacity" />
+                    style="-webkit-appearance: slider-vertical" class="rangeChooser-opacity" />
             </label>
         </div>
         <div class="tool-name">
             <button id="openMoreTools">
-                <img src="./assets/Add Circle.png" width="30"/>
-                <label id="tool-more-localization" class="label-more" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">More</label>
+                <img src="./assets/Add Circle.png" width="30" />
+                <label id="tool-more-localization" class="label-more"
+                    style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">More</label>
             </button>
         </div>
+        <!-- <div class="tool-name">
+            <button id="deselect-tool" onclick="">X</button>
+            <label style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 4px;">Deselect Tool</label>
+        </div> -->
+        
+        <!-- <div class="tool-name">
+            <button id="add-page" onclick="addNewPage()"> <img src="./assets/Add New.png" width="30" /></button>
+            <label style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 4px;">Add New Page</label>
+        </div> -->
 
-          <!-- <button id="add-page" onclick="addNewPage()">Add New</button> -->
-       
-         
+
+
 
     </div>
 
 
-    
+
     <div id="loadingMessage"></div>
     <div id="overlay"></div>
     <div id="top_left_tools" class="top__tools">
@@ -763,13 +777,16 @@
 
     <div id="board">
         <!-- <img id="destination" /> -->
-
         <div class="localization">
             <img src="Left-Logo.svg" width="200" style="margin-right: 4px" />
             <select id="languageSelect" onchange="changeLanguage()">
+
                 <option value="en">English</option>
                 <option value="hi">हिंदी</option>
             </select>
+        </div>
+        <div class="pageNumberContainer">
+           <p class="pageNumber" id="pageNumber"></p>
         </div>
 
         <svg id="canvas" width="500" height="500" viewBox="0 0 500 500" svgHeightversion="1.1"
@@ -822,74 +839,145 @@
 
     <!-- Text Editor -->
     <!-- Text Editor -->
-    <div class="window" id="wb-editor-container" style="display:none">
-        <div id="wb-editor-container-header">
-            <div>
-                <span id='wb-editor-curmode'>Text</span> Editor &nbsp;
+  <!-- Text Editor new -->
 
-                <button class="wb-editor-button" data-trigger="hover" title="Modes" style="display: none"
-                    id="wb-options" type="button"><i class="fas fa-bars wb-editor-icon"></i></button>
-                <button class="wb-editor-button wb-button-inactive" data-trigger="hover" title="Run" id="wb-editor-run"
-                    type="button"><i class="fas fa-play-circle wb-editor-icon"></i></button>
-                <button class="wb-editor-button wb-button-inactive" data-trigger="hover" title="Real-time Run"
-                    id="wb-editor-live" type="button"><i id="wb-editor-live-icon"
-                        class="fas fa-circle-notch fa-spin wb-editor-icon"></i></button>
-                <button type="button" class="wb-button wb-textoptions-button" data-trigger="hover" style="display: none"
-                    title="Text Options" id="wb-textoptions" aria-label="Down"><span aria-hidden="true"><i
-                            class="fas fa-angle-double-down"></i></span></button>
+ 
 
-            </div>
+  <div class="window" id="wb-editor-container" style="display:none">
+
+    <div id="wb-editor-container-header">
+
+        <div>
+
+            <span id='wb-editor-curmode'>Text</span> Editor &nbsp;
 
 
-            <div class="close-max-btn" style="margin-right: 40px">
-                <button type="button" class="close window-button" id="close-editor" aria-label="Close"><span
-                        aria-hidden="true">×</span></button>
-                <button type="button" class="window-button window-icon-button" data-trigger="hover" title="Maximize"
-                    id="max-editor" aria-label="Max"><span aria-hidden="true"><i
-                            class="fa fa-window-maximize wb-editor-icon"></i></span></button>
-            </div>
 
-        </div>
-        <div id="wb-editor-container-modes">
-            <button class="wb-button wb-mode-button" id="wb-close-options" type="button"><i
-                    class="fas fa-angle-double-up" aria-hidden="true"></i></button>
-            <button class="wb-editor-mode" id="wb-text" data-trigger="hover" title="Text editor"
-                type="button">text</button>
-            <button class="wb-editor-mode" id="wb-js" data-trigger="hover" title="Javascript compiler/editor"
-                type="button">js</button>
-            <button class="wb-editor-mode" id="wb-python" data-trigger="hover" title="Python compiler/editor"
-                type="button">py</button>
-            <button class="wb-editor-mode" id="wb-cpp" data-trigger="hover" title="C++ compiler/Editor"
-                type="button">c++</button>
-        </div>
-        <div id="wb-editor-container-toolbar" style="display: none">
-            <button class="wb-button wb-edit-button" id="wb-close-edit" type="button"><i class="fas fa-angle-double-up"
-                    aria-hidden="true"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-spell-check" data-trigger="hover" title="Check spelling"
-                type="button"><i id="wb-editor-spell-check-icon" class="fas fa-spell-check"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-code-template" data-trigger="hover" title="Code template"
-                type="button"><i class="fa fa-file-code-o"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-ed-undo" data-trigger="hover" title="Undo" type="button"><i
-                    class="fas fa-undo"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-ed-redo" data-trigger="hover" title="Redo" type="button"><i
-                    class="fas fa-redo"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-ed-search" data-trigger="hover" title="Search"
-                type="button"><i class="fas fa-search"></i></button>
-            <!-- <button id="createFolderButton" onclick="createFolderButton">New Tab</button> -->
+            <button class="wb-editor-button" data-trigger="hover" title="Modes" style="display: none"
+
+                id="wb-options" type="button"><i class="fas fa-bars wb-editor-icon"></i></button>
+
+            <button class="wb-editor-button wb-button-inactive" data-trigger="hover" title="Run" id="wb-editor-run"
+
+                type="button"><i class="fas fa-play-circle wb-editor-icon"></i></button>
+
+            <button class="wb-editor-button wb-button-inactive" data-trigger="hover" title="Real-time Run"
+
+                id="wb-editor-live" type="button"><i id="wb-editor-live-icon"
+
+                    class="fas fa-circle-notch fa-spin wb-editor-icon"></i></button>
+
+            <button type="button" class="wb-button wb-textoptions-button" data-trigger="hover" style="display: none"
+
+                title="Text Options" id="wb-textoptions" aria-label="Down"><span aria-hidden="true"><i
+
+                        class="fas fa-angle-double-down"></i></span></button>
+
+
 
         </div>
-        <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser" data-toggle="tooltip"
-        data-trigger="hover">Search</button> -->
-        <textarea type="text" placeholder="Type Something...." id="searchBrowser" rows="30" cols="40"
-            class="wb-button wb-edit-button searchBrowser" data-trigger="hover"></textarea>
-        <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser">Search</button> -->
-        <div id="wb-editor">
-            <div class="row wb-editor">
-                <div class="col-sm-12" id="wb-editor-input">
-                </div>
-            </div>
+
+
+
+
+
+        <div class="close-max-btn" style="margin-right: 40px">
+
+            <button type="button" class="close window-button" id="close-editor-new" onclick="closeEditor()"
+
+                onaria-label="Close"><span aria-hidden="true">×</span></button>
+
+            <button type="button" class="window-button window-icon-button" data-trigger="hover" title="Maximize"
+
+                id="max-editor" aria-label="Max"><span aria-hidden="true"><i
+
+                        class="fa fa-window-maximize wb-editor-icon"></i></span></button>
+
         </div>
+
+
+
     </div>
+
+    <div id="wb-editor-container-modes">
+
+        <button class="wb-button wb-mode-button" id="wb-close-options" type="button"><i
+
+                class="fas fa-angle-double-up" aria-hidden="true"></i></button>
+
+        <button class="wb-editor-mode" id="wb-text" data-trigger="hover" title="Text editor"
+
+            type="button">text</button>
+
+        <button class="wb-editor-mode" id="wb-js" data-trigger="hover" title="Javascript compiler/editor"
+
+            type="button">js</button>
+
+        <button class="wb-editor-mode" id="wb-python" data-trigger="hover" title="Python compiler/editor"
+
+            type="button">py</button>
+
+        <button class="wb-editor-mode" id="wb-cpp" data-trigger="hover" title="C++ compiler/Editor"
+
+            type="button">c++</button>
+
+    </div>
+
+    <div id="wb-editor-container-toolbar" style="display: none">
+
+        <button class="wb-button wb-edit-button" id="wb-close-edit" type="button"><i class="fas fa-angle-double-up"
+
+                aria-hidden="true"></i></button>
+
+        <button class="wb-button wb-edit-button" id="wb-spell-check" data-trigger="hover" title="Check spelling"
+
+            type="button"><i id="wb-editor-spell-check-icon" class="fas fa-spell-check"></i></button>
+
+        <button class="wb-button wb-edit-button" id="wb-code-template" data-trigger="hover" title="Code template"
+
+            type="button"><i class="fa fa-file-code-o"></i></button>
+
+        <button class="wb-button wb-edit-button" id="wb-ed-undo" data-trigger="hover" title="Undo" type="button"><i
+
+                class="fas fa-undo"></i></button>
+
+        <button class="wb-button wb-edit-button" id="wb-ed-redo" data-trigger="hover" title="Redo" type="button"><i
+
+                class="fas fa-redo"></i></button>
+
+        <button class="wb-button wb-edit-button" id="wb-ed-search" data-trigger="hover" title="Search"
+
+            type="button"><i class="fas fa-search"></i></button>
+
+        <!-- <button id="createFolderButton" onclick="createFolderButton">New Tab</button> -->
+
+
+
+    </div>
+
+    <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser" data-toggle="tooltip"
+
+    data-trigger="hover">Search</button> -->
+
+    <textarea type="text" placeholder="Type Something...." id="searchBrowser" rows="30" cols="40"
+
+        class="wb-button wb-edit-button searchBrowser" data-trigger="hover"></textarea>
+
+    <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser">Search</button> -->
+
+    <div id="wb-editor">
+
+        <div class="row wb-editor">
+
+            <div class="col-sm-12" id="wb-editor-input">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
@@ -930,8 +1018,8 @@
                 </div>
             </div>
             <div class="bg-modal-tabs">
-                <div>
-                    <span class="color-tab" onclick="openTab(event, 'color-tab1')"><svg width="25" height="25"
+                <div class="tab-container">
+                    <button class="color-tab" onclick="openTab(event, 'color-tab1')" title="Color Picker"><svg width="25" height="25"  
                             viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink">
                             <path fill="#444"
@@ -941,8 +1029,8 @@
                                 d="M8 1l-1.44 1.44-2-2c-0.276-0.262-0.649-0.423-1.060-0.423s-0.784 0.161-1.061 0.423c-0.27 0.271-0.438 0.645-0.438 1.059s0.168 0.789 0.439 1.060l2 2-4.44 4.44 7 7 8-8zM8 2.41l5.59 5.59h-11.18l2.75-2.75c0.071 0.042 0.156 0.067 0.247 0.067 0.271 0 0.49-0.219 0.49-0.49 0-0.091-0.025-0.176-0.068-0.249l0.721-0.718 1.54 1.53c0.091 0.091 0.216 0.147 0.355 0.147 0.277 0 0.502-0.225 0.502-0.502 0-0.139-0.056-0.264-0.147-0.355l-1.53-1.53zM3.15 1.85c-0.091-0.091-0.148-0.216-0.148-0.355s0.057-0.264 0.148-0.355c0.092-0.089 0.217-0.144 0.355-0.144s0.263 0.055 0.355 0.144l2 2-0.71 0.71z">
                             </path>
                         </svg>
-                    </span>
-                    <span class="color-tab" onclick="openTab(event, 'color-tab2')">
+                    </button>
+                    <button class="color-tab" onclick="openTab(event, 'color-tab2')"  title="Pattern Picker">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none">
                             <g id="Media / Image_02">
                                 <path id="Vector"
@@ -950,7 +1038,7 @@
                                     stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </g>
                         </svg>
-                    </span>
+                    </button>
                 </div>
                 <button id="closeModalBtn" class="bg-modal-close-btn">Close</button>
             </div>
@@ -976,6 +1064,7 @@
     <!-- HTML 2 Canvas CDN -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
     </script> -->
+ 
     <script src="OfflineCDN/cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
     </script>
     <script type="application/json" id="translations">{}</script>
@@ -983,27 +1072,32 @@
     <script src="js/minitpl.js"></script>
     <script src="js/board.js"></script>
     <script src="js/draggableToolbar.js"></script>
-
-    <script src="tools/pencil/pencil.js"></script>  
+    <script src="tools/DeselectTool.js"></script>
+    <script src="tools/pencil/pencil.js"></script>
     <script src="tools/eraser/eraser.js"></script>
     <script src="tools/clear/clear.js"></script>
-  <!-- Download -->
-  <!-- <script src="tools/download/download.js"></script> -->
-  <script src="tools/undo/undo.js"></script>
-  <script src="tools/redo/redo.js"></script>
-        <script src="tools/line/line.js"></script>
+   
+    <!-- Download -->
+    <!-- <script src="tools/download/download.js"></script> -->
+    <script src="tools/undo/undo.js"></script>
+    <script src="tools/redo/redo.js"></script>
+    <script src="tools/line/line.js"></script>
     <script src="tools/rect/rect.js"></script>
     <script src="tools/text/text.js"></script>
-<!-- <script src="tools/eraser/eraser.js"></script> -->
+    <!-- <script src="tools/eraser/eraser.js"></script> -->
     <script src="js/widgets.js"></script>
     <script src="tools/mathematical-tools/mathematicalTools.js"></script>
     <!-- ADD NEW PAGES -->
     <!-- <script src="tools/add-pages/addPages.js"></script> -->
 
 
+    <!-- Screenshot Tool -->
+    <script src="tools/screenshotTool/screenshotTool.js"></script>
 
     <!-- ContextMenu -->
     <script src="js/contextMenu.js"></script>
+
+
 
     <!-- Sticky Notes -->
     <!-- <script src="tools/stickyNotes/stickyNotes.js"></script> -->
@@ -1015,8 +1109,6 @@
     <script src="js/intentScript.js"></script>
     <script src="tools/ScreenRecorder/ScreenRecorder.js"></script>
 
-    <!-- Screenshot Tool -->
-    <script src="tools/screenshotTool/screenshotTool.js"></script>
     <!-- BEGIN TRANSFORM TOOL -->
     <!-- Transform dep: 2D -->
     <script src="js/2D.js"></script>
@@ -1024,9 +1116,9 @@
     <script src="tools/transform/transform.js"></script>
 
     <!-- END TRANSFORM TOOL -->
-    <!-- <script src="tools/document/document.js"></script> -->
+    <script src="tools/document/document.js"></script>
 
-  
+
     <!-- BEGIN EDITOR TOOL -->
     <!-- Editor dep: CodeMirror -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.js"></script>
@@ -1058,10 +1150,9 @@
     <!-- Editor -->
     <script src="tools/editor/editor.js"></script>
     <!-- END EDITOR TOOL-->
-
-    <script src="tools/handNew/hand.js"></script>
-    <!-- <script src="tools/hand/hand.js"></script> -->
-    <script src="tools/grid/grid.js"></script>
+<!-- 
+    <script src="tools/handNew/hand.js"></script> -->
+    <!-- <script src="tools/grid/grid.js"></script> -->
     <script src="tools/eraser2/eraser2.js"></script>
 
     <!-- BEGIN CALCULATOR TOOL-->
@@ -1072,7 +1163,7 @@
     <script src="tools/calculator/calculator.js"></script>
     <!-- END CALCULATOR TOOL-->
 
- 
+
 
     <!-- Browser -->
     <!-- <script src="tools/browserUtil/browserUtil.js"></script> -->
@@ -1082,7 +1173,7 @@
     <script src="components/measurement/measurement.js"></script>
     <script src="js/canvascolor/canvascolor.min.js"></script>
     <script src="js/customJs/custom.js"></script>
-    <script src="tools/FullScreen/fullscreen.js"></script>
+    <!-- <script src="tools/FullScreen/fullscreen.js"></script> -->
     <script src="tools/Mice/mice.js"></script>
     <script src="tools/VideoRecorder/videoRecorder.js"></script>
     <script src="tools/shareScreen/sharescreen.js"></script>
@@ -1091,18 +1182,7 @@
 
     <script src="tools/PDF/pdf.js"></script>
 
-    <!-- import ZoomMtg dependencies -->
-    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/react.min.js"></script> -->
-    <script src="OfflineCDN/source.zoom.us/1.8.0/lib/vendor/redux.min.js"></script>
-    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/react-dom.min.js"></script> -->
-    <script src="OfflineCDN/source.zoom.us/1.8.0/lib/vendor/react-dom.min.js"></script>
-    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/redux.min.js"></script> -->
-    <script src="OfflineCDN/source.zoom.us/1.8.0/lib/vendor/redux.min.js"></script>
-    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/redux-thunk.min.js"></script> -->
-    <script src="OfflineCDN/source.zoom.us/1.8.0/lib/vendor/redux-thunk.min.js"></script>
-    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/jquery.min.js"></script> -->
-    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/lodash.min.js"></script> -->
-    <script src="OfflineCDN/source.zoom.us/1.8.0/lib/vendor/lodash.min.js"></script>
+ 
     <!-- import ZoomMtg -->
     <!-- <script src="https://source.zoom.us/zoom-meeting-1.8.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.771.0/aws-sdk.min.js"></script> -->
@@ -1128,7 +1208,7 @@
     <script src="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
     </script>
     <script src="js/draggableContainers.js"></script>
-    <script src="tools/background-manangement/background.js"></script>
+    <!-- <script src="tools/background-manangement/background.js"></script> -->
 
     <!-- Paste Event -->
     <script src="js/pasteEvents.js"></script>
@@ -1148,19 +1228,29 @@
 
     <script src="OfflineCDN/DOM_TO_IMAGE/dom-to-image.js"></script>
 
-    <script>
-        var tooll = document.querySelectorAll('.tool-selected');
+    <!-- <Localization variable script> -->
 
-tooll.forEach(button => {
-  button.addEventListener('click', () => {
-    tooll.forEach(b => b.classList.remove('selected'));
-    button.classList.add('selected');
-  });
-});
-        </script>
+        <script src="localization.js"></script>
+
+    <script>
+        function closeEditor(e) {
+
+document.getElementById("wb-editor-container").style.display = "none"
+
+}
+        var tooll = document.querySelectorAll('.tool-selected');
+     console.log("TOOLS SELECTED",tooll)
+        tooll.forEach(button => {
+            button.addEventListener('click', () => {
+                tooll.forEach(b => b.classList.remove('selected'));
+                button.classList.add('selected');
+            });
+        });
+    </script>
 
     <!-- Localization  -->
     <script>
+
         function changeLanguage() {
 
             var select = document.getElementById("languageSelect");
@@ -1187,14 +1277,14 @@ tooll.forEach(button => {
                     document.getElementById("toolID-Text").title = `टेक्स्ट`;
 
                     document.getElementById("toolID-Mathematical Tools").title = `मैथमेटिकल टूल्स`;
-                    document.getElementById("toolID-Screenshot").title = `स्क्रीनशॉट`;                    
+                    document.getElementById("toolID-Screenshot").title = `स्क्रीनशॉट`;
                     document.getElementById("toolID-Recorder").title = `रिकॉर्डर`;
                     document.getElementById("toolID-Transform").title = `ट्रांसफोर्म `;
-                    // document.getElementById("toolID-Document").title = `डॉक्यूमेंट`;
-                    // document.getElementById("toolID-Download").title = `डाउनलोड`;
+                    document.getElementById("toolID-Document").title = `डॉक्यूमेंट`;
+                    document.getElementById("toolID-Download").title = `डाउनलोड`;
 
                     document.getElementById("toolID-Editor").title = `एडीटर`;
-                    // document.getElementById("toolID-Hand").title = `हैंड`;
+                    document.getElementById("toolID-Hand").title = `हैंड`;
                     document.getElementById("toolID-Grid").title = `ग्रिड`;
                     document.getElementById("toolID-Calculator").title = `कैलक्युलेटर`;
                     document.getElementById("toolID-Zoom In").title = `जूम इन`;
@@ -1202,10 +1292,10 @@ tooll.forEach(button => {
                     document.getElementById("toolID-Background").title = `बैकग्राउंड`;
                     document.getElementById("toolID-Table").title = `टेबल`;
                     // document.getElementById("toogle-tranparency").title = `व्हाइट बोर्ड`;
-                    document.getElementById("tool-undo-localization").innerHTML = `अन्डू`;
-                    document.getElementById("tool-redo-localization").innerHTML = `रीडू`;
-                    document.getElementById("tool-clear-localization").title = `क्लिर`;
-                    document.getElementById('tool-touch-up-eraser-localization').innerHTML = `टच अप इरेज़र`;
+                    // document.getElementById("toolID-Undo").title = `अन्डू`;
+                    // document.getElementById("toolID-Redo").title = `रीडू`;
+                    // document.getElementById("toolID-Clear").title = `इरेजर`;
+                    document.getElementById('tool-touch-up-eraser-localization').innerHTML = `टच अप इरेजर`;
 
                     document.getElementById("shape2d-rectangle").title = `रेक्टेंगल`;
                     document.getElementById("shape2d-circle").title = `सर्किल`;
@@ -1231,11 +1321,11 @@ tooll.forEach(button => {
                     document.getElementById("protractor").title = `प्रोट्रेक्टर`;
                     document.getElementById("stopwatch").title = `स्टॉप वॉच`;
                     document.getElementById("clock").title = `क्लॉक`;
-                    document.getElementById("roundCompass").title = `राउंड कम्पास`;                
+                    document.getElementById("roundCompass").title = `राउंड कम्पास`;
                     document.getElementById("compass").title = `कम्पास`;
                     document.getElementById("calculate").title = `कैलकुलेटर`;
                     document.getElementById("magnifier").title = `मैग्नीफाइंग ग्लास`;
-                    document.getElementById("dice-tool").title = `डाइस`;                     
+                    document.getElementById("dice-tool").title = `डाइस`;
                     document.getElementById("toolID-close").title = `क्लोज़`;
 
                     // tools-label
@@ -1244,26 +1334,26 @@ tooll.forEach(button => {
                     document.getElementById("tool-selector-localization").innerHTML = `सलेक्टर`;
                     document.getElementById("tool-opacity-localization").innerHTML = `ओपेसिटी`;
                     document.getElementById("tool-picker-localization").innerHTML = `पिकर`;
-                
-                    document.getElementById("tool-lines-localization").innerHTML = `लाइनस`; 
-                    document.getElementById("tool-shapes-localization").innerHTML = `शेपस`;
+
+                    // document.getElementById("tool-lines-localization").innerHTML = `लाइनस`;
+                    // document.getElementById("tool-shapes-localization").innerHTML = `शेपस`;
                     document.getElementById("tool-text-localization").innerHTML = `टेक्स्ट`;
-                    document.getElementById("tool-mathstool-localization").innerHTML = `मैथमेटिकल`; 
+                    document.getElementById("tool-mathstool-localization").innerHTML = `मैथमेटिकल`;
                     document.getElementById("tool-mathstools-localization").innerHTML = `टूल्स`;
                     document.getElementById("tool-screenshot-localization").innerHTML = `स्क्रीनशॉट`;
                     document.getElementById("tool-transform-localization").innerHTML = `ट्रांसफोर्म`;
-                    // document.getElementById("tool-document-localization").innerHTML = `डॉक्यूमेंट`;
+                    document.getElementById("tool-document-localization").innerHTML = `डॉक्यूमेंट`;
                     // document.getElementById("tool-download-localization").innerHTML = `डाउनलोड`;
                     document.getElementById("tool-editor-localization").innerHTML = `एडीटर`;
-                    // document.getElementById("tool-hand-localization").innerHTML = `हैंड`;
+                    document.getElementById("tool-hand-localization").innerHTML = `हैंड`;
                     document.getElementById("tool-grid-localization").innerHTML = `ग्रिड`;
                     document.getElementById("tool-calculator-localization").innerHTML = `कैलक्युलेटर`;
                     document.getElementById("tool-zoomin-localization").innerHTML = `जूम इन`;
-                    document.getElementById("tool-zoomout-localization").innerHTML = `जूम आउट`;                    
+                    document.getElementById("tool-zoomout-localization").innerHTML = `जूम आउट`;
                     document.getElementById("tool-background-localization").innerHTML = `बैकग्राउंड`;
-                    document.getElementById("tool-table-localization").innerHTML = `टेबल`;                  
-                    document.getElementById("tool-close-localization").innerHTML = `क्लोज़`; 
-                    document.getElementById("tool-recorder-localization").innerHTML = `रिकॉर्डर`;               
+                    document.getElementById("tool-table-localization").innerHTML = `टेबल`;
+                    document.getElementById("tool-close-localization").innerHTML = `क्लोज़`;
+                    document.getElementById("tool-recorder-localization").innerHTML = `रिकॉर्डर`;
                     // document.getElementById("tool-toggle-localization").innerHTML = `वाइट बोर्ड`;
 
                     document.getElementById("img-library").innerHTML = `इमेज लाइब्रेरी`;
@@ -1286,23 +1376,27 @@ tooll.forEach(button => {
 
                     document.getElementById("two-dimension").innerHTML = `2डी शेपस`;
                     document.getElementById("three-dimension").innerHTML = `3डी शेपस`;
-             
-                    shapesText.querySelector(".popover-header").innerHTML = `शेपस`;                  
+                    document.getElementById("tool-undo-localization").innerHTML = `अन्डू`;
+                    document.getElementById("tool-redo-localization").innerHTML = `रीडू`;
+
+                    shapesText.querySelector(".popover-header").innerHTML = `शेपस`;
                     linesText.querySelector(".popover-header").innerHTML = `लाइनस`;
-                      
+
                     // snackbar
-                    document.getElementById("snackbar").innerHTML = `कृपया केवल PDF फ़ाइल का चयन करें।`;                  
+                    document.getElementById("snackbar").innerHTML = `कृपया केवल PDF फ़ाइल का चयन करें।`;
                     document.getElementById("snackbar-success").innerHTML = `PDF फ़ाइल सफलतापूर्वक अपलोड की गई है।`;
 
                     // import PDF
-                    
+
                     document.getElementById("select-All").innerHTML = "सभी का चयन करें";
-                    document.getElementById("remove-All").innerHTML = "सभी हटाएं";                   
+                    document.getElementById("remove-All").innerHTML = "सभी हटाएं";
                     document.getElementById("importPDF").innerHTML = "पीडीएफ आयात करें";
 
                     // Pencil-eraser                     
                     document.getElementById("tool-pencil-localization").innerHTML = `पेंसिल`;
+                    document.getElementById("tool-clear-localization").innerHTML = `क्लियर`;
                     document.getElementById("tool-eraser-localization").innerHTML = `इरेजर`;
+                    document.getElementById("tool-save-localization").innerHTML = `सेव`;
                     document.getElementById("tool-more-localization").innerHTML = `मोर`;
 
                     //  table modal title                                  
@@ -1311,26 +1405,16 @@ tooll.forEach(button => {
                     // document.getElementById("delete-row").innerHTML = "डिलीट रो";  
                     // document.getElementById("delete-column").innerHTML = "डिलीट कॉलम";
 
-                    
+
                     // Shapes names
-                    
-                    document.getElementById("tool-rectangles-localization").innerHTML= `रेक्टेंगल`;
-                    document.getElementById("tool-circle-localization").innerHTML = `सर्किल`;
-                    document.getElementById("tool-triangle-localization").innerHTML = `ट्राएंगल`;
-                    document.getElementById("tool-equitri-localization").innerHTML = `ट्राएंगल`;
-                    document.getElementById("tool-parallelogram-localization").innerHTML = `पराल्लेलोग्राम`;
-                    document.getElementById("tool-trapezoid-localization").innerHTML = `ट्रेपजॉयड`;
-                    document.getElementById("tool-rombus-localization").innerHTML = `रॉम्बस`;
-                    document.getElementById("tool-pentagon-localization").innerHTML = `पेंटागन`;
-                    document.getElementById("tool-hexagon-localization").innerHTML = `हेक्सागोनल`;
-                    document.getElementById("tool-ellipse-localization").innerHTML = `इलिप्स`;
-                    document.getElementById("tool-cube-localization").innerHTML = `क्यूब`;
-                    document.getElementById("tool-cone-localization").innerHTML = `कोन`;
-                    document.getElementById("tool-cylinder-localization").innerHTML = `सिलेंडर`;
-                    document.getElementById("tool-sphere-localization").innerHTML = `स्फीयर`;
-                    document.getElementById("tool-pyramid-localization").innerHTML = `पिरामिड`;
-                
-                   
+
+                    for(let item of localizedStringsHI){
+                        if(document.getElementById(item.id)){
+                            document.getElementById(item.id).innerHTML= item.value
+                        }
+                    }
+
+
                     break;
                 default:
                     // English is the default language
@@ -1338,12 +1422,11 @@ tooll.forEach(button => {
                     document.getElementById("line1").title = `Solid line`;
                     document.getElementById("line2").title = `Solid arrow`;
                     document.getElementById("line3").title = `Dashed line`;
-                    document.getElementById("tool-undo-localization").innerHTML = `Undo`;
-                    document.getElementById("tool-redo-localization").innerHTML = `Redo`;
+
                     document.getElementById("color-pick").title = `Color Picker`;
                     document.getElementById("opacity-picker").title = `Opacity Picker`;
                     document.getElementById("tool-size-selector").title = `Tool Size Selector`;
-                    document.getElementById("toolID-Pencil").title = `Pencil`;                
+                    document.getElementById("toolID-Pencil").title = `Pencil`;
                     document.getElementById("toolID-Eraser").title = `Eraser`;
                     document.getElementById("toolID-Line").title = `Lines`;
                     document.getElementById("toolID-Rectangle").title = `Shapes`;
@@ -1351,26 +1434,26 @@ tooll.forEach(button => {
 
                     // mathematical tools
                     document.getElementById("toolID-Mathematical Tools").title = `Mathematical Tools`;
-
+                    document.getElementById("tool-eraser-localization").innerHTML = `Eraser`;
                     document.getElementById("toolID-Screenshot").title = `Screenshot`;
                     document.getElementById("toolID-Recorder").title = `Recorder`;
                     document.getElementById("toolID-Transform").title = `Transform`;
-                    // document.getElementById("toolID-Document").title = `Document`;
-                    // document.getElementById("toolID-Download").title = `Download`;
+                    document.getElementById("toolID-Document").title = `Document`;
+                    document.getElementById("toolID-Download").title = `Download`;
 
                     document.getElementById("toolID-Editor").title = `Editor`;
-                    // document.getElementById("toolID-Hand").title = `Hand`;
+                    document.getElementById("toolID-Hand").title = `Hand`;
                     document.getElementById("toolID-Grid").title = `Grid`;
                     document.getElementById("toolID-Calculator").title = `Calculator`;
                     document.getElementById("toolID-Zoom In").title = `Zoom In`;
                     document.getElementById("toolID-Zoom Out").title = `Zoom Out`;
                     document.getElementById("toolID-Background").title = `Background`;
-                    document.getElementById("toolID-Table").title = `Table`;                                         
+                    document.getElementById("toolID-Table").title = `Table`;
                     // document.getElementById("toogle-tranparency").title = `White Board`;
-                    document.getElementById("toolID-Undo").title = `Undo`;
-                    document.getElementById("toolID-Redo").title = `Redo`;
-                    document.getElementById("tool-clear-localization").title = `Clear`;
-                    document.getElementById('tool-touch-up-eraser-localization').innerHTML = `Touch Up Eraser`;
+                    // document.getElementById("toolID-Undo").title = `Undo`;
+                    // document.getElementById("toolID-Redo").title = `Redo`;
+                    document.getElementById("toolID-Clear").title = `Eraser`;
+                    document.getElementById('tool-touch-up-eraser-localization').innerHTML = `Touch Up`;
 
                     document.getElementById("shape2d-rectangle").title = `Rectangle`;
                     document.getElementById("shape2d-circle").title = `Circle`;
@@ -1389,45 +1472,45 @@ tooll.forEach(button => {
                     document.getElementById("shape3d-sphere").title = `Sphere`;
                     document.getElementById("shape3d-pyramid").title = `Pyramid`;
 
-                       // widget title                   
+                    // widget title                   
                     document.getElementById("ruler").title = `Ruler`;
                     document.getElementById("setSquare").title = `Set Square`;
                     document.getElementById("protractor").title = `Protractor`;
                     document.getElementById("stopwatch").title = `Stop Watch`;
                     document.getElementById("clock").title = `Clock`;
-                    document.getElementById("roundCompass").title = `Round Compass`;                
+                    document.getElementById("roundCompass").title = `Round Compass`;
                     document.getElementById("compass").title = `Compass`;
                     document.getElementById("calculator").title = `Calculator`;
                     document.getElementById("magnifier").title = `Magnifying Glass`;
                     document.getElementById("dice-tool").title = `Dice`;
-                    document.getElementById("toolID-close").title = `Close`;                   
+                    document.getElementById("toolID-close").title = `Close`;
 
-                      // tools-label
+                    // tools-label
                     document.getElementById("tool-color-localization").innerHTML = `Color Picker`;
                     document.getElementById("tool-size-localization").innerHTML = `Tool Size`;
                     document.getElementById("tool-selector-localization").innerHTML = `Selector`;
                     document.getElementById("tool-opacity-localization").innerHTML = `Opacity`;
                     document.getElementById("tool-picker-localization").innerHTML = `Picker`;
-                
-                    document.getElementById("tool-lines-localization").innerHTML = `Lines`; 
-                    document.getElementById("tool-shapes-localization").innerHTML = `Shapes`;
+
+                    // document.getElementById("tool-lines-localization").innerHTML = `Lines`;
+                    // document.getElementById("tool-shapes-localization").innerHTML = `Shapes`;
                     document.getElementById("tool-text-localization").innerHTML = `Text`;
-                    document.getElementById("tool-mathstool-localization").innerHTML = `Math`; 
+                    document.getElementById("tool-mathstool-localization").innerHTML = `Math`;
                     document.getElementById("tool-mathstools-localization").innerHTML = `Tools`;
                     document.getElementById("tool-screenshot-localization").innerHTML = `Screenshot`;
-                    document.getElementById("tool-transform-localization").innerHTML = `Transform`;                   
-                    // document.getElementById("tool-document-localization").innerHTML = `Document`;         
+                    document.getElementById("tool-transform-localization").innerHTML = `Transform`;
+                    document.getElementById("tool-document-localization").innerHTML = `Document`;
                     // document.getElementById("tool-download-localization").innerHTML = `Download`;                  
                     document.getElementById("tool-editor-localization").innerHTML = `Editor`;
-                    // document.getElementById("tool-hand-localization").innerHTML = `Hand`;
+                    document.getElementById("tool-hand-localization").innerHTML = `Hand`;
                     document.getElementById("tool-grid-localization").innerHTML = `Grid`;
-                    document.getElementById("tool-calculator-localization").innerHTML = `Calculator`;              
-                    document.getElementById("tool-zoomin-localization").innerHTML = `Zoom in`;                    
-                    document.getElementById("tool-zoomout-localization").innerHTML = `Zoom Out`;                  
+                    document.getElementById("tool-calculator-localization").innerHTML = `Calculator`;
+                    document.getElementById("tool-zoomin-localization").innerHTML = `Zoom in`;
+                    document.getElementById("tool-zoomout-localization").innerHTML = `Zoom Out`;
                     document.getElementById("tool-background-localization").innerHTML = `Background`;
-                    document.getElementById("tool-table-localization").innerHTML = `Table`; 
-                    document.getElementById("tool-close-localization").innerHTML = `Close`; 
-                    document.getElementById("tool-recorder-localization").innerHTML = `Recorder`;                                
+                    document.getElementById("tool-table-localization").innerHTML = `Table`;
+                    document.getElementById("tool-close-localization").innerHTML = `Close`;
+                    document.getElementById("tool-recorder-localization").innerHTML = `Recorder`;
                     // document.getElementById("tool-toggle-localization").innerHTML = `White Board`;
 
                     document.getElementById("img-library").innerHTML = `Image Library`;
@@ -1451,27 +1534,30 @@ tooll.forEach(button => {
                     document.getElementById("two-dimension").innerHTML = `Two Dimensional Shapes (2D)`;
                     document.getElementById("three-dimension").innerHTML = `Three Dimensional Shapes (3D)`;
 
+                    document.getElementById("tool-undo-localization").innerHTML = `Undo`;
+                    document.getElementById("tool-redo-localization").innerHTML = `Redo`;
 
-                    
-                    shapesText.querySelector(".popover-header").innerHTML = `Shapes`;                   
-                    linesText.querySelector(".popover-header").innerHTML = `Lines`; 
-                    
+
+                    shapesText.querySelector(".popover-header").innerHTML = `Shapes`;
+                    linesText.querySelector(".popover-header").innerHTML = `Lines`;
+
                     // snackbar
-                    document.getElementById("snackbar").innerHTML = `Invalid file type. Please select a PDF file.`;                  
+                    document.getElementById("snackbar").innerHTML = `Invalid file type. Please select a PDF file.`;
                     document.getElementById("snackbar-success").innerHTML = `PDF file uploaded successfully.`;
 
 
                     // import PDF select-All                   
                     document.getElementById("select-All").innerHTML = "Select All ";
-                    document.getElementById("remove-All").innerHTML = "Remove All";                   
+                    document.getElementById("remove-All").innerHTML = "Remove All";
                     document.getElementById("importPDF").innerHTML = "Import PDF";
 
                     // Pencil-Erase
                     document.getElementById("tool-pencil-localization").innerHTML = `Pencil`;
-                    document.getElementById("tool-eraser-localization").innerHTML = `Eraser`;
+                    document.getElementById("tool-clear-localization").innerHTML = `Clear`;
+                    document.getElementById("tool-save-localization").innerHTML = `Save`;
                     document.getElementById("tool-more-localization").innerHTML = `More`;
 
-                    
+
                     // table modal title                                 
                     // document.getElementById("add-row").innerHTML = "Add-row";  
                     // document.getElementById("add-column").innerHTML = "Add Column";  
@@ -1479,27 +1565,17 @@ tooll.forEach(button => {
                     // document.getElementById("delete-column").innerHTML = "Delete Column";  
 
                     // Shapes names
-                    
-                    document.getElementById("tool-rectangles-localization").innerHTML = "Rectangle";
-                    document.getElementById("tool-circle-localization").innerHTML = `Circle`;
-                    document.getElementById("tool-triangle-localization").innerHTML = `Triangle`;
-                    document.getElementById("tool-equitri-localization").innerHTML = `Equi Triangle`;
-                    document.getElementById("tool-parallelogram-localization").innerHTML = `Parallelogram`;
-                    document.getElementById("tool-trapezoid-localization").innerHTML = `Trapezoid`;
-                    document.getElementById("tool-rombus-localization").innerHTML = `Rhombus`;
-                    document.getElementById("tool-pentagon-localization").innerHTML = `Pentagon`;
-                    document.getElementById("tool-hexagon-localization").innerHTML = `Hexagon`;
-                    document.getElementById("tool-ellipse-localization").innerHTML = `Ellipse`;
-                    document.getElementById("tool-cube-localization").innerHTML = `Cube`;
-                    document.getElementById("tool-cone-localization").innerHTML = `Cone`;
-                    document.getElementById("tool-cylinder-localization").innerHTML = `Cylinder`;
-                    document.getElementById("tool-sphere-localization").innerHTML = `Sphere`;
-                    document.getElementById("tool-pyramid-localization").innerHTML = `Pyramid`;
 
-                 
+                    for(let item of localizedStringsEN){
+                        if(document.getElementById(item.id)){
+                            document.getElementById(item.id).innerHTML= item.value
+                        }
+                    }
+
+
                     break;
             }
-     
+
         }
     </script>
 

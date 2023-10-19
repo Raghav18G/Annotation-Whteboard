@@ -138,7 +138,7 @@ var screenshotSVG = `<div class="tool-selected"><svg width="20" height="20" styl
       recorder.screen = screen;
     });
   }
-  
+
   function startScreenRecording() {
     const isMobile =
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -154,7 +154,7 @@ var screenshotSVG = `<div class="tool-selected"><svg width="20" height="20" styl
 
   Tools.add({
     name: "Recorder",
-    isExtra:true,
+    isExtra: true,
     // "icon": "🖼️",
     iconHTML: screenshotSVG,
     // shortcuts: {

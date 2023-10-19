@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <title>Iprep Whiteboard</title>
     <link rel="stylesheet" href="index.css" />
-    <script src="socket.io.js"></script>
     <link rel="shortcut icon" href="assets/iPrepLogo.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="assets/Fevicon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="assets/Fevicon.png" />
@@ -27,20 +26,19 @@
             <option value="hi">हिंदी</option>
           </select>
         </div>
-    
+
         <div class="iprepLanding">
           <div class="card">
-
             <img src="./assets/iPrepLogo.png" class="logo" />
             <p class="iprepLanding--header" id="iprepLanding--header">
               Welcome to iPrep Play
             </p>
             <p class="iprepLanding--body" id="iprepLanding--body">
-              To get started, either select an existing board or create a new one.
+              To get started, either select an existing board or create a new
+              one.
             </p>
             <button class="newBoard--btn" id="modalBtn">Start new board</button>
-           
-      
+
             <p class="iprepLanding--body" id="iprepLanding-or-text">Or</p>
             <form id="existingBoardForm">
               <select
@@ -56,34 +54,34 @@
               <button type="submit" id="go-btn">Go</button>
             </form>
           </div>
-          </div>
+        </div>
       </div>
-     <div class="landing-right">
-      <h2>With IPrep you can</h2>
-      <img src="./assets/landing.png" alt="Image Description" />
-      <ul class="list">
-        <li class="li-item">
-          <span class="li-item-bold">Seamless Annotation: </span> Effortlessly
-          mark up lessons, diagrams, and presentations to engage your
-          students.
-        </li>
-        <li class="li-item">
-          <span class="li-item-bold">Live Collaboration:</span> Foster
-          real-time interaction with your students, even in virtual
-          classrooms.
-        </li>
-        <li class="li-item">
-          <span class="li-item-bold"> Educational Versatility:</span>
-          Perfect for lectures, interactive exercises, and sharing knowledge
-          visually.
-        </li>
-        <li class="li-item">
-          <span class="li-item-bold">Teacher-Centric Design:</span> We've
-          tailored this tool to meet your needs, making teaching more
-          effective and enjoyable.
-        </li>
-      </ul>
-    </div>
+      <div class="landing-right">
+        <h2>With IPrep you can</h2>
+        <img src="./assets/landing.png" alt="Image Description" />
+        <ul class="list">
+          <li class="li-item">
+            <span class="li-item-bold">Seamless Annotation: </span> Effortlessly
+            mark up lessons, diagrams, and presentations to engage your
+            students.
+          </li>
+          <li class="li-item">
+            <span class="li-item-bold">Live Collaboration:</span> Foster
+            real-time interaction with your students, even in virtual
+            classrooms.
+          </li>
+          <li class="li-item">
+            <span class="li-item-bold"> Educational Versatility:</span>
+            Perfect for lectures, interactive exercises, and sharing knowledge
+            visually.
+          </li>
+          <li class="li-item">
+            <span class="li-item-bold">Teacher-Centric Design:</span> We've
+            tailored this tool to meet your needs, making teaching more
+            effective and enjoyable.
+          </li>
+        </ul>
+      </div>
     </div>
 
     <!-- <div class="iprepLanding--navbar">
@@ -142,12 +140,12 @@
             />
           </div>
 
-        <div class="btn-submit start-modal-button">
-          <button type="submit" id="modalSubmitBtn" disabled>Start</button>
-        </div>
-      </form>
+          <div class="btn-submit start-modal-button">
+            <button type="submit" id="modalSubmitBtn" disabled>Start</button>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
 
     <script>
       var modal = document.getElementById("myModal");
@@ -179,45 +177,45 @@
         var select = document.getElementById("languageSelect");
         var selectedLanguage = select.value;
 
-      switch (selectedLanguage) {
-        case "hi":
-          document.getElementById(
-            "iprepLanding--header"
-          ).innerHTML = `iPrep Play में आपका स्वागत है`;
-          document.getElementById(
-            "iprepLanding--body"
-          ).innerHTML = `शुरू करने के लिए किसी मौजूदा बोर्ड को चुने या नया बोर्ड बनाये`;
-          document.getElementById(
-            "newBoard--placeholder"
-          ).innerHTML = `किसी मौजूदा बोर्ड का चयन करें`;
-          document.getElementById("iprepLanding-or-text").innerHTML = `या`;
-          document.getElementById("modalBtn").innerHTML = `शुरू करें`;
-          document.getElementById(
-            "iprepModal--header"
-          ).innerHTML = `नए बोर्ड की शुरुआत करें`;
-          document.getElementById(
-            "iprepModal--subheader"
-          ).innerHTML = `अपने बोर्ड को नाम दे और शुरू करें`;
-          document.getElementById("modalSubmitBtn").innerHTML = `शुरू करें`;
-          var inputElement = document.getElementById("board");
-          inputElement.placeholder = "बोर्ड को नाम दे";
-          break;
-        default:
-          // English is the default language
-          document.getElementById(
-            "iprepLanding--header"
-          ).innerHTML = `Welcome to iPrep Play`;
-          document.getElementById(
-            "iprepLanding--body"
-          ).innerHTML = `To get started, either select an existing board or create a new one.`;
-          document.getElementById(
-            "newBoard--placeholder"
-          ).innerHTML = `Select an existing board`;
-          document.getElementById("iprepLanding-or-text").innerHTML = `Or`;
-          document.getElementById("modalBtn").innerHTML = `Start new board`;
-          document.getElementById(
-            "iprepModal--header"
-          ).innerHTML = `Start your board`;
+        switch (selectedLanguage) {
+          case "hi":
+            document.getElementById(
+              "iprepLanding--header"
+            ).innerHTML = `iPrep Play में आपका स्वागत है`;
+            document.getElementById(
+              "iprepLanding--body"
+            ).innerHTML = `शुरू करने के लिए किसी मौजूदा बोर्ड को चुने या नया बोर्ड बनाये`;
+            document.getElementById(
+              "newBoard--placeholder"
+            ).innerHTML = `किसी मौजूदा बोर्ड का चयन करें`;
+            document.getElementById("iprepLanding-or-text").innerHTML = `या`;
+            document.getElementById("modalBtn").innerHTML = `शुरू करें`;
+            document.getElementById(
+              "iprepModal--header"
+            ).innerHTML = `नए बोर्ड की शुरुआत करें`;
+            document.getElementById(
+              "iprepModal--subheader"
+            ).innerHTML = `अपने बोर्ड को नाम दे और शुरू करें`;
+            document.getElementById("modalSubmitBtn").innerHTML = `शुरू करें`;
+            var inputElement = document.getElementById("board");
+            inputElement.placeholder = "बोर्ड को नाम दे";
+            break;
+          default:
+            // English is the default language
+            document.getElementById(
+              "iprepLanding--header"
+            ).innerHTML = `Welcome to iPrep Play`;
+            document.getElementById(
+              "iprepLanding--body"
+            ).innerHTML = `To get started, either select an existing board or create a new one.`;
+            document.getElementById(
+              "newBoard--placeholder"
+            ).innerHTML = `Select an existing board`;
+            document.getElementById("iprepLanding-or-text").innerHTML = `Or`;
+            document.getElementById("modalBtn").innerHTML = `Start new board`;
+            document.getElementById(
+              "iprepModal--header"
+            ).innerHTML = `Start your board`;
 
             document.getElementById(
               "iprepModal--subheader"
@@ -246,12 +244,9 @@
         }
       });
     </script>
-    <!-- <footer>
-	<a href="https://github.com/rdbeach/wb" class="smallink">Source code on github</a>
-</footer> -->
-  </body>
-  <script src="socket.io.js"></script>
-  <script src="./testScript.js"></script>
 
-  <script src="./js/fetchData.js"></script>
+    <script src="socket.io.js"></script>
+    <!-- <script src="./testScript.js"></script> -->
+    <script src="./js/fetchData.js"></script>
+  </body>
 </html>

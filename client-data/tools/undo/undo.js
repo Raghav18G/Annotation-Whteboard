@@ -59,7 +59,7 @@
     // icon: UndoSvg,
     // showMarker: true,
     // iconHTML: UndoSvg,
-		"iconHTML": `<div class="tool-selected">${UndoSvg}</div><label id="tool-undo-localization" class="label-undo" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Undo</label>`,
+    iconHTML: `<div class="tool-selected">${UndoSvg}</div><label id="tool-undo-localization" class="label-undo" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Undo</label>`,
     // iconHTML:
     //   "<p style='font: normal normal normal 15px/20px CircularXX;  font-family: CircularXXWeb-Book; letter-spacing: 0px; color: #8B8B8B;opacity: 1;' id='undo-tag'>Undo</p>",
     shortcuts: {

@@ -53,10 +53,10 @@ main {
   flex-direction: column;
   /* padding: 20px; */
   justify-items:center;
-  max-width: 50%;
   gap: 20px;
   align-items:center;
   flex-grow: 1;
+  max-width: 50%;
 }
 
 .landing-right img {
@@ -68,12 +68,19 @@ main {
   list-style-type: disc;
   text-align: left; /* Align text to the left */
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
   margin: 20px 0; /* Add vertical margin for gap */
   color: #555555;
   font-size: 20px;
   display: inline-block; /* Make ul elements inline-block */
   max-width: 75%; /* Set max width */
+ 
 }
+
 .landing-right ul li {
   color:"#666666";
 
@@ -90,7 +97,6 @@ margin-bottom:2rem;
   font-weight: 800;
   color:"#212121"
 }
-
 
 
 /* Navbar */
@@ -359,6 +365,10 @@ footer {
   border: 1px solid rgba(222, 222, 222, 1);
   /* margin-left: 28%; */
 }
+.modalInput::placeholder {
+  color: #000; /* Set the color to dark, e.g., black */
+  opacity: 0.7;
+}
 
 .modalSubmitBtn {
   height: 3rem;
@@ -387,6 +397,8 @@ footer {
   text-decoration: none;
   cursor: pointer;
 }
+
+
 
 @keyframes vibration {
   0% {

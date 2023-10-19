@@ -1,5 +1,11 @@
 var flag = 1;
 
+(() => {
+  const displayNumber = window.location.search.split("&file=")[1];
+  console.log("PAGE", document.getElementById("pageNumber"));
+  document.getElementById("pageNumber").textContent = `Page ${displayNumber}`;
+})();
+
 async function addNewPage() {
   //Navigation Logic
   const baseURL = window.location.origin + window.location.pathname;
@@ -14,7 +20,6 @@ async function addNewPage() {
   let pageTiles = document.querySelectorAll(".page-tile");
   console.log("Page Tiles", pageTiles);
 
-  
   const modal = document.getElementById("addNewPageModal");
   const modalContent = document.querySelector(".addNewPageModal-content");
 
@@ -33,10 +38,6 @@ async function addNewPage() {
     }
   });
 
-  console.log("FILES", files);
-
-  console.log("LENGTH MISMATCH");
-  console.log("ADDING the PAges");
   if (flag == 1) {
     files.map((pageNumber) => {
       //Fetching Page Number
@@ -75,7 +76,6 @@ async function addNewPage() {
       );
     }
 
-    console.log("PAGE KEY", pageKey);
     if (pageKey === pageNumber) {
       console.log("KEY ALREADY EXUSTS");
       let selectedBoard = window.localStorage.getItem("selectedBoard");

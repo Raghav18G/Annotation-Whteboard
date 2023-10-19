@@ -16,40 +16,6 @@ var screenshotSVG =
   function TriggerScreenshotScript() {
     launchScreenshotScript();
   }
-  function onStart() {
-    let canvas = document.getElementById("board");
-    console.log("CANVAS", canvas);
-    domtoimage
-      .toJpeg(canvas, {
-        bgcolor: "transparent",
-      })
-      .then(function (res) {
-        console.log("AFTER CONVERTING RES", res);
-        var dataURL = res;
-        console.log("DATA URL", dataURL);
-        var aspect = msg.w / msg.h;
-        var img = Tools.createSVGElement("image");
-        // img.id = msg.id;
-        img.setAttribute("class", "layer-" + Tools.layer);
-        img.setAttributeNS(xlinkNS, "href", dataURL);
-        console.log("IMAGE TAG", img);
-        img.x.baseVal.value = msg["x"];
-        img.y.baseVal.value = msg["y"];
-        img.setAttribute("width", 400 * aspect);
-        img.setAttribute("height", 400);
-        if (msg.transform) img.setAttribute("transform", msg.transform);
-        Tools.group.appendChild(img);
-        const createEl = document.createElement("a");
-        createEl.href = dataURL;
-
-        // This is the name of our downloaded file
-        createEl.download = "download-this-screenshot";
-
-        createEl.click();
-        createEl.remove();
-        console.log("aFTER APPENDING");
-      });
-  }
 
   Tools.add({
     name: "Screenshot",
