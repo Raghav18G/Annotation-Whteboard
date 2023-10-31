@@ -153,7 +153,7 @@ var screenshotSVG = `<div class="tool-selected"><svg width="20" height="20" styl
   }
 
   Tools.add({
-    name: "Recorder",
+    name: "Screen Recorder",
     isExtra: true,
     // "icon": "🖼️",
     iconHTML: screenshotSVG,
