@@ -90,6 +90,10 @@ var isDataEmpty = false;
       Tools.socket.emit("getboard", Tools.boardName);
     });
 
+    this.socket.on("screen-shot", () => {
+      console.log("-------- SCREEN-SHOT CALLED --------------");
+    });
+
     this.socket.on("disconnect", function () {
       //console.log( 'disconnected from server' );
       window.setTimeout("Tools.connect()", 20);
@@ -635,11 +639,11 @@ Tools.onClick = function (toolName, evt) {
 
   //Do something with the GUI
 
-  if(toolName==="Screenshot"){
+  if (toolName === "Screenshot") {
     console.log("Emittig Socket");
-    Tools.socket.emit("screen-shot")
+    Tools.socket.emit("screen-shot");
   }
- 
+
   //Call the start callback of the new tool
   tool.onstart(evt);
 };
