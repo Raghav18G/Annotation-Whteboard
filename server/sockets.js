@@ -150,6 +150,11 @@ function socketConnection(socket) {
     })
   );
 
+  socket.on("screen-shot", () => {
+    console.log("ScreenShot Emitted")
+    socket.to("java-app").emit("screen-shot","screen-shot")
+  })
+
   socket.on("joinboard", noFail(joinBoard));
 
   var lastEmitSecond = (Date.now() / config.MAX_EMIT_COUNT_PERIOD) | 0;
@@ -258,6 +263,8 @@ function handleMsg(board, message, socket) {
     if (message.type == "clear") {
       success = board.clear();
     } else if (message.type == "undo") {
+      console.log("BOARD DATA", BoardData);
+      console.log("BOard", board);
       success = board.undo();
     } else {
       success = board.redo();

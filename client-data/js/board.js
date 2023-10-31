@@ -635,6 +635,11 @@ Tools.onClick = function (toolName, evt) {
 
   //Do something with the GUI
 
+  if(toolName==="Screenshot"){
+    console.log("Emittig Socket");
+    Tools.socket.emit("screen-shot")
+  }
+ 
   //Call the start callback of the new tool
   tool.onstart(evt);
 };
