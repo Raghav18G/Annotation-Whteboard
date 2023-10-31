@@ -77,7 +77,7 @@ var isDataEmpty = false;
       self.socket = null;
     }
 
-    this.socket = io.connect("", {
+    this.socket = io.connect("https://annotation-whiteboard.onrender.com/", {
       reconnection: true,
       reconnectionDelay: 100, //Make the xhr connections as fast as possible
       timeout: 1000 * 60 * 20, // Timeout after 20 minutes
