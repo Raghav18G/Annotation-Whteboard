@@ -46,6 +46,11 @@ function noFail(fn) {
 function startIO(app) {
   io = iolib(app);
   io.on("connection", noFail(socketConnection));
+  // io.on("screen-shot", () => {
+  //   console.log("ScreenShot Emitted")
+  //   io.emit("screen-shot")
+  // })
+  // io.emit("test","Hello From Test")
   return io;
 }
 
@@ -152,7 +157,7 @@ function socketConnection(socket) {
 
   socket.on("screen-shot", () => {
     console.log("ScreenShot Emitted")
-    socket.emit("screen-shot")
+    socket.emit("test")
   })
 
   // setInterval(() => {
@@ -161,6 +166,7 @@ function socketConnection(socket) {
   // },10000)
 
   socket.on("joinboard", noFail(joinBoard));
+
 
   var lastEmitSecond = (Date.now() / config.MAX_EMIT_COUNT_PERIOD) | 0;
   var emitCount = 0;
