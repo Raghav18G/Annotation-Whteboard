@@ -3,6 +3,7 @@ const http = require("http");
 const socketIO = require("socket.io");
 const app = express();
 const server = http.createServer(app);
+let screenShotDecider = false
 
 var iolib = require("socket.io"),
   BoardData = require("./boardData.js").BoardData,
@@ -46,10 +47,10 @@ function noFail(fn) {
 function startIO(app) {
   io = iolib(app);
   io.on("connection", noFail(socketConnection));
-  io.on("screen-shot", () => {
-    console.log("ScreenShot Emitted")
-    io.emit("test")
-  })
+  // io.on("screen-shot", () => {
+  //   console.log("ScreenShot Emitted")
+  //   io.emit("test")
+  // })
   // io.emit("test","Hello From Test")
   return io;
 }
@@ -155,15 +156,21 @@ function socketConnection(socket) {
     })
   );
 
-  // socket.on("screen-shot", () => {
-  //   console.log("ScreenShot Emitted")
-  //   // socket.emit("test")
+  socket.on("screen-shot", () => {
+    console.log("ScreenShot Emitted")
+    // socket.emit("test")
+    screenShotDecider = true
+    console.log(`Value On Screen-shot`,screenShotDecider);
+  })
 
-  //   const testInterval = setInterval(() => {
-  //     console.log(`==== Emiiting Event =====`)
-  //     socket.emit("test")
-  //   },5000)
-  // })
+  setInterval(() => {
+    console.log(`Value On Interval`,screenShotDecider);
+    if(screenShotDecider === true){
+      console.log(`==== Emiiting Event =====`)
+      socket.emit("test")
+      screenShotDecider = false
+    }
+  },5000)
 
   socket.on("joinboard", noFail(joinBoard));  
 
