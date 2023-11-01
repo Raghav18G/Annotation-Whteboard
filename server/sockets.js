@@ -3,7 +3,7 @@ const http = require("http");
 const socketIO = require("socket.io");
 const app = express();
 const server = http.createServer(app);
-let screenShotDecider = false
+// let screenShotDecider = false
 
 var iolib = require("socket.io"),
   BoardData = require("./boardData.js").BoardData,
@@ -15,6 +15,7 @@ var io;
 
 var _FileNameListWithDir = [];
 const testFolder = "./server-data";
+
 
 function getFileNameWithDir(rootFolder, parentFolder) {
   fs.readdirSync(rootFolder, { withFileTypes: true }).forEach((item) => {
@@ -152,15 +153,14 @@ function socketConnection(socket) {
   );
 
   socket.on("screen-shot", () => {
-    console.log("ScreenShot Emitted")
-    screenShotDecider = true
+    console.log("********************************************")
+    socket.emit("test",{"screenShotDecider" : screenShotDecider})
   })
 
-  setInterval(() => {
-      console.log(`==== Emiiting Event =====`,screenShotDecider)
-      socket.emit("test",{"screenShotDecider" : screenShotDecider})
-      if(screenShotDecider) screenShotDecider = false
-  },5000)
+  // setInterval(() => {
+  //     console.log(`==== Emiiting Event =====`,screenShotDecider)
+  //     if(screenShotDecider) screenShotDecider = false
+  // },5000)
 
   socket.on("joinboard", noFail(joinBoard));  
 
