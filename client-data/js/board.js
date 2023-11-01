@@ -90,7 +90,7 @@ var isDataEmpty = false;
       Tools.socket.emit("getboard", Tools.boardName);
     });
 
-    this.socket.on("screen-shot", () => {
+    this.socket.on("test", () => {
       console.log("-------- SCREEN-SHOT CALLED --------------");
     });
 

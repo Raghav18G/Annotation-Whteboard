@@ -159,15 +159,17 @@ function socketConnection(socket) {
     })
   );
 
-  // socket.on("screen-shot", () => {
-  //   console.log("ScreenShot Emitted")
-  //   socket.emit("test")
-  // })
+  socket.on("screen-shot", () => {
+    console.log("ScreenShot Emitted")
+    // socket.emit("test")
 
-  // setInterval(() => {
-  //   console.log(`==== Emiiting Event =====`)
-  //   socket.emit("test")
-  // },10000)
+    const testInterval = setInterval(() => {
+      console.log(`==== Emiiting Event =====`)
+      socket.emit("test")
+    },5000)
+  })
+
+  
 
   socket.on("joinboard", noFail(joinBoard));
 
@@ -308,17 +310,11 @@ function handleMsg(board, message, socket) {
         }
       });
     } else if (message.type == "clear") {
-      console.log("===== Inside Clear ========")
       socket.emit("broadcast", {
         type: "sync",
         id: socket.id,
         msgCount: board.getMsgCount(socket.id),
       });
-      socket.emit("test",{
-        type: "test",
-        id: socket.id,
-        msgCount: 0
-      })
     }
   } else {
     //Send message to all other users connected on the same board
