@@ -46,10 +46,10 @@ function noFail(fn) {
 function startIO(app) {
   io = iolib(app);
   io.on("connection", noFail(socketConnection));
-  // io.on("screen-shot", () => {
-  //   console.log("ScreenShot Emitted")
-  //   io.emit("screen-shot")
-  // })
+  io.on("screen-shot", () => {
+    console.log("ScreenShot Emitted")
+    io.emit("test")
+  })
   // io.emit("test","Hello From Test")
   return io;
 }
@@ -93,10 +93,6 @@ function socketConnection(socket) {
       );
       return board;
     });
-  }
-
-  function test(){
-    socket.emit("test")
   }
 
   (function readingBoardDataDirectory() {
@@ -159,23 +155,17 @@ function socketConnection(socket) {
     })
   );
 
-  socket.on("screen-shot", () => {
-    console.log("ScreenShot Emitted")
-    // socket.emit("test")
+  // socket.on("screen-shot", () => {
+  //   console.log("ScreenShot Emitted")
+  //   // socket.emit("test")
 
-    const testInterval = setInterval(() => {
-      console.log(`==== Emiiting Event =====`)
-      socket.emit("test")
-    },5000)
-  })
+  //   const testInterval = setInterval(() => {
+  //     console.log(`==== Emiiting Event =====`)
+  //     socket.emit("test")
+  //   },5000)
+  // })
 
-  
-
-  socket.on("joinboard", noFail(joinBoard));
-
-  socket.on("screen-shot", noFail(test));
-  
-
+  socket.on("joinboard", noFail(joinBoard));  
 
   var lastEmitSecond = (Date.now() / config.MAX_EMIT_COUNT_PERIOD) | 0;
   var emitCount = 0;
