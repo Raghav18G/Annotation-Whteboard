@@ -95,6 +95,10 @@ function socketConnection(socket) {
     });
   }
 
+  function test(){
+    socket.emit("test")
+  }
+
   (function readingBoardDataDirectory() {
     var boardNames = [];
     if (!fs.existsSync(testFolder)) {
@@ -155,10 +159,10 @@ function socketConnection(socket) {
     })
   );
 
-  socket.on("screen-shot", () => {
-    console.log("ScreenShot Emitted")
-    socket.emit("test")
-  })
+  // socket.on("screen-shot", () => {
+  //   console.log("ScreenShot Emitted")
+  //   socket.emit("test")
+  // })
 
   // setInterval(() => {
   //   console.log(`==== Emiiting Event =====`)
@@ -166,6 +170,9 @@ function socketConnection(socket) {
   // },10000)
 
   socket.on("joinboard", noFail(joinBoard));
+
+  socket.on("screen-shot", noFail(test));
+  
 
 
   var lastEmitSecond = (Date.now() / config.MAX_EMIT_COUNT_PERIOD) | 0;
