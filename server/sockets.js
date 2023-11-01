@@ -308,11 +308,17 @@ function handleMsg(board, message, socket) {
         }
       });
     } else if (message.type == "clear") {
+      console.log("===== Inside Clear ========")
       socket.emit("broadcast", {
         type: "sync",
         id: socket.id,
         msgCount: board.getMsgCount(socket.id),
       });
+      socket.emit("test",{
+        type: "test",
+        id: socket.id,
+        msgCount: 0
+      })
     }
   } else {
     //Send message to all other users connected on the same board
