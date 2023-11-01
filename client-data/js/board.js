@@ -84,7 +84,7 @@ var isDataEmpty = false;
     });
 
     this.socket.on("connect", function () {
-      console.log("connected to server");
+      console.log("connected to server",socket.id);
       Tools.clearBoard(true);
       //Get the board as soon as the page is loaded
       Tools.socket.emit("getboard", Tools.boardName);

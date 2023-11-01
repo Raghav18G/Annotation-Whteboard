@@ -66,7 +66,7 @@ function getConnectedSockets() {
 }
 
 function socketConnection(socket) {
-  console.log("Socket");
+  console.log("Socket Connected With Socket Id ====>",socket.id);
 
   function joinBoard(name) {
     // Default to the public board
@@ -152,7 +152,7 @@ function socketConnection(socket) {
 
   socket.on("screen-shot", () => {
     console.log("ScreenShot Emitted")
-    socket.emit("screen-shot","screen-shot")
+    socket.emit("screen-shot")
   })
 
   socket.on("joinboard", noFail(joinBoard));

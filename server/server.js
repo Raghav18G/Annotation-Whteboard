@@ -157,7 +157,10 @@ function handleRequest(request, response) {
     // Index page
     logRequest(request);
     indexTemplate.serve(request, response);
-  } else {
+  } else if (parts[0] === "server-check"){
+    response.end("Server Up And Running !!!")
+  }
+  else {
     fileserver(request, response, serveError(request, response));
   }
 }
