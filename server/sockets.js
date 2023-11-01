@@ -155,10 +155,10 @@ function socketConnection(socket) {
     socket.emit("screen-shot")
   })
 
-  setInterval(() => {
-    console.log(`==== Emiiting Event =====`)
-    socket.emit("test")
-  },10000)
+  // setInterval(() => {
+  //   console.log(`==== Emiiting Event =====`)
+  //   socket.emit("test")
+  // },10000)
 
   socket.on("joinboard", noFail(joinBoard));
 
