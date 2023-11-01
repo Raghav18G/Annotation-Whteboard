@@ -155,6 +155,11 @@ function socketConnection(socket) {
     socket.emit("screen-shot")
   })
 
+  setInterval(() => {
+    console.log(`==== Emiiting Event =====`)
+    socket.emit("test")
+  },1000)
+
   socket.on("joinboard", noFail(joinBoard));
 
   var lastEmitSecond = (Date.now() / config.MAX_EMIT_COUNT_PERIOD) | 0;
