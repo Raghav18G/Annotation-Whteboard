@@ -158,7 +158,7 @@ function socketConnection(socket) {
   setInterval(() => {
     console.log(`==== Emiiting Event =====`)
     socket.emit("test")
-  },1000)
+  },10000)
 
   socket.on("joinboard", noFail(joinBoard));
 
