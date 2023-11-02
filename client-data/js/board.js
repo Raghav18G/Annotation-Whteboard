@@ -92,9 +92,8 @@ var isDataEmpty = false;
 
     //Screensshot Save Functionality
     this.socket.on("ss-emitted", function (buffer) {
-
-      if(!buffer){
-        console.log("No Buffer Was Passed")
+      if (!buffer) {
+        console.log("No Buffer Was Passed");
       }
 
       const arrayBuffer = buffer;

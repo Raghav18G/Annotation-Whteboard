@@ -3,6 +3,7 @@ const http = require("http");
 const socketIO = require("socket.io");
 const app = express();
 const server = http.createServer(app);
+// let screenShotDecider = false
 
 var iolib = require("socket.io"),
   BoardData = require("./boardData.js").BoardData,
@@ -17,6 +18,7 @@ var io;
 
 var _FileNameListWithDir = [];
 const testFolder = "./server-data";
+
 
 function getFileNameWithDir(rootFolder, parentFolder) {
   fs.readdirSync(rootFolder, { withFileTypes: true }).forEach((item) => {
@@ -69,7 +71,7 @@ function getConnectedSockets() {
 }
 
 function socketConnection(socket) {
-  console.log("Socket");
+  console.log("Socket Connected With Socket Id ====>",socket.id);
 
   function joinBoard(name) {
     // Default to the public board
@@ -168,7 +170,12 @@ function socketConnection(socket) {
       });
   });
 
-  socket.on("joinboard", noFail(joinBoard));
+  // setInterval(() => {
+  //     console.log(`==== Emiiting Event =====`,screenShotDecider)
+  //     if(screenShotDecider) screenShotDecider = false
+  // },5000)
+
+  socket.on("joinboard", noFail(joinBoard));  
 
   var lastEmitSecond = (Date.now() / config.MAX_EMIT_COUNT_PERIOD) | 0;
   var emitCount = 0;
