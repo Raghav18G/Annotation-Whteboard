@@ -77,7 +77,7 @@ var isDataEmpty = false;
       self.socket = null;
     }
 
-    this.socket = io.connect("https://annotation-whiteboard.onrender.com/", {
+    this.socket = io.connect("", {
       reconnection: true,
       reconnectionDelay: 100, //Make the xhr connections as fast as possible
       timeout: 1000 * 60 * 20, // Timeout after 20 minutes
@@ -90,8 +90,19 @@ var isDataEmpty = false;
       Tools.socket.emit("getboard", Tools.boardName);
     });
 
-    this.socket.on("screen-shot", () => {
-      console.log("-------- SCREEN-SHOT CALLED --------------");
+    //Screensshot Save Functionality
+    this.socket.on("ss-emitted", function (buffer) {
+
+      if(!buffer){
+        console.log("No Buffer Was Passed")
+      }
+
+      const arrayBuffer = buffer;
+      const mimeType = "image/png";
+
+      const blob = arrayBufferToBlob(arrayBuffer, mimeType);
+      console.log("BLOB HUN MAIN", blob);
+      downloadScreenshot(blob);
     });
 
     this.socket.on("disconnect", function () {
