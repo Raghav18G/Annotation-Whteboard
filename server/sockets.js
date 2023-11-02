@@ -19,7 +19,6 @@ var io;
 var _FileNameListWithDir = [];
 const testFolder = "./server-data";
 
-
 function getFileNameWithDir(rootFolder, parentFolder) {
   fs.readdirSync(rootFolder, { withFileTypes: true }).forEach((item) => {
     const itemPath = rootFolder + `/${item.name}`;
@@ -71,7 +70,7 @@ function getConnectedSockets() {
 }
 
 function socketConnection(socket) {
-  console.log("Socket Connected With Socket Id ====>",socket.id);
+  console.log("Socket Connected With Socket Id ====>", socket.id);
 
   function joinBoard(name) {
     // Default to the public board
@@ -165,6 +164,8 @@ function socketConnection(socket) {
         socket.emit("ss-emitted", img);
       })
       .catch((err) => {
+        console.log("Error In ScreenShot ", err);
+        throw err;
         console.log("Screenshot Not succeeded");
         socket.emit("ss-emitted", null);
       });
@@ -175,7 +176,7 @@ function socketConnection(socket) {
   //     if(screenShotDecider) screenShotDecider = false
   // },5000)
 
-  socket.on("joinboard", noFail(joinBoard));  
+  socket.on("joinboard", noFail(joinBoard));
 
   var lastEmitSecond = (Date.now() / config.MAX_EMIT_COUNT_PERIOD) | 0;
   var emitCount = 0;
