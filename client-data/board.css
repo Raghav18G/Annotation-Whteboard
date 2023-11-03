@@ -726,7 +726,7 @@ margin-right: 4px !important;
 .tool-name.slider.opacitySelector {
   position: absolute;
   top: -120px;
-  right: 120px;
+  right: 24px;
   transform: translateX(-50%) rotate(-270deg);
 }
 
@@ -919,7 +919,7 @@ button.close.window-button {
   height: 1rem;
   left: 9.5rem; */
   top: -70px;
-  right: 208px;
+  right: 116px;
   transform: translateX(-50%) rotate(-90deg);
   border: 0;
   position: absolute;
