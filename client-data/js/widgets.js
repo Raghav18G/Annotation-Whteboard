@@ -1,4 +1,4 @@
-// Clock Widget
+// Clock Widgetcloc
 let clockInterval
 let getAllWidgets
 
@@ -152,8 +152,11 @@ const ClockWidget = e => {
   // Added Drag Icon
 
   const dragDiv = document.createElement("div")
-  dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" ></img>'
+  dragDiv.innerHTML = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+      <image href="./assets/DRAG.svg" x="0" y="0" width="30" height="30" draggable="false"/>
+    </svg>`
+
   dragDiv.classList.add("drag-widget")
   foreignObjectClock.appendChild(dragDiv)
 
@@ -161,8 +164,9 @@ const ClockWidget = e => {
 
   // added cross icon
   const crossDiv = document.createElement("div")
-  crossDiv.innerHTML =
-    '<img src="./assets/x-circle.svg" class="dragLogo" height="30" draggable="false" ></img>'
+  crossDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+  <image href="./assets/x-circle.svg"  class="dragLogo" x="0" y="0" width="30" height="30" draggable="false"/>
+</svg>`
 
   crossDiv.classList.add("cross-div")
 
@@ -171,6 +175,7 @@ const ClockWidget = e => {
   crossDiv.addEventListener("click", () => widgetRemove(uid))
 
   Tools.group.appendChild(foreignObjectClock)
+  // Tools.svg.getElementById("maths-tool").appendChild(foreignObjectClock)
   createDrag.addDrag(dragDiv, foreignObjectClock)
   // const HOURHAND = document.querySelector("#hour");
   // const MINUTEHAND = document.querySelector("#minute");
@@ -252,16 +257,18 @@ const CompassWidget = e => {
 
   foreignObjectCompass.appendChild(compassWidget)
   const dragDiv = document.createElement("div")
-  dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" ></img>'
+  dragDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+    <image href="./assets/DRAG.svg" x="0" y="0" width="30" height="30" draggable="false"/>
+  </svg>`
   dragDiv.classList.add("drag-widget")
   foreignObjectCompass.appendChild(compassWidget).appendChild(dragDiv)
   Tools.group.appendChild(foreignObjectCompass)
 
   createDrag.addDrag(dragDiv, foreignObjectCompass)
   const crossDiv = document.createElement("div")
-  crossDiv.innerHTML =
-    '<img src="./assets/x-circle.svg" class="dragLogo" height="30" draggable="false" ></img>'
+  crossDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+  <image href="./assets/x-circle.svg"  class="dragLogo" x="0" y="0" width="30" height="30" draggable="false"/>
+</svg>`
 
   crossDiv.classList.add("cross-div")
 
@@ -448,7 +455,7 @@ const MagnifyingGlass = () => {
       const MagnifyingGlass = document.getElementsByClassName(
         "img-magnifier-glass"
       )
-      MagnifyingGlass.length >= 1 ? parentGlass.remove() : ""
+      MagnifyingGlass.length >= 1 ?( parentGlass.remove(),document.getElementById("body-new").style.overflow="") : ""
     })
     maginifyingBtn.addEventListener("touchstart", e => {
       e.preventDefault()
@@ -502,6 +509,8 @@ const MagnifyingGlass = () => {
       /*and also for touch screens:*/
       glass.addEventListener("touchmove", moveMagnifier)
       img.addEventListener("touchmove", moveMagnifier)
+
+      document.getElementById("body-new").style.overflow="hidden"
 
       function moveMagnifier(e) {
         /*prevent any other actions that may occur when moving over the image*/
@@ -594,7 +603,7 @@ const calculatorWidget = e => {
   let uid = Tools.generateUID("doc")
 
   const calculatorHTML = ` 
-  <div id="calculatorWidget">
+  <div id="calculatorWidget" class="unselectable">
 <input type="text" id="result" disabled="true" ></input>
 <div class="calc-box">
 <button id="number7" class="calc-btn">7</button>
@@ -629,16 +638,19 @@ const calculatorWidget = e => {
 
   calculatorForeignObject.appendChild(calculatorWidgetElement)
   const dragDiv = document.createElement("div")
-  dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" ></img>'
+  dragDiv.innerHTML = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+      <image href="./assets/DRAG.svg" x="0" y="0" width="30" height="30" draggable="false"/>
+    </svg>`
   dragDiv.classList.add("drag-widget")
   calculatorForeignObject.appendChild(dragDiv)
 
   createDrag.addDrag(dragDiv, calculatorForeignObject)
 
   const crossDiv = document.createElement("div")
-  crossDiv.innerHTML =
-    '<img src="./assets/x-circle.svg" class="dragLogo" height="30" draggable="false" ></img>'
+  crossDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+  <image href="./assets/x-circle.svg"  class="dragLogo" x="0" y="0" width="30" height="30" draggable="false"/>
+</svg>`
 
   crossDiv.classList.add("cross-div")
 
@@ -702,6 +714,9 @@ const calculatorWidget = e => {
   document.getElementById(`number1 ${uid}`).addEventListener("click", () => {
     appendToResult("1")
   })
+  document.getElementById(`number0 ${uid}`).addEventListener("click", () => {
+    appendToResult("0")
+  })
 
   // Buttons Event Listeners
   document.getElementById(`calculate ${uid}`).addEventListener("click", () => {
@@ -729,26 +744,23 @@ const calculatorWidget = e => {
   })
 
   var expression = ""
-  var check="";
+  var check = ""
   let counter = 1
   let resultElement = document.getElementById("result")
-  resultElement.id+=` ${uid}`
-  resultElement =document.getElementById(`result ${uid}`)
+  resultElement.id += ` ${uid}`
+  resultElement = document.getElementById(`result ${uid}`)
   function appendToResult(value) {
-    
-    check=expression.slice(-1)
-    
-    if(([".","+","-","*","/"].includes(check))){
-      if(![".","+","-","*","/"].includes(value)){
+    check = expression.slice(-1)
+
+    if ([".", "+", "-", "*", "/"].includes(check)) {
+      if (![".", "+", "-", "*", "/"].includes(value)) {
         expression += value
         resultElement.value = expression
       }
-    }
-    else{
+    } else {
       expression += value
       resultElement.value = expression
     }
-
   }
 
   function calculate() {
@@ -831,6 +843,8 @@ const diceWidget = e => {
 
   // rollButton.id = "rollButton"
   rollButton.setAttribute("data-dice-id", uid)
+  rollButton.setAttribute("id", "RollDice")
+
   rollButton.textContent = "Roll Dice"
 
   // Append the dots to the dots container
@@ -876,8 +890,12 @@ const diceWidget = e => {
   diceforeignObject.appendChild(dicewidgetElement)
 
   const dragDiv = document.createElement("div")
-  dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" ></img>'
+
+  dragDiv.innerHTML = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+      <image href="./assets/DRAG.svg" x="0" y="0" width="30" height="30" draggable="false"/>
+    </svg>`
+
   dragDiv.classList.add("drag-widget")
 
   diceforeignObject.appendChild(dragDiv)
@@ -886,8 +904,9 @@ const diceWidget = e => {
 
   const crossDiv = document.createElement("div")
 
-  crossDiv.innerHTML =
-    '<img src="./assets/x-circle.svg" class="dragLogo" height="30" draggable="false" ></img>'
+  crossDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+  <image href="./assets/x-circle.svg"  class="dragLogo" x="0" y="0" width="30" height="30" draggable="false"/>
+</svg>`
 
   crossDiv.classList.add("cross-div")
 
@@ -996,9 +1015,10 @@ const stopWatchWidget = e => {
     "foreignObject"
   )
 
-  const stopwatchWidgetElement = document.createElement("div")
-  stopwatchWidgetElement.id = "stopwatchWidget"
-  let uid = Tools.generateUID("doc")
+  const stopwatchWidgetElement = document.createElement("div");
+  stopwatchWidgetElement.id = "stopwatchWidget";
+  stopwatchWidgetElement.classList.add("unselectable");
+  let uid = Tools.generateUID("doc");
 
   // const stopwatchWidgetHTML = `
   // <div id="display">00:00:00</div>
@@ -1015,7 +1035,7 @@ const stopWatchWidget = e => {
 
   // Create the controls div
   const controlsDiv = document.createElement("div")
-  controlsDiv.id = "controls"
+  controlsDiv.id = "controlsStopwatch"
 
   // Create the Start button
   const startButton = document.createElement("button")
@@ -1054,16 +1074,18 @@ const stopWatchWidget = e => {
 
   Tools.group.appendChild(stopWatchforeignObject)
   const dragDiv = document.createElement("div")
-  dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" ></img>'
+  dragDiv.innerHTML = `  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+  <image href="./assets/DRAG.svg" x="0" y="0" width="30" height="30" draggable="false"/>
+</svg>`
   dragDiv.classList.add("drag-widget")
 
   stopWatchforeignObject.appendChild(dragDiv)
 
   createDrag.addDrag(dragDiv, stopWatchforeignObject)
   const crossDiv = document.createElement("div")
-  crossDiv.innerHTML =
-    '<img src="./assets/x-circle.svg" class="dragLogo" height="30" draggable="false" ></img>'
+  crossDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+  <image href="./assets/x-circle.svg"  class="dragLogo" x="0" y="0" width="30" height="30" draggable="false"/>
+</svg>`
 
   crossDiv.classList.add("cross-div")
 
@@ -1127,100 +1149,72 @@ const stopWatchWidget = e => {
   resetButton.addEventListener("click", () => reset())
 }
 
-const protractorWidget = (e) => {
-  createDrag = new Draggable();
+const protractorWidget = e => {
+  createDrag = new Draggable()
 
   const protractorforeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
     "foreignObject"
-  );
-  const protractorWidgetElement = document.createElement("div");
-  protractorWidgetElement.id = "protractorWidget";
-  let uid = Tools.generateUID("doc");
+  )
+  const protractorWidgetElement = document.createElement("div")
+  protractorWidgetElement.id = "protractorWidget"
+  let uid = Tools.generateUID("doc")
 
   const protractorWidgetHTML = `
-    <div class="protractor-parent">
-      <div class="rotational-container">
-        <div class="rotational-division">
-         <input type="number" id="rotation-angle" value="0°" min="-360" max="360">
+    <div class="protractor-parent" id="protractor-parent ${uid}">
+      <div class="rotational-container" id="rotational-container ${uid}">
+        <div class="rotational-division" id="rotational-division ${uid}">
+         <input id="rotation-angle ${uid}" style="width:70px" value="0°" min="-360" max="360">
         </div>
       </div>
-    </div>`;
+    </div>`
 
-  protractorWidgetElement.innerHTML = protractorWidgetHTML;
+  protractorWidgetElement.innerHTML = protractorWidgetHTML
 
-  protractorforeignObject.style.x = `${e.clientX + window.scrollX}px`;
-  protractorforeignObject.style.y = `${e.clientY + window.scrollY}px`;
+  protractorforeignObject.style.x = `${e.clientX + window.scrollX}px`
+  protractorforeignObject.style.y = `${e.clientY + window.scrollY}px`
   // protractorforeignObject.style.x = e.clientX;
   // protractorforeignObject.style.y = e.clientY;
-  protractorforeignObject.style.width = "1px";
-  protractorforeignObject.style.height = "1px";
-  protractorforeignObject.setAttribute("id", uid);
-  protractorforeignObject.setAttribute("overflow", "visible");
+  protractorforeignObject.style.width = "1px"
+  protractorforeignObject.style.height = "1px"
+  protractorforeignObject.setAttribute("id", uid)
+  protractorforeignObject.setAttribute("overflow", "visible")
 
-  protractorforeignObject.appendChild(protractorWidgetElement);
+  protractorforeignObject.appendChild(protractorWidgetElement)
 
-  Tools.group.appendChild(protractorforeignObject);
-  const dragDiv = document.createElement("div");
-  dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>';
-  dragDiv.classList.add("drag-widget");
+  Tools.group.appendChild(protractorforeignObject)
+  const dragDiv = document.createElement("div")
+  dragDiv.innerHTML = `  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+<image href="./assets/DRAG.svg" x="0" y="0" width="30" height="30" draggable="false"/>
+</svg>`
+  dragDiv.classList.add("drag-widget-setSquare")
 
   protractorforeignObject.appendChild(dragDiv)
 
   createDrag.addDrag(dragDiv, protractorforeignObject)
 
   const crossDiv = document.createElement("div")
-  crossDiv.innerHTML =
-    '<img src="./assets/x-circle.svg" class="dragLogo" height="30" draggable="false" ></img>';
+  crossDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+  <image href="./assets/x-circle.svg"  class="dragLogo" x="0" y="0" width="30" height="30" draggable="false"/>
+</svg>`
 
-  crossDiv.classList.add("cross-div");
+  crossDiv.classList.add("cross-div-setSquare")
 
-  protractorforeignObject.appendChild(crossDiv);
+  protractorforeignObject.appendChild(crossDiv)
 
   crossDiv.addEventListener("click", () => widgetRemove(uid))
-  //makeDraggeble(protractorforeignObject);
-
-  // Make the widget draggable
-  // let isDragging = false;
-  // let initialMouseX = 0;
-  // let initialMouseY = 0;
-  // let initialImageX = 0;
-  // let initialImageY = 0;
-
-  // protractorforeignObject.addEventListener("mousedown", (e) => {
-  //   isDragging = true;
-  //   initialMouseX = e.clientX;
-  //   initialMouseY = e.clientY;
-  //   initialImageX = parseInt(protractorforeignObject.style.x);
-  //   initialImageY = parseInt(protractorforeignObject.style.y);
-  // });
-
-  // document.addEventListener("mousemove", (e) => {
-  //   if (isDragging) {
-  //     const deltaX = e.clientX - initialMouseX;
-  //     const deltaY = e.clientY - initialMouseY;
-  //     const newX = initialImageX + deltaX;
-  //     const newY = initialImageY + deltaY;
-  //     protractorforeignObject.style.x = newX + "px";
-  //     protractorforeignObject.style.y = newY + "px";
-  //   }
-  // });
-
-  // document.addEventListener("mouseup", () => {
-  //   isDragging = false;
-  // });
 
   // Prevent automatic changing of input field while dragging
   $(document).ready(function () {
-    const rotationalContainer = $(".rotational-container");
-    const rotationalDiv = $(".rotational-division");
-    const rotationAngleInput = $("#rotation-angle");
-    let initialAngle = 0;
-    let rotationAngle = 0;
+    const rotationalContainer = document.getElementById(`rotational-container ${uid}`)
+    const rotationalDiv = document.getElementById(`rotational-division ${uid}`)
+    const rotationAngleInput = document.getElementById(`rotation-angle ${uid}`)
+    console.log(rotationAngleInput,"rotationAngleInput");
+    let initialAngle = 0
+    let rotationAngle = 0
 
-    rotationalContainer.on("mousedown", function (e) {
-      isDragging = true;
+    rotationalContainer.addEventListener("mousedown", function (e) {
+      isDragging = true
       initialAngle = Math.atan2(
         e.clientY - window.innerHeight / 2,
         e.clientX - window.innerWidth / 2
@@ -1245,22 +1239,28 @@ const protractorWidget = (e) => {
     //     initialAngle = newAngle;
     //   }
     // });
-
-    rotationAngleInput.on("input", function () {
-      const inputValue = parseInt(rotationAngleInput.val());
+      
+    rotationAngleInput.addEventListener("input", function () {
+      const inputValue = parseInt(rotationAngleInput.value);
       if (!isNaN(inputValue)) {
-        let newRotationAngle = inputValue % 360;
-        if (newRotationAngle < 0) newRotationAngle += 360;
-        rotationalDiv.css("transform", `rotate(${newRotationAngle}deg)`);
-        rotationAngle = newRotationAngle;
+        let newRotationAngle = inputValue % 360
+        if (newRotationAngle < 0) newRotationAngle += 360
+        rotationalDiv.style.transform=`rotate(${newRotationAngle}deg)`
+        rotationAngle = newRotationAngle
       }
-    });
+    })
+  })
 
-    // $(document).on("mouseup", function () {
-    //   isDragging = false;
-    // });
-  });
-};
+  let protractorInput = document.getElementById(`rotation-angle ${uid}`)
+  protractorInput.addEventListener("focus", () => {
+    protractorInput.type = "number"
+    protractorInput.width = "70px"
+  })
+  protractorInput.addEventListener("blur", function () {
+    protractorInput.type = "text"
+    protractorInput.width = "70px"
+  })
+}
 
 // ruler widget
 
@@ -1312,25 +1312,26 @@ const rulerWidget = e => {
 
   rulerforeignObject.appendChild(rulerWidgetElement)
 
-
   //makeDraggeble(rulerforeignObject);
   const dragDiv = document.createElement("div")
-  dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>'
+  dragDiv.innerHTML = `  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+ <image href="./assets/DRAG.svg" x="0" y="0" width="30" height="30" draggable="false"/>
+</svg>`
   dragDiv.classList.add("drag-widget")
 
   rulerforeignObject.appendChild(dragDiv)
 
   const crossDiv = document.createElement("div")
-  crossDiv.innerHTML =
-    '<img src="./assets/x-circle.svg" class="dragLogo" height="30" draggable="false" ></img>'
+  crossDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+<image href="./assets/x-circle.svg"  class="dragLogo" x="0" y="0" width="30" height="30" draggable="false"/>
+</svg>`
 
   crossDiv.classList.add("cross-div")
 
   rulerforeignObject.appendChild(crossDiv)
 
-  crossDiv.addEventListener("click", () => widgetRemove(uid));
-  Tools.group.appendChild(rulerforeignObject);
+  crossDiv.addEventListener("click", () => widgetRemove(uid))
+  Tools.group.appendChild(rulerforeignObject)
 
   createDrag.addDrag(dragDiv, rulerforeignObject)
   const canvas = document.getElementById("myCanvas")
@@ -1654,8 +1655,23 @@ const rulerWidget = e => {
 
 // set the image background to view port width
 
+function estimateScreenDPI() {
+  const screenWidth = window.screen.width
+  const screenHeight = window.screen.height
+  const diagonalSizeInInches = 15 // Replace with the actual diagonal size in inches if known
+
+  // Calculate DPI
+  const dpi =
+    Math.sqrt(Math.pow(screenWidth, 2) + Math.pow(screenHeight, 2)) /
+    diagonalSizeInInches
+  return dpi
+}
+
 const roundCompassWidget = e => {
   createDrag = new Draggable()
+
+  const screenDPI = estimateScreenDPI()
+  console.log(`Estimated screen DPI: ${screenDPI}`)
 
   const roundCompassforeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
@@ -1667,13 +1683,13 @@ const roundCompassWidget = e => {
   let uid = Tools.generateUID("doc")
 
   const roundCompassWidgetHTML = `
-    <div class="roundCompass--container">
-    <canvas class="compassCanvas" id="compassCanvas" height="400" width="400"></canvas>
+    <div class="roundCompass--container unselectable">
+    <canvas class="compassCanvas" id="compassCanvas" height="1800" width="1800"></canvas>
      <div class="controls" id="controls">
-        <label for="radiusInput">Radius:</label>
-        <input type="number" class="radiusInput" id="radiusInput" value="100" max="196" min="0">
+        <label for="radiusInput">Radius (cm):</label>
+        <input  class="radiusInput" id="radiusInput" value="2" max="9" min="0">
         <label for="angleInput">Angle (0-360°):</label>
-        <input type="number" class="angleInput" id="angleInput" value="45" min="0" max="360">
+        <input class="angleInput" id="angleInput" value="45" min="0" max="360">
       </div>
       <button class="drawButton" id="drawButton">Draw</button>
     </div>
@@ -1692,8 +1708,9 @@ const roundCompassWidget = e => {
   roundCompassforeignObject.appendChild(roundCompassWidgetElement)
 
   const crossDiv = document.createElement("div")
-  crossDiv.innerHTML =
-    '<img src="./assets/x-circle.svg" class="dragLogo" height="30" draggable="false" ></img>'
+  crossDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+  <image href="./assets/x-circle.svg"  class="dragLogo" x="0" y="0" width="30" height="30" draggable="false"/>
+</svg>`
 
   crossDiv.classList.add("cross-div")
 
@@ -1703,12 +1720,29 @@ const roundCompassWidget = e => {
 
   Tools.group.appendChild(roundCompassforeignObject)
 
-  
+  const inputElement = document.getElementById("angleInput")
+
+  inputElement.addEventListener("focus", () => {
+    inputElement.type = "number"
+  })
+  inputElement.addEventListener("blur", function () {
+    inputElement.type = "text"
+  })
+
+  const inputElementFirst = document.getElementById("radiusInput")
+
+  inputElementFirst.addEventListener("focus", () => {
+    inputElementFirst.type = "number"
+  })
+  inputElementFirst.addEventListener("blur", function () {
+    inputElementFirst.type = "text"
+  })
 
   //makeDraggeble(roundCompassforeignObject);
   const dragDiv = document.createElement("div")
-  dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>'
+  dragDiv.innerHTML = `  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+<image href="./assets/DRAG.svg" x="0" y="0" width="30" height="30" draggable="false"/>
+</svg>`
   dragDiv.classList.add("drag-widget")
 
   roundCompassWidgetElement.appendChild(dragDiv)
@@ -1717,21 +1751,17 @@ const roundCompassWidget = e => {
 
   const inputIds = [
     "radiusInput",
-    "angleInput",   
+    "angleInput",
     "drawButton",
     "compassCanvas",
-    "controls"
+    "controls",
   ]
-
-  
 
   // add dynamic ids to create unique attr
   inputIds.forEach(item => {
     let elementsIds = document.getElementById(item)
     elementsIds.id += ` ${uid}`
   })
-
-
 
   const canvas = document.getElementById(`compassCanvas ${uid}`)
   const ctx = canvas.getContext("2d")
@@ -1749,15 +1779,19 @@ const roundCompassWidget = e => {
   const arcs = [] // Array to store arc properties
 
   function wrapAngle(angle) {
-    if (angle < 0) return 360;
-    if (angle >= 361) return 0;
-    return angle;
+    if (angle < 0) return 360
+    if (angle >= 361) return 0
+    return angle
   }
 
   function drawTriangle() {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight)
 
-    const radius = parseFloat(radiusInput.value)
+    //Multiplying by 96 to convert cm to pixels according to 96 DPI
+    const radius = parseFloat(radiusInput.value) * 96
+
+    console.log("RADIUS in cm", radius)
+    console.log("RADIUS in Pixels", radius * screenDPI)
     let angle = parseFloat(angleInput.value)
 
     angle = wrapAngle(angle)
@@ -1789,25 +1823,25 @@ const roundCompassWidget = e => {
 
     if (!drawButtonClicked) {
       // Draw red arm (line AB)
-      ctx.beginPath();
-      ctx.moveTo(A.x, A.y);
-      ctx.lineTo(B.x, B.y);
-      ctx.strokeStyle = "orange";
-      ctx.stroke();
-  
+      ctx.beginPath()
+      ctx.moveTo(A.x, A.y)
+      ctx.lineTo(B.x, B.y)
+      ctx.strokeStyle = "orange"
+      ctx.stroke()
+
       // Draw green arm (line AC)
-      ctx.beginPath();
-      ctx.moveTo(A.x, A.y);
-      ctx.lineTo(C.x, C.y);
-      ctx.strokeStyle = "green";
-      ctx.stroke();
+      ctx.beginPath()
+      ctx.moveTo(A.x, A.y)
+      ctx.lineTo(C.x, C.y)
+      ctx.strokeStyle = "green"
+      ctx.stroke()
     }
 
     // Draw the current arc
-    ctx.beginPath();
-    ctx.arc(A.x, A.y, radius, 0, angle * (Math.PI / 180));
-    ctx.strokeStyle = "black";
-    ctx.stroke();
+    ctx.beginPath()
+    ctx.arc(A.x, A.y, radius, 0, angle * (Math.PI / 180))
+    ctx.strokeStyle = "black"
+    ctx.stroke()
   }
 
   let initialAngle = 0 // Store the initial angle when dragging starts
@@ -1919,9 +1953,9 @@ const roundCompassWidget = e => {
     let angle = parseFloat(angleInput.value)
 
     if (angle < 0) {
-      angle = 360;
+      angle = 360
     } else if (angle >= 361) {
-      angle = 0;
+      angle = 0
     }
 
     angleInput.value = angle
@@ -1929,27 +1963,26 @@ const roundCompassWidget = e => {
     drawTriangle()
   })
 
-  let drawButtonClicked = false;
-  
+  let drawButtonClicked = false
 
   drawButton.addEventListener("click", () => {
     // Store the current arc's properties and color
-    const currentRadius = parseFloat(radiusInput.value);
-    const currentAngle = parseFloat(angleInput.value);
-    const currentColor = "black"; // You can choose any color
-  
+    const currentRadius = parseFloat(radiusInput.value)
+    const currentAngle = parseFloat(angleInput.value)
+    const currentColor = "black" // You can choose any color
+
     // Hide the controls and drawButton elements
-   
+
     // Set the drawButtonClicked flag to true
-    drawButtonClicked = true;
-  
+    drawButtonClicked = true
+
     arcs.push({
       center: { x: A.x, y: A.y },
       radius: currentRadius,
       startAngle: 0,
       endAngle: (currentAngle * Math.PI) / 180,
       color: currentColor,
-    });
+    })
     // Redraw the compass with the new arc
     drawTriangle(uid)
     // remove the element
@@ -1958,7 +1991,7 @@ const roundCompassWidget = e => {
     roundCompassWidgetElement.removeChild(dragDiv)
     const btn = document.getElementById(`drawButton ${uid}`)
     btn.remove()
-    controlsDiv.remove();
+    controlsDiv.remove()
   })
 
   drawTriangle(uid)
@@ -2003,21 +2036,22 @@ function getVisibleViewport() {
     left: visibleLeft,
     bottom: visibleBottom,
     right: visibleRight,
-  }
+  };
 }
 
-function toggleDiv(className) {
-  const div = document.querySelector(`.${className}`)
+function toggleDiv(id) {
+  console.log("In TOGGLE DIC");
+  const div = document.getElementById(`${id}`);
   if (div.style.display === "none") {
-    div.style.display = "block"
+    div.style.display = "block";
   } else {
-    div.style.display = "none"
+    div.style.display = "none";
   }
 }
 
-const setSquareWidget = e => {
-  console.log("setSquare", e)
-  createDrag = new Draggable()
+const setSquareWidget = (e) => {
+  createDrag = new Draggable();
+  let uid = Tools.generateUID("doc");
 
   const setSquareforeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
@@ -2025,38 +2059,43 @@ const setSquareWidget = e => {
   )
   const setSquareWidgetElement = document.createElement("div")
 
-  setSquareWidgetElement.id = "setSquareWidget"
-  let uid = Tools.generateUID("doc")
+  setSquareWidgetElement.id = "setSquareWidget";
 
   const setSquareWidgetHTML = `
-  <div class="setSqaure">
+  <div class="setSqaure unselectable">
   <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
     <button
-      onclick="toggleDiv('triangle-container-two')"
+      onclick="toggleDiv('rotatableContainerTwo ${uid}')"
       style="background-color: yellowgreen; border: none; border-radius: 8px; padding: 12px; font-weight: 600; cursor: pointer;">(30,
       60, 90)</button>
-    <button onclick="toggleDiv('triangle-container')"
+    <button 
+      onclick="toggleDiv('rotatableContainer ${uid}')"
       style="background-color: beige; border: none; border-radius: 8px; padding: 12px; font-weight: 600; cursor: pointer;">(45,
       45, 90)</button>
   </div>
 
-  <div class="triangle-container-two" id="rotatableContainerTwo">
-    <div class="triangle-two" id="rotatableTriangleTwo"></div>
+  <div class="triangle-container-two " id="rotatableContainerTwo">
+  <img src="" id="triangle-two-image" draggable="false"/>
+    <div class="triangle-two" id="rotatableTriangleTwo">
+   
+    </div>
     <div class="input-container-two">
-      <input type="number" id="rotationInputTwo" min="0" max="360" value="0" ></input>
+      <input  id="rotationInputTwo" min="0" max="360" value="0" ></input>
     </div>
   </div>
 
   <div class="triangle-container" id="rotatableContainer">
-    <div class="triangle" id="rotatableTriangle"></div>
-    <div class="input-container setSquare-input-two">
-      <input type="number" id="rotationInput" min="0" max="360" value="0" ></input>
+  <img src="" id="triangle-one-image" draggable="false"/>
+    <div class="triangle" id="rotatableTriangle">
+    
+    </div>
+    <div class="input-container-setSquare setSquare-input-two">
+      <input  id="rotationInput" min="0" max="360" value="0" ></input>
     </div>
   </div>
   </div>`
 
   setSquareWidgetElement.innerHTML = setSquareWidgetHTML
-  // set the image background to view port width
 
   setSquareforeignObject.style.x = `${e.clientX + window.scrollX}px`
   setSquareforeignObject.style.y = `${e.clientY + window.scrollY}px`
@@ -2070,17 +2109,36 @@ const setSquareWidget = e => {
   setSquareforeignObject.appendChild(setSquareWidgetElement)
 
   Tools.group.appendChild(setSquareforeignObject)
+
+  let setSquareID = [
+    "rotatableContainerTwo",
+    "triangle-two-image",
+    "rotatableTriangleTwo",
+    "rotationInputTwo",
+    "rotatableContainer",
+    "triangle-one-image",
+    "rotatableTriangle",
+    "rotationInput",
+  ];
+
+  setSquareID.forEach((item) => {
+    let ids = document.getElementById(item);
+    ids.id += ` ${uid}`;
+  });
+
   //makeDraggeble(setSquareforeignObject);
   const dragDiv = document.createElement("div")
-  dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>'
+  dragDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+<image href="./assets/DRAG.svg" x="0" y="0" width="30" height="30" draggable="false"/>
+</svg>`
   dragDiv.classList.add("drag-widget")
 
   setSquareforeignObject.appendChild(dragDiv)
 
   const crossDiv = document.createElement("div")
-  crossDiv.innerHTML =
-    '<img src="./assets/x-circle.svg" class="dragLogo" height="30" draggable="false" ></img>'
+  crossDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+  <image href="./assets/x-circle.svg"  class="dragLogo" x="0" y="0" width="30" height="30" draggable="false"/>
+</svg>`
 
   crossDiv.classList.add("cross-div")
 
@@ -2091,9 +2149,53 @@ const setSquareWidget = e => {
   createDrag.addDrag(dragDiv, setSquareforeignObject)
   // for 30-60 set-square
 
-  const containerTwo = document.getElementById("rotatableContainerTwo")
-  const triangleTwo = document.getElementById("rotatableTriangleTwo")
-  const inputTwo = document.getElementById("rotationInputTwo")
+  const containerTwo = document.getElementById(`rotatableContainerTwo ${uid}`)
+  const triangleTwo = document.getElementById(`rotatableTriangleTwo ${uid}`)
+  const inputTwo = document.getElementById(`rotationInputTwo ${uid}`)
+
+  // 1st Triangle Image
+  const imageUrlPayload = "../Set-Square-30.png" // Provide the correct relative path to your image file
+  const imageUrlPayloadTriangleNew = "../geometry-icon.png"
+
+  const xhr = new XMLHttpRequest()
+  xhr.open("GET", imageUrlPayload, true)
+  xhr.responseType = "blob"
+
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      const blob = xhr.response
+
+      // Convert the blob to a blob URL
+      const imageUrl = URL.createObjectURL(blob)
+
+      // Get the img element by ID
+      const imageElement = document.getElementById(`triangle-two-image ${uid}`)
+
+      // Set the src attribute of the image
+      imageElement.src = imageUrl
+    }
+  }
+
+  xhr.send()
+
+  const XhrNew = new XMLHttpRequest()
+  XhrNew.open("GET", imageUrlPayloadTriangleNew, true)
+  XhrNew.responseType = "blob"
+
+  XhrNew.onload = function () {
+    if (XhrNew.status === 200) {
+      const blob = XhrNew.response
+      // Convert the blob to a blob URL
+      const imageUrlNew = URL.createObjectURL(blob)
+      // Get the img element by ID
+      const imageElement = document.getElementById(`triangle-one-image ${uid}`)
+
+      // Set the src attribute of the image
+      imageElement.src = imageUrlNew
+    }
+  }
+
+  XhrNew.send()
 
   let isDraggingTwo = false
   let startAngleTwo = 0
@@ -2134,6 +2236,27 @@ const setSquareWidget = e => {
 
   document.addEventListener("mousemove", rotateContainerTwo)
 
+  const inputElement = document.getElementById(`rotationInput ${uid}`)
+
+  inputElement.addEventListener("focus", () => {
+    inputElement.type = "number"
+    inputElement.width = "50px"
+  })
+  inputElement.addEventListener("blur", function () {
+    inputElement.type = "text"
+    inputElement.width = "50px"
+  })
+
+  const inputElementFirst = document.getElementById(`rotationInputTwo ${uid}`)
+
+  inputElementFirst.addEventListener("focus", () => {
+    inputElementFirst.type = "number"
+    inputElementFirst.width = "50px"
+  })
+  inputElementFirst.addEventListener("blur", function () {
+    inputElementFirst.type = "text"
+    inputElementFirst.width = "50px"
+  })
   document.addEventListener("mouseup", () => {
     isDraggingTwo = false
   })
@@ -2147,9 +2270,9 @@ const setSquareWidget = e => {
   })
 
   // for 45-45 set-square
-  const container = document.getElementById("rotatableContainer")
-  const triangle = document.getElementById("rotatableTriangle")
-  const input = document.getElementById("rotationInput")
+  const container = document.getElementById(`rotatableContainer ${uid}`)
+  const triangle = document.getElementById(`rotatableTriangle ${uid}`)
+  const input = document.getElementById(`rotationInput ${uid}`)
 
   let isDragging = false
   let startAngle = 0

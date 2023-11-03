@@ -40,6 +40,11 @@ background-color: #e0e0e0;
 padding: 5px 5px;
 cursor: pointer;
 }
+.table-drag {
+  left: -29px;
+  position: absolute;
+  top: 32px;
+}
 
 .drag-div{
   position: absolute;
@@ -47,6 +52,7 @@ cursor: pointer;
   left: 0rem;
   background-color: #e0e0e0;
   padding: 5px 5px;
+  border-radius:25px;
   cursor: grab;
   text-align: center;
   }

@@ -56,7 +56,6 @@ function checkDisable() {
       delete self.socket;
       self.socket = null;
     }
-
     this.socket = io.connect("", {
       reconnection: true,
       reconnectionDelay: 100, //Make the xhr connections as fast as possible

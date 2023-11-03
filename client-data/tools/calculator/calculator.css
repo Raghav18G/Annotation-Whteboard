@@ -26,7 +26,7 @@
 #calc-container {
 	position: absolute;
 	display:none;
-	top: 9rem !important;;
+	/* top: 9rem !important; */
 	left:65px;
 	padding-bottom:43px;
 	-webkit-box-shadow: -1px 4px 18px -6px rgba(0,0,0,0.75);

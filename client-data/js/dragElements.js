@@ -18,6 +18,7 @@ class Draggable {
       initialMouseY = e.clientY;
       initialImageX = parseInt(parentRef.style.x);
       initialImageY = parseInt(parentRef.style.y);
+      parentRef.style.zIndex = "1000";
     };
 
     dragDiv.addEventListener("mousedown", this.position);
@@ -29,10 +30,15 @@ class Draggable {
         const deltaY = e.clientY - initialMouseY;
         const newX = initialImageX + deltaX;
         const newY = initialImageY + deltaY;
-        parentRef.style.x = newX + "px";
-        parentRef.style.y = newY + "px";
+    
+        // Check if the new position is within the window boundaries
+        if (newX >= 0 && newY >= 0) {
+          parentRef.style.x = newX + "px";
+          parentRef.style.y = newY + "px";
+        }
       }
     };
+    
 
     document.addEventListener("mousemove", this.changePosition);
 

@@ -508,6 +508,9 @@ int main() {
       win.max = false;
     } else {
       max_win();
+      document.getElementById("searchBrowser").style.width="100%"
+      document.getElementById("searchBrowser").style.height="100%"
+
       win.max = true;
     }
   }

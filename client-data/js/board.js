@@ -27,7 +27,7 @@
 //TODO Isolate this code...Expose one object
 //TODO naming: clean up global vars
 //TODO config file
-
+let checkCurTool = true;
 var Tools = {};
 var wb_comp = {};
 
@@ -35,9 +35,7 @@ var svgWidth, svgHeight;
 var isTouchDevice = "ontouchstart" in document.documentElement;
 
 Tools.board = document.getElementById("board");
-
 Tools.svg = document.getElementById("canvas");
-
 Tools.group = Tools.svg.getElementById("layer-1");
 Tools.compass = document.getElementById("compass");
 
@@ -88,20 +86,6 @@ var isDataEmpty = false;
       Tools.clearBoard(true);
       //Get the board as soon as the page is loaded
       Tools.socket.emit("getboard", Tools.boardName);
-    });
-
-    //Screensshot Save Functionality
-    this.socket.on("ss-emitted", function (buffer) {
-      if (!buffer) {
-        console.log("No Buffer Was Passed");
-      }
-
-      const arrayBuffer = buffer;
-      const mimeType = "image/png";
-
-      const blob = arrayBufferToBlob(arrayBuffer, mimeType);
-      console.log("BLOB HUN MAIN", blob);
-      downloadScreenshot(blob);
     });
 
     this.socket.on("disconnect", function () {
@@ -225,6 +209,8 @@ function handleMarker(evt) {
 
 function moveMarker(message) {
   var cursor = Tools.svg.getElementById("mycursor");
+  console.log("movemarkereererk", cursor);
+
   if (!cursor) {
     Tools.svg.getElementById("cursors").innerHTML =
       "<circle class='opcursor' id='mycursor' cx='100' cy='100' r='10' fill='#e75480' />";
@@ -250,6 +236,7 @@ setInterval(function () {
 }, 2000);
 
 function movePointer(message) {
+  console.log("movePointer");
   var cursor = cursors["cursor" + message.socket];
   //var cursor = document.getElementById("cursor"+message.socket);
   if (!cursor) {
@@ -385,6 +372,11 @@ Tools.clearBoard = function (deleteMsgs) {
   //group.style.mask = "url(#mask-layer-"+Tools.layer+")"
   Tools.svg.appendChild(group);
   Tools.group = group;
+  const newGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  newGroup.setAttribute("id", "maths-tool");
+
+  Tools.svg.appendChild(newGroup);
+  // <end>
 };
 
 Tools.HTML = {
@@ -462,7 +454,6 @@ Tools.HTML = {
         );
 
         document.body.appendChild(Tools.menus[toolName].menu);
-
         (function () {
           var hidden = true;
 
@@ -644,15 +635,15 @@ Tools.onClick = function (toolName, evt) {
   if (!(toolName in Tools.list)) {
     throw new Error("Trying to select a tool that has never been added!");
   }
-
-  var tool = Tools.list[toolName];
-
-  //Do something with the GUI
-
+  console.log(toolName);
   if (toolName === "Screenshot") {
     console.log("Emittig Socket");
     Tools.socket.emit("screen-shot");
   }
+
+  var tool = Tools.list[toolName];
+
+  //Do something with the GUI
 
   //Call the start callback of the new tool
   tool.onstart(evt);
@@ -660,14 +651,6 @@ Tools.onClick = function (toolName, evt) {
 
 Tools.change = function (toolName) {
   document.getElementById("moreTools").style.display = "none";
-
-  if (toolName == "Rectangle") {
-    if (document.getElementById("shapesArrow")) {
-      document.getElementById("shapesArrow").style.display = "block";
-      document.getElementById("shapesArrow").style.width = "10px";
-      document.getElementById("shapesArrow").childNodes[0].style.width = "10px";
-    }
-  }
 
   if (!(toolName in Tools.list)) {
     throw new Error("Trying to select a tool that has never been added!");
@@ -682,26 +665,93 @@ Tools.change = function (toolName) {
   } catch (e) {
     console.error("Unable to update the GUI with the new tool. " + e);
   }
+
   Tools.svg.style.cursor = newtool.mouseCursor || "auto";
   Tools.board.title = Tools.i18n.t(newtool.helpText || "");
+
+  // check if elelmt is active or not
+  let getNewEle = document.getElementById("toolID-" + newtool.name);
+  let getEle = null;
+  // create a new scope for newtool selection
+  if (newtool !== Tools.curTool) {
+    checkCurTool = true;
+  }
+  if (newtool === Tools.curTool) {
+    getEle = document.getElementById("toolID-" + Tools.curTool.name);
+    if (getEle) {
+      const shouldToggle = !(
+        Tools.curTool.name === "Line" ||
+        Tools.curTool.name === "Rectangle" ||
+        Tools.curTool.name === "Transform"
+      );
+      if (shouldToggle) {
+        const childElement = getEle.childNodes[0]?.childNodes[0];
+        if (childElement) {
+          childElement.classList.toggle("selected");
+        }
+      }
+    }
+  } else if (checkCurTool) {
+    const newChildElement = getNewEle.childNodes[0]?.childNodes[0];
+    if (newChildElement) {
+      console.log(newChildElement, "newChildElement");
+      newChildElement.classList.add("selected");
+    }
+
+    if (Tools.curTool !== null) {
+      const curToolElement = document.getElementById(
+        "toolID-" + Tools.curTool.name
+      );
+      if (curToolElement) {
+        const curChildElement = curToolElement.childNodes[0]?.childNodes[0];
+        if (curChildElement) {
+          curChildElement.classList.remove("selected");
+        }
+      }
+    }
+  }
 
   //There is not necessarily already a curTool
   if (Tools.curTool !== null) {
     //It's useless to do anything if the new tool is already selected
+    console.log(newtool === Tools.curTool, "checkeck");
     if (newtool === Tools.curTool) {
       if (newtool.toggle) {
         var elem = document.getElementById("toolID-" + newtool.name);
 
         newtool.toggle(elem);
+        // remove listner if already cur tool is there
+
+        if (checkCurTool) {
+          if (
+            newtool.name !== "Rectangle" &&
+            newtool.name !== "Line" &&
+            newtool.name !== "Transform"
+          ) {
+            console.log("newtool", newtool.name);
+            for (var event in Tools.curTool.compiledListeners) {
+              var listener = Tools.curTool.compiledListeners[event];
+              Tools.svg.removeEventListener(event, listener);
+            }
+            Tools.svg.style.cursor = "auto";
+            checkCurTool = false;
+          }
+        } else {
+          checkCurTool = true;
+          for (var event in Tools.curTool.compiledListeners) {
+            var listener = Tools.curTool.compiledListeners[event];
+            Tools.svg.addEventListener(event, listener, { passive: false });
+          }
+        }
       }
-      //return;
+      console.log("check tool condition", "checkCurTool", checkCurTool);
+      return;
     }
     //Remove the old event listeners
     for (var event in Tools.curTool.compiledListeners) {
       var listener = Tools.curTool.compiledListeners[event];
       Tools.svg.removeEventListener(event, listener);
     }
-
     //Call the callbacks of the old tool
     Tools.curTool.onquit(newtool);
   }
@@ -786,6 +836,7 @@ function batchCall(fn, args) {
 
 // Call messageForTool recursively on the message and its children
 function handleMessage(message) {
+  console.log("handleMessage");
   //Check if the message is in the expected format
   if (!message) return;
   //console.log(message);

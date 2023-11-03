@@ -222,6 +222,7 @@
         //     "changeTool":"4"
         // },
 		"onstart":onStart,
+		"toggle":function(){},
 		"onquit":onQuit,
 		"draw": draw,
 		"mouseCursor": "text",

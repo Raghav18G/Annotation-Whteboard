@@ -19,16 +19,24 @@
     overflow: hidden;
     font-family: "Inter";
     background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding-top: 10px 0px 10px 0px;
+  
   }
   #addPDFPages{
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
+    height: 280px;
+    overflow: scroll;
+    overflow-x: hidden;
+    
   }
   .pdf-modal-content{
     background-color: #f5f5f5;
     /* margin: 20% auto; */
-    margin: 30vh auto;
-    padding: 20px;
+    margin: 25vh auto;
+   padding:10px 20px 10px 20px;
     min-width: 40rem;
     cursor: pointer; 
     width: 60%;  
@@ -36,6 +44,7 @@
     gap:.8rem;
     display: flex;
     flex-direction: column;
+    
   }
 canvas{
     width:100%;
@@ -55,6 +64,13 @@ canvas{
   position: relative;
   bottom: 2.4rem;
   left: 2.5rem;
+  top:-1rem;
+  width: 4px;
+}
+
+#pdf-name{
+  font-weight: 800;
+  font-family: "Inter";
 }
 
 

@@ -39,6 +39,14 @@
 
   function draw(data) {
     var elem;
+    const regex = /dragLogo/g;
+    const doesExist = regex.test(Tools.svg.outerHTML);
+    if (doesExist) {
+      console.log("dragLogo exists in the SVG string.");
+    } else {
+      console.log("dragLogo does not exist in the SVG string.");
+    }
+
     switch (data.type) {
       //TODO: add the ability to erase only some points in a line
       case "undo":

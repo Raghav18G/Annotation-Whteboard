@@ -95,7 +95,7 @@
 
   //Code isolation
   var uploadSVG =
-  '<div class="tool-selected"><svg class="tool-icon-svg" width="31" height="30" style="margin-left: -3px;" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.33594 18.75C4.33594 22.2855 4.33594 24.0533 5.43429 25.1517C6.53264 26.25 8.3004 26.25 11.8359 26.25H19.3359C22.8715 26.25 24.6392 26.25 25.7376 25.1517C26.8359 24.0533 26.8359 22.2855 26.8359 18.75" stroke="#424242" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.5859 20V3.75M15.5859 3.75L20.5859 9.21875M15.5859 3.75L10.5859 9.21875" stroke="#8AC926" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round"/></svg></div><label id="tool-document-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Document</p></label>';
+    '<div class="tool-selected"><svg class="tool-icon-svg" width="31" height="30" style="margin-left: -3px;" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.33594 18.75C4.33594 22.2855 4.33594 24.0533 5.43429 25.1517C6.53264 26.25 8.3004 26.25 11.8359 26.25H19.3359C22.8715 26.25 24.6392 26.25 25.7376 25.1517C26.8359 24.0533 26.8359 22.2855 26.8359 18.75" stroke="#424242" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.5859 20V3.75M15.5859 3.75L20.5859 9.21875M15.5859 3.75L10.5859 9.21875" stroke="#8AC926" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round"/></svg></div><label id="tool-document-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Document</p></label>';
   var xlinkNS = "http://www.w3.org/1999/xlink";
   var imgCount = 1;
   var fileInput;
@@ -120,7 +120,6 @@
         image.onload = function () {
           var uid = Tools.generateUID("doc"); // doc for document
           // console.log(image.src.toString().length);
-
           var msg = {
             id: uid,
             type: "doc",
@@ -135,9 +134,7 @@
               10 * imgCount,
             fileType: fileInput.files[0].type,
           };
-
           draw(msg);
-
           Tools.send(msg, "Document");
           imgCount++;
         };
@@ -186,43 +183,39 @@
       .removeEventListener("click", () => {
         console.log("Event Listener Removed");
       });
-  
+
     fileInput = document.createElement("input");
     fileInput.type = "file";
     fileInput.accept = ".pdf"; // Accept only PDF files
     fileInput.click();
     fileInput.addEventListener("change", function () {
-      var file = fileInput.files;
-
-      console.log("File Uploaded",file)
-      drawPDF(e,file);
-      
+    var file = fileInput.files;
+    console.log("File Uploaded", file);
+    drawPDF(e, file);
     });
-  }  
+  }
 
   function uploadVideo() {
     document.getElementById("documentModal").style.display = "none";
-    document
-      .getElementById("SelectFromVideo")
-      .removeEventListener("click", () => {
-        console.log("Event Listener Removed");
-      });
-  
+
     fileInput = document.createElement("input");
     fileInput.type = "file";
     fileInput.accept = "video/*"; // Accept all video formats
     fileInput.click();
     fileInput.addEventListener("change", function () {
       let file = fileInput.files[0];
-  
+      console.log("FILE", file);
+
       console.log("Video Uploaded", file);
-     
-      DropVideo(file);
-    
+      if (file.type.startsWith("video/")) {
+        // Check by MIME type
+        DropVideo(file);
+      } else {
+        alert("Please select a valid video file.");
+      }
     });
-    
   }
- 
+
   function onstart() {
     document.getElementById("documentModal").style.display = "block";
     document
@@ -231,16 +224,16 @@
         document.getElementById("documentModal").style.display = "none";
       });
     document
-      .getElementById("SelectFromDevice")
+      .getElementById("SelectFromDeviceParent")
       .addEventListener("click", chooseFromDevice);
     document
-      .getElementById("SelectFromLibrary")
+      .getElementById("SelectFromLibraryParent")
       .addEventListener("click", chooseFromLibrary);
     document
-      .getElementById("SelectFromPDF")
+      .getElementById("SelectFromPDFParent")
       .addEventListener("click", uploadPDF);
     document
-      .getElementById("SelectFromVideo")
+      .getElementById("SelectFromVideoParent")
       .addEventListener("click", uploadVideo);
   }
 

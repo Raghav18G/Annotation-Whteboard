@@ -117,6 +117,10 @@
     setHashScale();
   }
 
+  function toggle(){
+
+  }
+
   Tools.add({
     //The new tool
     icon: "🔎",
@@ -131,6 +135,8 @@
       press: press,
       release: release,
     },
+    // provided in order to go into if condition inside Tools.onClick in orderto remove listner
+    toggle:toggle,
     mouseCursor: "zoom-in",
     isExtra: true,
   });

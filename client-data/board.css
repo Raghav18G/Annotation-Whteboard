@@ -15,13 +15,14 @@ ul {
   padding: 0px;
 }
 
-/* #rect_1{
-  fill: transparent !important; 
-}  */
+ /* #rect_1{
+height: 100%;
+overflow: scroll;
+}   */
 
-.toggle-white {
+/* .toggle-white {
   fill: transparent;
-}
+} */
 
 /* .tool-icon svg {
   height: 17px;
@@ -39,7 +40,6 @@ ul {
 .tool-selected.selected {
   height: 30px;
   width: 30px;
-  padding: 2px;
   border-radius: 10px;
   background-color: rgb(214, 154, 249);
 }
@@ -86,6 +86,7 @@ ul {
   display: flex;
   flex-direction: column;
   border: none;
+  background: transparent;
 
   margin-bottom: 20px;
   align-items: center
@@ -94,12 +95,14 @@ ul {
 
 #add-page{
   display: flex;
-
+  background: transparent;
   border: none;
   margin-right: 5px;
   align-items: center;
   margin-bottom:9px;
 }
+
+
 .stickyNotesModal-content {
   background-color: #fefefe;
   padding: 2px;
@@ -200,21 +203,30 @@ iframe {
 }
 
 /* The Close Button */
-.close {
+.closeIcon {
   color: #111;
   float: right !important;
   font-size: 30px;
   font-weight: 800;
   margin-right: 1rem;
+  width:24px;
+  opacity:1.5;
 }
 
-.close:hover,
-.close:focus {
+.closeIcon:hover,
+.closeIcon:focus {
+  opacity:1;
   text-decoration: none;
   cursor: pointer;
+
 }
 #closeModalBtn {
   position: relative;
+}
+
+#videoModalClose{
+margin-top: 10px !important;
+margin-right: 4px !important;
 }
 
 #draggableToolbar {
@@ -441,7 +453,10 @@ iframe {
   background-color: #d9d9d94d; /* Light gray color for the box */
   cursor: pointer;
   border-radius: 8px; /* Rounded corners */
+  
 }
+
+
 
 .shapes-spacing { 
   width: 30% !important;
@@ -511,19 +526,22 @@ iframe {
   line-height: 37px;
   /* border-radius: 3px; */
   /* max-width: 40px; */
-  max-width: 55px;
-  transition-duration: 0.2s;
+  max-width: 72px;
+  /* transition-duration: 0.2s; */
   overflow: hidden;
   float: left;
   width: max-content;
   /* box-shadow: 0 0 3px #7FB2CC; */
   /*box-shadow: inset 0 0 3px #8FA2BC;*/
+
 }
 
 .tool:focus-within,
 #settings .tool:hover {
   max-width: 100%;
 }
+
+
 
 .tool-popout {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -678,6 +696,7 @@ iframe {
 
 .popover .tool-icon {
   margin: 0px 4px 0px 4px;
+  font-weight: 800;
 }
 
 .tool-name {
@@ -707,7 +726,7 @@ iframe {
 .tool-name.slider.opacitySelector {
   position: absolute;
   top: -120px;
-  right: 123px;
+  right: 120px;
   transform: translateX(-50%) rotate(-270deg);
 }
 
@@ -809,6 +828,7 @@ iframe {
 
 #canvas input {
   font-size: 16px;
+
 }
 
 .window-focused {
@@ -882,6 +902,7 @@ button.close.window-button {
   box-shadow: 0px 3px 6px #0000001a;
   transform: scale(1.5);
 }
+
 .color-pick {
   width: 30px;
   height: 30px;
@@ -897,8 +918,8 @@ button.close.window-button {
   /* bottom: 16.4rem;
   height: 1rem;
   left: 9.5rem; */
-  top: -65px;
-  right: 215px;
+  top: -70px;
+  right: 208px;
   transform: translateX(-50%) rotate(-90deg);
   border: 0;
   position: absolute;
@@ -1134,7 +1155,7 @@ footer div:nth-child(2) .footer-button__button-label {
   height: 89% !important;
 }
 #body-new {
-  overflow: unset !important;
+ 
 }
 body::-webkit-scrollbar {
   width: 10px;
@@ -1173,6 +1194,10 @@ div#msr-pod-up {
 .resetFontSize {
   font-size: 20px !important;
   margin-top: 20px !important;
+}
+
+#result{
+  width: 100% !important;
 }
 .resetMargin {
   margin-top: 20px !important;
@@ -1273,6 +1298,7 @@ div#msr-pod-up {
   height: 3.5rem;
 }
 
+
 @media screen and (min-width: 200px) and (max-width: 619px) {
   #menu {
     padding: 0;
@@ -1338,6 +1364,7 @@ div#msr-pod-up {
   #board #canvas {
     width: 100%;
     height: 100%;
+ 
   }
 
   /* toolbar */
@@ -1449,6 +1476,7 @@ div#msr-pod-up {
   /* tabs toolbar ui */
   .label-tool {
     display: none !important;
+ 
   }
   .color-tool-pick {
     margin: -12px 0px 16px -2px !important;
@@ -1580,6 +1608,7 @@ div#msr-pod-up {
   }
 }
 
+
 .hideExtenders {
   display: none;
 }
@@ -1587,6 +1616,7 @@ div#msr-pod-up {
 #videoPlayer {
   display: none;
 }
+
 
 .downloadModal {
   position: fixed;
@@ -1702,6 +1732,9 @@ div#msr-pod-up {
   top: 10%;
   width: 80%; /* Full width */
   height: 80%; /* Full height */
+  min-width: 40%;
+  min-height: 40%;
+
   overflow: auto; /* Enable scroll if needed */
   font-family: "Inter";
   background-color: #f5f5f5;
@@ -1877,7 +1910,6 @@ div#msr-pod-up {
   cursor: pointer;
   font-weight: 600;
   font-size: medium;
-  text-align: center;
   padding-left: 15px;
   padding-right: 15px;
   gap: 16px;
@@ -1990,11 +2022,11 @@ div#msr-pod-up {
   text-align: center;
   margin-left: 2rem;
 }
-#controls {
+#controlsStopwatch {
   margin-top: 20px;
   display: flex;
 }
-#controls button {
+#controlsStopwatch button {
   font-size: 16px;
   padding: 10px 20px;
   margin: 5px;
@@ -2004,7 +2036,7 @@ div#msr-pod-up {
   border-radius: 4px;
   cursor: pointer;
 }
-#controls button:hover {
+#controlsStopwatch button:hover {
   background-color: #45a049;
 }
 
@@ -2242,7 +2274,7 @@ div#msr-pod-up {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 9999;
+  z-index: 1;
   width: 868px;
   height: 90px;
   background-color: transparent;
@@ -2303,10 +2335,11 @@ div#msr-pod-up {
 .triangle-two {
   width: 0;
   height: 0;
+  display: none;
   border-style: solid;
-  border-width: 0 200px 346.4px 0;
-  border-color: transparent #000000 transparent transparent;
-  border-image-source: url(Set-Square-30.png);
+  /* border-width: 0 200px 346.4px 0; */
+  /* border-color: transparent #000000 transparent transparent; */
+  /* border-image-source: url(Set-Square-30.png); */
   cursor: all-scroll;
 }
 
@@ -2318,9 +2351,9 @@ div#msr-pod-up {
 }
 
 .input-container-two input {
-  width: 52px;
+  width: 70px !important;
   text-align: left;
-  background-color: transparent;
+  background-color: beige;
   border: 2px solid greenyellow;
   opacity: 90%;
 }
@@ -2333,10 +2366,10 @@ div#msr-pod-up {
 .triangle {
   width: 0;
   height: 0;
-  border-style: solid;
+  /* border-style: solid;
   border-width: 0 400px 200px 0;
-  border-color: transparent #000000 transparent transparent;
-  border-image-source: url(geometry-icon.png);
+  border-color: transparent #000000 transparent transparent; */
+  /* border-image-source: url(geometry-icon.png); */
   cursor: grab;
 }
 
@@ -2345,10 +2378,24 @@ div#msr-pod-up {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  
 }
 
 .input-container input {
-  /* width: 40px; */
+  /* width: 70px !important; */
+  margin-bottom: 77px;
+  text-align: center;
+  background-color: beige;
+  border: 0.4px solid yellow;
+}
+
+.input-container-setSquare{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.input-container-setSquare input{
+  width: 70px !important;
   margin-bottom: 77px;
   text-align: center;
   background-color: beige;
@@ -2357,6 +2404,7 @@ div#msr-pod-up {
 
 .cross-div {
   margin: -40px;
+  z-index:3 !important
 }
 
 /* Rounded Compass*/
@@ -2383,6 +2431,14 @@ div#msr-pod-up {
   height: 413px;
   cursor: crosshair;
   z-index: 9999;
+}
+
+.radiusInput{
+  width: 60px !important;
+}
+
+.angleInput{
+  width: 60px !important;
 }
 .hidden {
   display: none !important;
@@ -2452,7 +2508,7 @@ div#msr-pod-up {
 }
 .drag-widget {
   position: absolute;
-  top: -3rem;
+  top: -4rem;
   left: -1rem;
   background-color: #e0e0e0;
   padding: 5px 5px;
@@ -2466,7 +2522,7 @@ div#msr-pod-up {
 .addNewPageModal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 999;
   left: 0;
   top: 0;
   width: 100%;
@@ -2487,7 +2543,7 @@ div#msr-pod-up {
 }
 
 .pagesModalClose {
-  color: #aaa;
+
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -2589,7 +2645,7 @@ div#msr-pod-up {
   display: flex;
   flex-direction: column;
   /* height: 560px; */
-  width:480px;
+  width:520px;
   overflow: hidden;
   align-items: center;
   justify-content: center;
@@ -2641,6 +2697,9 @@ canvas {
 
 label {
   font-weight: bold;
+  font-weight: 800 !important;
+
+  font-family: "Inter";
 }
 
 button {
@@ -2648,6 +2707,9 @@ button {
   /* margin-top: 10px; */
 }
 
+#tool-touch-up-eraser-localization{
+  line-height: 14px !important;
+}
 .compassCanvas {
   border: transparent;
   cursor: move;
@@ -2661,7 +2723,7 @@ button {
   left: -230px;
   position: absolute;
   top: -75px;
-  z-index: 2;
+  z-index: 999;
 }
 
 .shapes-spacing {
@@ -2679,6 +2741,32 @@ button {
 
 .disabled{
   opacity: 0.4;
+}
+.add-wrap{
+  text-wrap: nowrap;
+  overflow: hidden;
+border: none;
+}
+
+.drag-widget-setSquare {
+  position: absolute;
+  top: -16rem;
+  left: -19rem;
+  background-color: #e0e0e0;
+  padding: 5px 5px;
+  cursor: grab;
+  text-align: center;
+  z-index: 10000;
+}
+.cross-div-setSquare {
+  left: -225px;
+  position: absolute;
+  top: -151px;
+}
+
+
+.unselectable {
+  user-select: none;
 }
 
 

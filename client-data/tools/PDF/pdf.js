@@ -126,7 +126,6 @@ function displayPdfPages(pdfData, x, y) {
             .render({ canvasContext: canvasPage.getContext("2d"), viewport })
             .promise.then(() => {
               // Render PDF page onto the <canvas> element
-
               imageURL[page._pageIndex.toString()] = canvasPage.toDataURL(
                 "image/jpeg",
                 0.5
@@ -167,6 +166,7 @@ function getSelectedPDFPage(e) {
 
 function handleAddAllPDF() {
   const div = document.getElementById("addPDFPages")
+  
   const inputs = div.getElementsByTagName("input")
 
   // Loop through the input elements and access their values

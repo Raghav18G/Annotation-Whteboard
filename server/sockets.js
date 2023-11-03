@@ -3,15 +3,11 @@ const http = require("http");
 const socketIO = require("socket.io");
 const app = express();
 const server = http.createServer(app);
-// let screenShotDecider = false
 
 var iolib = require("socket.io"),
   BoardData = require("./boardData.js").BoardData,
   config = require("./configuration.js");
 const fs = require("fs");
-// const screenshot = require("desktop-screenshot");
-const screenshot = require("screenshot-desktop");
-const { Blob } = require("buffer");
 // Map from name to *promises* of BoardData
 var boards = {};
 var io;
@@ -70,7 +66,7 @@ function getConnectedSockets() {
 }
 
 function socketConnection(socket) {
-  console.log("Socket Connected With Socket Id ====>", socket.id);
+  console.log("Socket");
 
   function joinBoard(name) {
     // Default to the public board
@@ -156,25 +152,8 @@ function socketConnection(socket) {
 
   socket.on("screen-shot", () => {
     console.log("ScreenShot Emitted");
-    screenshot({ format: "png" })
-      .then((img) => {
-        console.log("Screenshot succeeded");
-        // const blob = new Blob(img);
-        // console.log(blob);
-        socket.emit("ss-emitted", img);
-      })
-      .catch((err) => {
-        console.log("Error In ScreenShot ", err);
-        throw err;
-        console.log("Screenshot Not succeeded");
-        socket.emit("ss-emitted", null);
-      });
+    socket.emit("screen-shot", "screen-shot");
   });
-
-  // setInterval(() => {
-  //     console.log(`==== Emiiting Event =====`,screenShotDecider)
-  //     if(screenShotDecider) screenShotDecider = false
-  // },5000)
 
   socket.on("joinboard", noFail(joinBoard));
 

@@ -38,7 +38,7 @@
 	function toggleGrid(evt) {
         // if($("#menu").width()>Tools.menu_width+3)return;
     if(evt)evt.preventDefault();
-        if(toggle){
+        if(toggle){ 
             toggle=0;
         }else{
             toggle=1;
@@ -53,7 +53,7 @@
             //TODO: add the ability to erase only some points in a line
             case "grid":
                 var elem = Tools.svg.getElementById("rect_1");
-                elem.setAttribute("fill",(data.toggle?"url(#grid)":"white"));
+                elem.setAttribute("fill",(true?"url(#grid)":"white"));
                 break;
             default:
                 console.error("Clear: 'clear' instruction with unknown type. ", data);

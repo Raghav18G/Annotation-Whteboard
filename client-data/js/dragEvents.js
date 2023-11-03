@@ -93,39 +93,74 @@ function onstart(event) {
   event.preventDefault();
 }
 
-function DropVideo(file) {
+// function DropVideo(file) {
+//   let url = URL.createObjectURL(file);
 
-  console.log("Video Dropped", URL.createObjectURL(file));
+//   let type = file.type;
+//   let video = document.getElementById("videoPlayer");
+//   let source = document.createElement("source");
+//   source.setAttribute("src", "");
+//   console.log("VIDEO TAG", video);
+//   document.getElementById("dragVideoModal").style.display = "block";
+//   console.log("SOURCE", source);
+//   document
+//     .getElementById("dragVideoModalClose")
+//     .addEventListener("click", () => {
+//       document.getElementById("dragVideoModal").style.display = "none";
+//       video.removeChild(source);
+//       video.load();
+//     });
+//   document.getElementById("videoPlayer").style.display = "block";
+//   source.setAttribute("src", url);
+//   source.setAttribute("type", type);
+//   video.appendChild(source);
+// }
+function DropVideo(file) {
   let url = URL.createObjectURL(file);
   let type = file.type;
   let video = document.getElementById("videoPlayer");
+
+  // Removing existing sources from the video element
+  while (video.firstChild) {
+    video.removeChild(video.firstChild);
+  }
+
+  // Creating a new source element
   let source = document.createElement("source");
-  document.getElementById("dragVideoModal").style.display = "block";
-  document
-    .getElementById("dragVideoModalClose")
-    .addEventListener("click", () => {h
-      document.getElementById("dragVideoModal").style.display = "none";
-      video.removeChild(source);
-      video.load();
-    });
-  document.getElementById("videoPlayer").style.display = "block";
   source.setAttribute("src", url);
   source.setAttribute("type", type);
+
+  // Appending the new source to the video element
   video.appendChild(source);
+
+  // Display the video modal
+  document.getElementById("dragVideoModal").style.display = "block";
+
+  document
+    .getElementById("dragVideoModalClose")
+    .addEventListener("click", () => {
+      document.getElementById("dragVideoModal").style.display = "none";
+      video.pause();
+      video.currentTime = 0;
+    });
+
+  document.getElementById("videoPlayer").style.display = "block";
+
+  // Play the video
+  video.load();
+  video.play();
 }
 
 function drop(e) {
   e.preventDefault();
-  console.log(e,"data transfer")
+  console.log(e, "data transfer");
   var imgCount = 1;
 
   if (e.dataTransfer?.files[0]?.type.includes("video")) {
     DropVideo(e.dataTransfer?.files[0]);
-  } 
-  else if(e.dataTransfer?.files[0]?.type.includes("/pdf")){
-    drawPDF(e,e.dataTransfer.files)
-  }
-  else {
+  } else if (e.dataTransfer?.files[0]?.type.includes("/pdf")) {
+    drawPDF(e, e.dataTransfer.files);
+  } else {
     var image = new Image();
     image.src = URL.createObjectURL(e.dataTransfer.files[0]);
     var uid = Tools.generateUID("doc");
@@ -146,45 +181,44 @@ function drop(e) {
     //   drawImage(msg);
     // };
     var xhr = new XMLHttpRequest();
-      xhr.open("GET", image.src, true);
-      xhr.responseType = "blob";
-      xhr.send();
+    xhr.open("GET", image.src, true);
+    xhr.responseType = "blob";
+    xhr.send();
 
-      xhr.onload = function () {
-        if (xhr.status === 200) {
-          // Create a new FileReader instance
-          var reader = new FileReader();
-          reader.onloadend = function () {
-            // The result attribute contains the data URL
-            var dataURL = reader.result;
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        // Create a new FileReader instance
+        var reader = new FileReader();
+        reader.onloadend = function () {
+          // The result attribute contains the data URL
+          var dataURL = reader.result;
 
-            var msgLibrary = {
-              id: uid,
-              type: "doc",
-              src: dataURL,
-              w: this.width || 300,
-              h: this.height || 300,
-              x:
-                (100 + document.documentElement.scrollLeft) / Tools.scale +
-                10 * imgCount,
-              y:
-                (100 + document.documentElement.scrollTop) / Tools.scale +
-                10 * imgCount,
-            };
-            drawImage(msgLibrary);
-            Tools.send(msgLibrary, "Document");
-            imgCount++;
+          var msgLibrary = {
+            id: uid,
+            type: "doc",
+            src: dataURL,
+            w: this.width || 300,
+            h: this.height || 300,
+            x:
+              (100 + document.documentElement.scrollLeft) / Tools.scale +
+              10 * imgCount,
+            y:
+              (100 + document.documentElement.scrollTop) / Tools.scale +
+              10 * imgCount,
           };
+          drawImage(msgLibrary);
+          Tools.send(msgLibrary, "Document");
+          imgCount++;
+        };
 
-          // Read the file as a Data URL
-          reader.readAsDataURL(xhr.response);
-        }
-      };
+        // Read the file as a Data URL
+        reader.readAsDataURL(xhr.response);
+      }
+    };
   }
 }
 //End of code isolation
 
 document.getElementById("canvas").addEventListener("dragover", onstart);
 document.getElementById("canvas").addEventListener("drop", drop);
-var pdfModal= document.getElementById('pdfModal')
-
+var pdfModal = document.getElementById("pdfModal");

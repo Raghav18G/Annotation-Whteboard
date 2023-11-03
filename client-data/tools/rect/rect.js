@@ -30,81 +30,81 @@
   // var ellipse =
   //   '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"  viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"><g><path id="submenu-rect-path" fill="';
   var shapeSVG =
-    '<div class="tool-selected"><svg xmlns="http://www.w3.org/2000/svg" class="shape-svg-icon" width="36" height:"36" style="margin-top: -7px; margin-left:-5px;" viewBox="0 0 44 50" fill="none"><path d="M27.5526 18.9786L27.5531 19.4568L21.6526 22.8703L15.7458 19.4667L15.7453 18.9958L13.8047 20.1182L21.6422 24.5901L29.5047 20.1036L27.5526 18.9786ZM25.2516 13.1193L21.6427 11.0391L18.05 13.1172L21.7 15.3458L25.2516 13.1193Z" fill="#FBCF26"/><path d="M31.8531 19.6557L27.5479 17.1755L27.5443 12.6395L21.638 9.23535L15.7365 12.6489L15.7411 17.1926L11.4531 19.6729L11.4625 31.4515L21.6682 37.3333L31.8641 31.4359L31.8531 19.6557ZM25.9885 18.5567L22.4302 20.6145V16.7301L25.9839 14.5025L25.9885 18.5567ZM20.8682 20.6176L17.3026 18.5635L17.299 14.4926L20.8682 16.6723V20.6176ZM21.6401 11.04L25.249 13.1202L21.6974 15.3468L18.0474 13.1182L21.6401 11.04ZM15.7432 19.4671L21.65 22.8708L22.0411 22.6452L27.5505 19.4572L27.55 18.9791L29.5021 20.1041L21.6396 24.5911L13.8021 20.1192L15.7427 18.9968L15.7432 19.4671ZM13.0156 21.4692L20.8682 25.9499V35.0687L13.0234 30.5494L13.0156 21.4692ZM22.4302 35.0864V25.9385L30.2927 21.4525L30.301 30.5343L22.4302 35.0864Z" fill="#424242"/><path d="M31.8568 27.6213V29.4114L35.3854 31.3796L21.6411 39.5114L7.89948 31.3796L11.4536 29.3973L11.4521 27.6104L4.76562 31.3385L21.6411 41.3275L38.5214 31.339L31.8568 27.6213Z" fill="#FBCF26"/></svg></div><label id="tool-shapes-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400;margin-top:14px"><p>Shapes</p></label>';
+    '<div class="tool-selected"><svg xmlns="http://www.w3.org/2000/svg" class="shape-svg-icon" width="36" height:"36" style="margin-top: -4px; margin-left:-5px;" viewBox="0 0 44 50" fill="none"><path d="M27.5526 18.9786L27.5531 19.4568L21.6526 22.8703L15.7458 19.4667L15.7453 18.9958L13.8047 20.1182L21.6422 24.5901L29.5047 20.1036L27.5526 18.9786ZM25.2516 13.1193L21.6427 11.0391L18.05 13.1172L21.7 15.3458L25.2516 13.1193Z" fill="#FBCF26"/><path d="M31.8531 19.6557L27.5479 17.1755L27.5443 12.6395L21.638 9.23535L15.7365 12.6489L15.7411 17.1926L11.4531 19.6729L11.4625 31.4515L21.6682 37.3333L31.8641 31.4359L31.8531 19.6557ZM25.9885 18.5567L22.4302 20.6145V16.7301L25.9839 14.5025L25.9885 18.5567ZM20.8682 20.6176L17.3026 18.5635L17.299 14.4926L20.8682 16.6723V20.6176ZM21.6401 11.04L25.249 13.1202L21.6974 15.3468L18.0474 13.1182L21.6401 11.04ZM15.7432 19.4671L21.65 22.8708L22.0411 22.6452L27.5505 19.4572L27.55 18.9791L29.5021 20.1041L21.6396 24.5911L13.8021 20.1192L15.7427 18.9968L15.7432 19.4671ZM13.0156 21.4692L20.8682 25.9499V35.0687L13.0234 30.5494L13.0156 21.4692ZM22.4302 35.0864V25.9385L30.2927 21.4525L30.301 30.5343L22.4302 35.0864Z" fill="#424242"/><path d="M31.8568 27.6213V29.4114L35.3854 31.3796L21.6411 39.5114L7.89948 31.3796L11.4536 29.3973L11.4521 27.6104L4.76562 31.3385L21.6411 41.3275L38.5214 31.339L31.8568 27.6213Z" fill="#FBCF26"/></svg></div><label id="tool-shapes-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400;margin-top:14px"><p>Shapes</p></label>';
   // COnsider space between the icon elements as literals are used
   var icons = {
     Rectangle: {
-      icon: '▭ <br> <p id="tool-rectangles-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 7px;">Rectangle</p>',
+      icon: '<div class="tool-selected">▭</div><p id="tool-rectangles-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Rectangle</p>',
       isHTML: true,
       isSVG: false,
     },
     Circle: {
-      icon: `◯ <br> <label id="tool-circle-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 7px;"><p>Circle</p></label>`,
+      icon: `<div class="tool-selected">◯</div><label id="tool-circle-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Circle</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Triangle: {
-      icon: `◺ <br> <label id="tool-triangle-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 7px;"><p>Triangle</p></label>`,
+      icon: `<div class="tool-selected">◺</div><label id="tool-triangle-localization" class="label-tool" style="font-size:10px;line-height: 12px;font-weight:400; margin-top: 14px;"><p>Right <br/> Triangle</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     EquiTriangle: {
-      icon: `△ <br> <label id="tool-equitri-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 7px;"><p>Triangle</p></label>`,
+      icon: `<div class="tool-selected">△</div><label id="tool-equitri-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Triangle</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Parallelogram: {
-      icon: `▱ <br> <label id="tool-parallelogram-localization" class="label-tool" style="font-size: 9.4px;line-height: 2px;font-weight:400; margin-top: 7px;margin-left: -4px;"><p>Parallelogram</p></label>`,
+      icon: `<div class="tool-selected">▱</div><label id="tool-parallelogram-localization" class="label-tool" style="font-size: 9.4px;line-height: 2px;font-weight:400; margin-top: 14px;margin-left: -4px;"><p>Parallelogram</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Rombus: {
-      icon: `◇ <br> <label id="tool-rombus-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 7px;"><p>Rhombus</p></label>`,
+      icon: `<div class="tool-selected">◇</div><label id="tool-rombus-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Rhombus</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Trapezoid: {
-      icon: `⏢ <br> <label id="tool-trapezoid-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 7px;"><p>Trapezoid</p></label>`,
+      icon: `<div class="tool-selected">⏢</div><label id="tool-trapezoid-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Trapezoid</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Pentagon: {
-      icon: `⬠ <br> <label id="tool-pentagon-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 7px;"><p>Pentagon</p></label>`,
+      icon: `<div class="tool-selected">⬠</div><label id="tool-pentagon-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Pentagon</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Hexagon: {
-      icon: `⎔ <br> <label id="tool-hexagon-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 7px;"><p> Hexagon</p></label>`,
+      icon: `<div class="tool-selected">⎔</div><label id="tool-hexagon-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p> Hexagon</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Cube: {
-      icon: `❒ <br> <label id="tool-cube-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 7px;"><p>Cube  </p></label>`,
+      icon: `<div class="tool-selected">❒</div><label id="tool-cube-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Cube  </p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Cone: {
-      icon: ` <svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" style="margin-top:4px" fill="#000000" height="18" width="18" version="1.1" id="Layer_1" viewBox="0 0 511.915 511.915" xml:space="preserve"><g><path d="M426.624,469.269c0-0.043-0.021-0.064-0.021-0.107c0-0.597-0.235-1.131-0.32-1.707c-0.107-0.576-0.043-1.152-0.235-1.707    l-0.192-0.555c-0.043-0.128-0.085-0.235-0.128-0.363l-0.448-1.301c-0.256-0.683-0.363-1.387-0.704-2.048L266.069,7.061    c-0.085-0.235-0.256-0.384-0.341-0.597c-0.256-0.64-0.661-1.173-1.045-1.749c-0.384-0.576-0.747-1.173-1.237-1.664    c-0.448-0.448-1.003-0.789-1.536-1.152c-0.619-0.427-1.195-0.832-1.877-1.109c-0.192-0.085-0.341-0.256-0.555-0.32    c-0.469-0.171-0.96-0.107-1.451-0.192C257.365,0.149,256.747,0,256.064,0c-0.832,0-1.621,0.149-2.411,0.341    c-0.384,0.085-0.768,0.021-1.152,0.171c-0.171,0.064-0.277,0.192-0.448,0.256c-0.789,0.32-1.472,0.789-2.176,1.28    c-0.448,0.32-0.917,0.597-1.301,0.981c-0.533,0.533-0.939,1.152-1.344,1.813c-0.363,0.533-0.725,1.045-0.96,1.621    c-0.085,0.213-0.277,0.363-0.341,0.597L87.339,461.504c-0.341,0.64-0.448,1.323-0.683,1.984l-0.789,2.24    c-0.235,0.661-0.171,1.323-0.277,2.005c-0.064,0.512-0.299,0.96-0.299,1.515c0,0.107,0.064,0.213,0.064,0.32    c0.021,0.661,0.213,1.28,0.363,1.92c0.171,0.896,0.341,1.771,0.725,2.603c11.669,36.629,152.768,37.824,169.515,37.824    c16.768,0,158.101-1.195,169.557-37.909c0.064-0.128,0.107-0.277,0.171-0.427c0.192-0.427,0.213-0.896,0.363-1.344    c0.256-0.896,0.512-1.771,0.555-2.709c0-0.043,0.021-0.085,0.021-0.128C426.603,469.333,426.624,469.312,426.624,469.269z     M255.957,42.944l139.435,399.701c-45.739-15.381-126.976-16.064-139.413-16.064c-12.437,0-93.696,0.683-139.435,16.064    L255.957,42.944z M255.957,490.56c-91.285,0.021-141.269-14.272-148.437-20.715c8.384-8,58.176-21.952,148.437-21.952    c91.285,0,141.269,14.272,148.437,20.715C396.011,476.608,346.219,490.56,255.957,490.56z"/></g></svg> <label id="tool-cone-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 16px;"><p>Cone</p></label>`,
+      icon: `<div class="tool-selected"><svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg"  fill="#000000" height="18" width="18" version="1.1" id="Layer_1" viewBox="0 0 511.915 511.915" xml:space="preserve"><g><path d="M426.624,469.269c0-0.043-0.021-0.064-0.021-0.107c0-0.597-0.235-1.131-0.32-1.707c-0.107-0.576-0.043-1.152-0.235-1.707    l-0.192-0.555c-0.043-0.128-0.085-0.235-0.128-0.363l-0.448-1.301c-0.256-0.683-0.363-1.387-0.704-2.048L266.069,7.061    c-0.085-0.235-0.256-0.384-0.341-0.597c-0.256-0.64-0.661-1.173-1.045-1.749c-0.384-0.576-0.747-1.173-1.237-1.664    c-0.448-0.448-1.003-0.789-1.536-1.152c-0.619-0.427-1.195-0.832-1.877-1.109c-0.192-0.085-0.341-0.256-0.555-0.32    c-0.469-0.171-0.96-0.107-1.451-0.192C257.365,0.149,256.747,0,256.064,0c-0.832,0-1.621,0.149-2.411,0.341    c-0.384,0.085-0.768,0.021-1.152,0.171c-0.171,0.064-0.277,0.192-0.448,0.256c-0.789,0.32-1.472,0.789-2.176,1.28    c-0.448,0.32-0.917,0.597-1.301,0.981c-0.533,0.533-0.939,1.152-1.344,1.813c-0.363,0.533-0.725,1.045-0.96,1.621    c-0.085,0.213-0.277,0.363-0.341,0.597L87.339,461.504c-0.341,0.64-0.448,1.323-0.683,1.984l-0.789,2.24    c-0.235,0.661-0.171,1.323-0.277,2.005c-0.064,0.512-0.299,0.96-0.299,1.515c0,0.107,0.064,0.213,0.064,0.32    c0.021,0.661,0.213,1.28,0.363,1.92c0.171,0.896,0.341,1.771,0.725,2.603c11.669,36.629,152.768,37.824,169.515,37.824    c16.768,0,158.101-1.195,169.557-37.909c0.064-0.128,0.107-0.277,0.171-0.427c0.192-0.427,0.213-0.896,0.363-1.344    c0.256-0.896,0.512-1.771,0.555-2.709c0-0.043,0.021-0.085,0.021-0.128C426.603,469.333,426.624,469.312,426.624,469.269z     M255.957,42.944l139.435,399.701c-45.739-15.381-126.976-16.064-139.413-16.064c-12.437,0-93.696,0.683-139.435,16.064    L255.957,42.944z M255.957,490.56c-91.285,0.021-141.269-14.272-148.437-20.715c8.384-8,58.176-21.952,148.437-21.952    c91.285,0,141.269,14.272,148.437,20.715C396.011,476.608,346.219,490.56,255.957,490.56z"/></g></svg></div><label id="tool-cone-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Cone</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Cylinder: {
-      icon: ` <svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" style="margin-top:4px" fill="#000000" height="16px" width="16px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve"><g><g><path d="M425.621,38.187C414.763,1.216,272.789,0,256,0S97.237,1.216,86.379,38.187c-0.64,1.387-1.045,2.859-1.045,4.48v426.667    c0,1.707,0.469,3.328,1.152,4.843C98.155,510.805,239.275,512,256,512c16.789,0,158.763-1.216,169.621-38.187    c0.64-1.387,1.045-2.859,1.045-4.48V42.667C426.667,41.045,426.261,39.573,425.621,38.187z M256,21.333    c87.723,0,137.685,13.248,148.075,21.333C393.685,50.752,343.723,64,256,64S118.315,50.752,107.925,42.667    C118.315,34.581,168.277,21.333,256,21.333z M256,490.667c-91.285,0-141.269-14.272-148.437-20.715    C115.947,461.952,165.739,448,256,448c91.285,0,141.269,14.272,148.437,20.715C396.053,476.715,346.24,490.667,256,490.667z     M405.333,446.571C362.688,427.456,269.397,426.667,256,426.667s-106.688,0.789-149.333,19.904V65.429 C149.312,84.544,242.603,85.333,256,85.333s106.688-0.789,149.333-19.904V446.571z"/></g></g></svg> <label id="tool-cylinder-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 16px;"><p>Cylinder</p></label>`,
+      icon: `<div class="tool-selected"><svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg"  fill="#000000" height="16px" width="16px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve"><g><g><path d="M425.621,38.187C414.763,1.216,272.789,0,256,0S97.237,1.216,86.379,38.187c-0.64,1.387-1.045,2.859-1.045,4.48v426.667    c0,1.707,0.469,3.328,1.152,4.843C98.155,510.805,239.275,512,256,512c16.789,0,158.763-1.216,169.621-38.187    c0.64-1.387,1.045-2.859,1.045-4.48V42.667C426.667,41.045,426.261,39.573,425.621,38.187z M256,21.333    c87.723,0,137.685,13.248,148.075,21.333C393.685,50.752,343.723,64,256,64S118.315,50.752,107.925,42.667    C118.315,34.581,168.277,21.333,256,21.333z M256,490.667c-91.285,0-141.269-14.272-148.437-20.715    C115.947,461.952,165.739,448,256,448c91.285,0,141.269,14.272,148.437,20.715C396.053,476.715,346.24,490.667,256,490.667z     M405.333,446.571C362.688,427.456,269.397,426.667,256,426.667s-106.688,0.789-149.333,19.904V65.429 C149.312,84.544,242.603,85.333,256,85.333s106.688-0.789,149.333-19.904V446.571z"/></g></g></svg></div><label id="tool-cylinder-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Cylinder</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Sphere: {
-      icon: ` <svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" style="margin-top:4px" fill="#000000" height="16px" width="16px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve"><g><g><path d="M256,0C114.837,0,0,114.837,0,256s114.837,256,256,256s256-114.837,256-256S397.163,0,256,0z M319.125,215.147    c111.381,6.357,171.541,28.523,171.541,40.853s-60.16,34.496-171.541,40.853C319.701,282.197,320,268.288,320,256    S319.701,229.803,319.125,215.147z M488.704,227.093c-36.011-19.883-107.755-29.504-170.624-33.173    c-3.669-62.848-13.291-134.592-33.173-170.624C391.189,36.437,475.563,120.811,488.704,227.093z M298.667,256    c0,14.656-0.341,28.48-0.832,41.835c-13.355,0.491-27.179,0.832-41.835,0.832s-28.48-0.341-41.835-0.832    c-0.491-13.355-0.832-27.179-0.832-41.835s0.341-28.48,0.832-41.835c13.355-0.491,27.179-0.832,41.835-0.832    s28.48,0.341,41.835,0.832C298.325,227.52,298.667,241.344,298.667,256z M256,21.333c12.331,0,34.496,60.16,40.853,171.541    C282.197,192.299,268.288,192,256,192s-26.197,0.299-40.853,0.875C221.504,81.493,243.669,21.333,256,21.333z M227.093,23.296    c-19.883,36.032-29.504,107.776-33.173,170.624c-62.848,3.669-134.592,13.291-170.624,33.173    C36.437,120.811,120.811,36.437,227.093,23.296z M192.875,215.147C192.299,229.803,192,243.712,192,256s0.299,26.197,0.875,40.853    C81.493,290.496,21.333,268.331,21.333,256S81.493,221.504,192.875,215.147z M23.296,284.907    c36.011,19.883,107.755,29.504,170.624,33.173c3.669,62.848,13.291,134.592,33.173,170.624    C120.811,475.563,36.437,391.189,23.296,284.907z M256,490.667c-12.331,0-34.496-60.16-40.853-171.541    C229.803,319.701,243.712,320,256,320s26.197-0.299,40.853-0.875C290.496,430.507,268.331,490.667,256,490.667z M284.907,488.704    c19.883-36.011,29.504-107.755,33.173-170.624c62.848-3.669,134.592-13.291,170.624-33.173    C475.563,391.189,391.189,475.563,284.907,488.704z"/></g></g></svg> <label id="tool-sphere-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 16px;"><p>Sphere</p></label>`,
+      icon: `<div class="tool-selected"><svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg"  fill="#000000" height="16px" width="16px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve"><g><g><path d="M256,0C114.837,0,0,114.837,0,256s114.837,256,256,256s256-114.837,256-256S397.163,0,256,0z M319.125,215.147    c111.381,6.357,171.541,28.523,171.541,40.853s-60.16,34.496-171.541,40.853C319.701,282.197,320,268.288,320,256    S319.701,229.803,319.125,215.147z M488.704,227.093c-36.011-19.883-107.755-29.504-170.624-33.173    c-3.669-62.848-13.291-134.592-33.173-170.624C391.189,36.437,475.563,120.811,488.704,227.093z M298.667,256    c0,14.656-0.341,28.48-0.832,41.835c-13.355,0.491-27.179,0.832-41.835,0.832s-28.48-0.341-41.835-0.832    c-0.491-13.355-0.832-27.179-0.832-41.835s0.341-28.48,0.832-41.835c13.355-0.491,27.179-0.832,41.835-0.832    s28.48,0.341,41.835,0.832C298.325,227.52,298.667,241.344,298.667,256z M256,21.333c12.331,0,34.496,60.16,40.853,171.541    C282.197,192.299,268.288,192,256,192s-26.197,0.299-40.853,0.875C221.504,81.493,243.669,21.333,256,21.333z M227.093,23.296    c-19.883,36.032-29.504,107.776-33.173,170.624c-62.848,3.669-134.592,13.291-170.624,33.173    C36.437,120.811,120.811,36.437,227.093,23.296z M192.875,215.147C192.299,229.803,192,243.712,192,256s0.299,26.197,0.875,40.853    C81.493,290.496,21.333,268.331,21.333,256S81.493,221.504,192.875,215.147z M23.296,284.907    c36.011,19.883,107.755,29.504,170.624,33.173c3.669,62.848,13.291,134.592,33.173,170.624    C120.811,475.563,36.437,391.189,23.296,284.907z M256,490.667c-12.331,0-34.496-60.16-40.853-171.541    C229.803,319.701,243.712,320,256,320s26.197-0.299,40.853-0.875C290.496,430.507,268.331,490.667,256,490.667z M284.907,488.704    c19.883-36.011,29.504-107.755,33.173-170.624c62.848-3.669,134.592-13.291,170.624-33.173    C475.563,391.189,391.189,475.563,284.907,488.704z"/></g></g></svg></div> <label id="tool-sphere-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Sphere</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Pyramid: {
-      icon: `◮ <br> <label id="tool-pyramid-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 7px;"><p>Pyramid</p></label>`,
+      icon: `<div class="tool-selected">◮</div><label id="tool-pyramid-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Pyramid</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Ellipse: {
-      icon: `⬭ <br> <label id="tool-ellipse-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 7px;"><p>Ellipse</p></label>`,
+      icon: `<div class="tool-selected">⬭</div><label id="tool-ellipse-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Ellipse</p></label>`,
       isHTML: true,
       isSVG: false,
     },
@@ -184,13 +184,17 @@
   }
 
   function draw(data) {
-    console.log("data", data);
+    // console.log("data", data);
     Tools.drawingEvent = true;
+
     switch (data.type) {
       case "rect":
+        console.log("inside rect");
         createShape(data);
         break;
+
       case "update":
+        console.log("updae onsisisisi");
         var shape = svg.getElementById(data["id"]);
         if (!shape) {
           console.error(
@@ -251,7 +255,7 @@
   function createShape(data) {
     //Creates a new shape on the canvas, or update a shape that already exists with new information
     var shape = svg.getElementById(data.id);
-    console.log("In SHAPE", data);
+    // console.log("In SHAPE", data)
     if (data.shape == "Circle") {
       if (!shape) shape = Tools.createSVGElement("circle");
       updateCircle(shape, data);
@@ -357,24 +361,25 @@
     var width = Math.abs(x2 - x1);
     var height = Math.abs(y2 - y1);
 
-    var points;
-    if (width > height) {
-      // Make the base the longer side
+    // Determine which side is the base of the triangle
+    var isBaseHorizontal = width > height;
+
+    if (isBaseHorizontal) {
+      // Make the base the longer side (horizontal)
       if (x1 < x2) {
-        points = `${x1},${y1} ${x2},${y1} ${x1},${y2}`;
+        shape.setAttribute("points", `${x1},${y1} ${x2},${y1} ${x1},${y2}`);
       } else {
-        points = `${x1},${y1} ${x2},${y1} ${x2},${y2}`;
+        shape.setAttribute("points", `${x2},${y1} ${x1},${y1} ${x2},${y2}`);
       }
     } else {
-      // Make the height the longer side
+      // Make the base the longer side (vertical)
       if (y1 < y2) {
-        points = `${x1},${y1} ${x1},${y2} ${x2},${y1}`;
+        shape.setAttribute("points", `${x1},${y1} ${x1},${y2} ${x2},${y1}`);
       } else {
-        points = `${x1},${y1} ${x1},${y2} ${x2},${y2}`;
+        shape.setAttribute("points", `${x1},${y2} ${x1},${y1} ${x2},${y2}`);
       }
     }
 
-    shape.setAttribute("points", points);
     shape.setAttribute("fill", "none");
     if (data.data) {
       shape.setAttribute("data-lock", data.data);
@@ -671,7 +676,7 @@
     } else {
       Tools.menus["Rectangle"].show(true);
     }
-    if (!menuInitialized) initMenu(elem);
+    // if (!menuInitialized) initMenu(elem);
   }
 
   var menuInitialized = false;
@@ -685,7 +690,7 @@
       btns[i].addEventListener("click", menuButtonClicked);
     }
     var elem = document.getElementById("rect-dashed");
-    elem.addEventListener("click", dashedClicked);
+    // elem.addEventListener("click", dashedClicked);
     updateMenu("Rectangle");
     menuInitialized = true;
   }
@@ -708,8 +713,12 @@
       // <APPLY localization while clickign the shape from modal>
 
       var select = document.getElementById("languageSelect");
+      button
+        .getElementsByClassName("tool-icon")[0]
+        .childNodes[0].classList.add("selected");
       if (select.value === "hi") {
-        const ele = button.getElementsByClassName("tool-icon")[0].childNodes[3];
+        const ele = button.getElementsByClassName("tool-icon")[0].childNodes[1];
+
         for (let item of localizedStringsHI) {
           if (item.id === ele?.id) {
             ele.innerHTML = item.value;
@@ -765,6 +774,11 @@
       return true;
     }
     return false;
+  }
+
+  function onStart() {
+    Tools.menus["Rectangle"].show(true);
+    initMenu(document.getElementById("toolID-Rectangle"));
   }
 
   Tools.add({
@@ -869,6 +883,7 @@
           </div>`,
       listener: menuListener,
     },
+    onstart: onStart,
     mouseCursor: "crosshair",
     stylesheet: "tools/rect/rect.css",
   });

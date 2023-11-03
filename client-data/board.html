@@ -21,14 +21,14 @@
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
 
-    <!-- <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" /> -->
+    <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
     <!-- <link href="OfflineCDN/ajax.googleapis.com/ajax/libs/jquery/" rel="stylesheet" /> -->
 
 
 
 
     <script src="OfflineCDN/ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="js/jquery.fullscreen.js"></script>
+    <!-- <script src="js/jquery.fullscreen.js"></script> -->
 
     <script src="OfflineCDN/maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
@@ -82,11 +82,32 @@
             init();
             document.getElementById("openMoreTools").addEventListener("click", () => {
                 document.getElementById("moreTools").style.display = "block"
+                // scroll the modal in touch screen 
+                let container = document.getElementById("moreTools")
+                console.log(document.getElementById("moreTools"), "document");
+                container.addEventListener("touchstart", (e) => {
+                    startX = e.touches[0].clientX;
+                    startY = e.touches[0].clientY;
+                });
+
+                container.addEventListener("touchmove", (e) => {
+                    const deltaX = e.touches[0].clientX - startX;
+                    const deltaY = e.touches[0].clientY - startY;
+
+                    container.scrollLeft -= deltaX;
+                    container.scrollTop -= deltaY;
+                });
             })
 
             document.getElementById("moreToolsClose").addEventListener("click", () => {
                 document.getElementById("moreTools").style.display = "none"
             })
+            // <Add another group for maths-tool >
+            const newGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            newGroup.setAttribute("id", "maths-tool")
+
+            Tools.svg.appendChild(newGroup)
+            // <end>
 
         });
         $(document).ready(function () {
@@ -95,6 +116,8 @@
         document.addEventListener('touchmove', function (event) {
             if (event.scale !== 1) { event.preventDefault(); }
         }, { passive: false });
+
+
     </script>
 
 
@@ -136,7 +159,7 @@
     <!-- Add new Page modal -->
     <div id="addNewPageModal" class="addNewPageModal">
         <div class="addNewPageModal-content">
-            <span class="pagesModalClose" id="pagesModalClose">&times;</span>
+            <span class="pagesModalClose closeIcon" id="pagesModalClose">&times;</span>
             <h2>Page Navigation</h2>
             <div class="page-container" id="pageContainer">
                 <!-- Pages will be dynamically added here -->
@@ -188,6 +211,7 @@
     <!-- Video Modal -->
     <div class="videoModal" id="videoModal">
         <div class="videoModal-content">
+            <span class="closeIcon" id="videoModalClose"><img src="./assets/CloseCircle.svg" /></span>
             <div class="videoModalheader" id="videoModalheader">
                 <p> *************** Hold here to Drag **************** </p>
             </div>
@@ -216,20 +240,29 @@
     <!-- PDF Opener -->
     <div class="pdf-modal" id="pdfModal">
         <div class="pdf-modal-content">
-            <div id="closePDFBtn"> <span class="close">&times;</span></div>
-
-            <h5 id="pdf-name"></h5>
+            <div style="display: flex; justify-content: space-between;">
+                <h5 id="pdf-name"></h5>
+                <div id="closePDFBtn"> <span class="closeIcon">&times;</span></div>
+            </div>
+           
+         
 
             <div id="addPDFPages">
+           
             </div>
-            <p style="display: flex;gap: 5px">
-                <button id="select-All" class="pdfBtn" onclick="handleAddAllPDF()">Select All</button>
-                <button id="remove-All" class="pdfBtn" onclick="deselectAllPDF()">Remove ALL</button>
-
-            </p>
-            <div style="align-self:end;">
+            <div style="display: flex; justify-content: space-between;">
+                <div style="display: flex;gap: 10px">
+                
+                    <button id="select-All" class="pdfBtn" onclick="handleAddAllPDF()">Select All</button>
+                    <button id="remove-All" class="pdfBtn" onclick="deselectAllPDF()">Remove ALL</button>
+    
+                </div>
                 <button id="importPDF" class="pdfBtn" onclick="handleDrawPDF()">Import PDF</button>
             </div>
+           
+            
+               
+            
         </div>
     </div>
 
@@ -244,27 +277,27 @@
 
     <div class="documentModal" id="documentModal">
         <div class="documentModal-content">
-            <span class="close" id="documentModalModalClose"><img src="./assets/CloseCircle.svg" /></span>
+            <span class="closeIcon" id="documentModalModalClose"><img src="./assets/closeCircle.png" /></span>
             <div>
-                <div class="documentModalOptions">
+                <div class="documentModalOptions" id="SelectFromDeviceParent">
                     <img src="assets/AddImageFromLocal.svg" class="document-modal-icon1" />
                     <p id="SelectFromDevice" class="document-option">Add Image from Device </p>
 
                 </div>
 
                 <hr />
-                <div class="documentModalOptions">
+                <div class="documentModalOptions" id="SelectFromLibraryParent">
                     <img src="assets/AddImageFromLibrary.svg" class="document-modal-icon2" />
                     <p id="SelectFromLibrary" class="document-option">Add Image From Library</p>
                 </div>
 
                 <hr />
-                <div class="documentModalOptions">
+                <div class="documentModalOptions" id="SelectFromPDFParent">
                     <img src="assets/pdff.png" class="document-modal-icon" style="height:20px;width:20px" />
                     <p id="SelectFromPDF" class="document-option">Upload PDF</p>
                 </div>
                 <hr />
-                <div class="documentModalOptions">
+                <div class="documentModalOptions" id="SelectFromVideoParent">
                     <img src="assets/video.png" class="document-modal-icon" style="height:20px;width:20px" />
                     <p id="SelectFromVideo" class="document-option">Upload Video</p>
                 </div>
@@ -277,7 +310,7 @@
 
     <div id="drawer" class="drawer ">
         <div class="content">
-            <span id="closeButton" class="close">&times;</span>
+            <span id="closeButton" class="closeIcon">&times;</span>
             <!-- Drawer content goes here -->
             <h2 id="img-library">Image Library</h2>
             <div style="display: flex; justify-content: end">
@@ -585,25 +618,20 @@
 
     <div class="moreTools" id="moreTools">
         <ul id="tool-list" class="tool-list">
-            <li class="tool-extra">
-                <div class="tool-center">
-                    <span class=" tool-icon tool-icon-modal "></span>
-                </div>
-
-
-            </li>
+            <li class="tool-extra"><span class="tool-icon tool-icon-modal"></span></li>
         </ul>
         <button id="moreToolsClose">Close</button>
     </div>
+
     <!-- Draggable Toolbar  -->
     <div id="draggableToolbar">
         <!-- Tools -->
-      
+
         <ul id="tools" class="tools">
             <li class="tool"><span class="tool-icon"></span></li>
         </ul>
-          <!-- Color Picker -->
-          <div class="parent-color-picker" style="margin-top: -37px;margin-left:16px;margin-right: 16px;">
+        <!-- Color Picker -->
+        <div class="parent-color-picker" style="margin-top: -13px;margin-left:16px;margin-right: 16px;">
             <div class="tool-selected">
                 <span class="tool-icon color-tool-pick" style="margin: -12px -7px 27px -10px;">
 
@@ -627,7 +655,7 @@
 
 
         <!-- Tool Size Indicator -->
-        <div class="tool size_selector_container ">
+        <div class="tool size_selector_container " style="margin-top: 24px">
             <span class="tool-icon" id="tool-size-selector" title="Tool size selector">
                 <svg viewBox="-60 -70 120 120" class="tool-icon-sizeIndicator" style="display:none">
                     <circle id="sizeIndicator" cx=0 cy=0 r=10 />
@@ -665,7 +693,7 @@
 
 
         <!-- Opacity Picker -->
-        <div class="tool opacityPicker ">
+        <div class="tool opacityPicker " style="margin-top: 24px">
             <span class="tool-icon" id="opacity-picker" title="Opacity Picker">
                 <!-- <svg class="tool-icon-svg" viewBox="0 0 8 8">
                     <pattern id="opacityPattern" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
@@ -718,7 +746,7 @@
                     style="-webkit-appearance: slider-vertical" class="rangeChooser-opacity" />
             </label>
         </div>
-        <div class="tool-name">
+        <div class="tool-name" style="margin-top: 24px">
             <button id="openMoreTools">
                 <img src="./assets/Add Circle.png" width="30" />
                 <label id="tool-more-localization" class="label-more"
@@ -729,13 +757,11 @@
             <button id="deselect-tool" onclick="">X</button>
             <label style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 4px;">Deselect Tool</label>
         </div> -->
-        
-        <!-- <div class="tool-name">
+
+        <!-- <div class="tool-name" style="margin-top: 24px">
             <button id="add-page" onclick="addNewPage()"> <img src="./assets/Add New.png" width="30" /></button>
-            <label style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 4px;">Add New Page</label>
+            <label style="font-size:10px;line-height: 2px;font-weight:400; " id="AddNewPage">Add New Page</label>
         </div> -->
-
-
 
 
     </div>
@@ -775,7 +801,7 @@
         <div id="south" class='direction'><i class="fas fa-chevron-down"></i></div>
     </div> -->
 
-    <div id="board">
+    <div id="board" class="unselectable">
         <!-- <img id="destination" /> -->
         <div class="localization">
             <img src="Left-Logo.svg" width="200" style="margin-right: 4px" />
@@ -786,7 +812,7 @@
             </select>
         </div>
         <div class="pageNumberContainer">
-           <p class="pageNumber" id="pageNumber"></p>
+            <p class="pageNumber" id="pageNumber"></p>
         </div>
 
         <svg id="canvas" width="500" height="500" viewBox="0 0 500 500" svgHeightversion="1.1"
@@ -815,7 +841,7 @@
                 </pattern>
             </defs>
             <!-- <rect onmousedown="mouser.unregisterShapes()" style="display:block" id="rect_1" width="100%" height="100%" fill="url(#grid)" /> -->
-            <rect onmousedown="mouser.unregisterShapes()" style="display:block;" id="rect_1" width="100%" height="100%"
+            <rect onmousedown="mouser.unregisterShapes()" style="display:block; overflow: scroll;" id="rect_1" width="100%" height="100%"
                 fill="transparent" />
             <g id="cursors"></g>
             <g id="layer-1"></g>
@@ -839,145 +865,124 @@
 
     <!-- Text Editor -->
     <!-- Text Editor -->
-  <!-- Text Editor new -->
-
- 
-
-  <div class="window" id="wb-editor-container" style="display:none">
-
-    <div id="wb-editor-container-header">
-
-        <div>
-
-            <span id='wb-editor-curmode'>Text</span> Editor &nbsp;
+    <!-- Text Editor new -->
 
 
 
-            <button class="wb-editor-button" data-trigger="hover" title="Modes" style="display: none"
+    <div class="window" id="wb-editor-container" style="display:none">
 
-                id="wb-options" type="button"><i class="fas fa-bars wb-editor-icon"></i></button>
+        <div id="wb-editor-container-header">
 
-            <button class="wb-editor-button wb-button-inactive" data-trigger="hover" title="Run" id="wb-editor-run"
+            <div>
 
-                type="button"><i class="fas fa-play-circle wb-editor-icon"></i></button>
+                <span id='wb-editor-curmode'>Text</span> Editor &nbsp;
 
-            <button class="wb-editor-button wb-button-inactive" data-trigger="hover" title="Real-time Run"
 
-                id="wb-editor-live" type="button"><i id="wb-editor-live-icon"
 
-                    class="fas fa-circle-notch fa-spin wb-editor-icon"></i></button>
+                <button class="wb-editor-button" data-trigger="hover" title="Modes" style="display: none"
+                    id="wb-options" type="button"><i class="fas fa-bars wb-editor-icon"></i></button>
 
-            <button type="button" class="wb-button wb-textoptions-button" data-trigger="hover" style="display: none"
+                <button class="wb-editor-button wb-button-inactive" data-trigger="hover" title="Run" id="wb-editor-run"
+                    type="button"><i class="fas fa-play-circle wb-editor-icon"></i></button>
 
-                title="Text Options" id="wb-textoptions" aria-label="Down"><span aria-hidden="true"><i
+                <button class="wb-editor-button wb-button-inactive" data-trigger="hover" title="Real-time Run"
+                    id="wb-editor-live" type="button"><i id="wb-editor-live-icon"
+                        class="fas fa-circle-notch fa-spin wb-editor-icon"></i></button>
 
-                        class="fas fa-angle-double-down"></i></span></button>
+                <button type="button" class="wb-button wb-textoptions-button" data-trigger="hover" style="display: none"
+                    title="Text Options" id="wb-textoptions" aria-label="Down"><span aria-hidden="true"><i
+                            class="fas fa-angle-double-down"></i></span></button>
+
+
+
+            </div>
+
+
+
+
+
+            <div class="close-max-btn" style="margin-right: 40px">
+
+                <button type="button" class="close window-button" id="close-editor-new" onclick="closeEditor()"
+                    onaria-label="Close"><span aria-hidden="true">×</span></button>
+
+                <button type="button" class="window-button window-icon-button" data-trigger="hover" title="Maximize"
+                    id="max-editor" aria-label="Max"><span aria-hidden="true"><i
+                            class="fa fa-window-maximize wb-editor-icon"></i></span></button>
+
+            </div>
 
 
 
         </div>
 
+        <div id="wb-editor-container-modes">
 
+            <button class="wb-button wb-mode-button" id="wb-close-options" type="button"><i
+                    class="fas fa-angle-double-up" aria-hidden="true"></i></button>
 
+            <button class="wb-editor-mode" id="wb-text" data-trigger="hover" title="Text editor"
+                type="button">text</button>
 
+            <button class="wb-editor-mode" id="wb-js" data-trigger="hover" title="Javascript compiler/editor"
+                type="button">js</button>
 
-        <div class="close-max-btn" style="margin-right: 40px">
+            <button class="wb-editor-mode" id="wb-python" data-trigger="hover" title="Python compiler/editor"
+                type="button">py</button>
 
-            <button type="button" class="close window-button" id="close-editor-new" onclick="closeEditor()"
-
-                onaria-label="Close"><span aria-hidden="true">×</span></button>
-
-            <button type="button" class="window-button window-icon-button" data-trigger="hover" title="Maximize"
-
-                id="max-editor" aria-label="Max"><span aria-hidden="true"><i
-
-                        class="fa fa-window-maximize wb-editor-icon"></i></span></button>
+            <button class="wb-editor-mode" id="wb-cpp" data-trigger="hover" title="C++ compiler/Editor"
+                type="button">c++</button>
 
         </div>
 
+        <div id="wb-editor-container-toolbar" style="display: none">
 
+            <button class="wb-button wb-edit-button" id="wb-close-edit" type="button"><i class="fas fa-angle-double-up"
+                    aria-hidden="true"></i></button>
 
-    </div>
+            <button class="wb-button wb-edit-button" id="wb-spell-check" data-trigger="hover" title="Check spelling"
+                type="button"><i id="wb-editor-spell-check-icon" class="fas fa-spell-check"></i></button>
 
-    <div id="wb-editor-container-modes">
+            <button class="wb-button wb-edit-button" id="wb-code-template" data-trigger="hover" title="Code template"
+                type="button"><i class="fa fa-file-code-o"></i></button>
 
-        <button class="wb-button wb-mode-button" id="wb-close-options" type="button"><i
+            <button class="wb-button wb-edit-button" id="wb-ed-undo" data-trigger="hover" title="Undo" type="button"><i
+                    class="fas fa-undo"></i></button>
 
-                class="fas fa-angle-double-up" aria-hidden="true"></i></button>
+            <button class="wb-button wb-edit-button" id="wb-ed-redo" data-trigger="hover" title="Redo" type="button"><i
+                    class="fas fa-redo"></i></button>
 
-        <button class="wb-editor-mode" id="wb-text" data-trigger="hover" title="Text editor"
+            <button class="wb-button wb-edit-button" id="wb-ed-search" data-trigger="hover" title="Search"
+                type="button"><i class="fas fa-search"></i></button>
 
-            type="button">text</button>
-
-        <button class="wb-editor-mode" id="wb-js" data-trigger="hover" title="Javascript compiler/editor"
-
-            type="button">js</button>
-
-        <button class="wb-editor-mode" id="wb-python" data-trigger="hover" title="Python compiler/editor"
-
-            type="button">py</button>
-
-        <button class="wb-editor-mode" id="wb-cpp" data-trigger="hover" title="C++ compiler/Editor"
-
-            type="button">c++</button>
-
-    </div>
-
-    <div id="wb-editor-container-toolbar" style="display: none">
-
-        <button class="wb-button wb-edit-button" id="wb-close-edit" type="button"><i class="fas fa-angle-double-up"
-
-                aria-hidden="true"></i></button>
-
-        <button class="wb-button wb-edit-button" id="wb-spell-check" data-trigger="hover" title="Check spelling"
-
-            type="button"><i id="wb-editor-spell-check-icon" class="fas fa-spell-check"></i></button>
-
-        <button class="wb-button wb-edit-button" id="wb-code-template" data-trigger="hover" title="Code template"
-
-            type="button"><i class="fa fa-file-code-o"></i></button>
-
-        <button class="wb-button wb-edit-button" id="wb-ed-undo" data-trigger="hover" title="Undo" type="button"><i
-
-                class="fas fa-undo"></i></button>
-
-        <button class="wb-button wb-edit-button" id="wb-ed-redo" data-trigger="hover" title="Redo" type="button"><i
-
-                class="fas fa-redo"></i></button>
-
-        <button class="wb-button wb-edit-button" id="wb-ed-search" data-trigger="hover" title="Search"
-
-            type="button"><i class="fas fa-search"></i></button>
-
-        <!-- <button id="createFolderButton" onclick="createFolderButton">New Tab</button> -->
+            <!-- <button id="createFolderButton" onclick="createFolderButton">New Tab</button> -->
 
 
 
-    </div>
+        </div>
 
-    <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser" data-toggle="tooltip"
+        <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser" data-toggle="tooltip"
 
     data-trigger="hover">Search</button> -->
 
-    <textarea type="text" placeholder="Type Something...." id="searchBrowser" rows="30" cols="40"
+        <textarea type="text" placeholder="Type Something...." id="searchBrowser" rows="25" cols="30"
+            class="wb-button wb-edit-button searchBrowser" data-trigger="hover" style="min-width:600px "></textarea>
 
-        class="wb-button wb-edit-button searchBrowser" data-trigger="hover"></textarea>
+        <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser">Search</button> -->
 
-    <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser">Search</button> -->
+        <div id="wb-editor" style="display: none">
 
-    <div id="wb-editor">
+            <div class="row wb-editor">
 
-        <div class="row wb-editor">
+                <div class="col-sm-12" id="wb-editor-input">
 
-            <div class="col-sm-12" id="wb-editor-input">
+                </div>
 
             </div>
 
         </div>
 
     </div>
-
-</div>
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
@@ -985,7 +990,7 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header wb-modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="closeIcon" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Insert Code Template</h4>
                 </div>
                 <div class="modal-body">
@@ -1019,8 +1024,8 @@
             </div>
             <div class="bg-modal-tabs">
                 <div class="tab-container">
-                    <button class="color-tab" onclick="openTab(event, 'color-tab1')" title="Color Picker"><svg width="25" height="25"  
-                            viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    <button class="color-tab" id="colorPickerTab" onclick="openTab(event, 'color-tab1')"><svg width="25"
+                            height="25" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink">
                             <path fill="#444"
                                 d="M13 14.5c0.468-2.207 0.985-4.050 1.604-5.846 0.411 1.796 0.928 3.638 1.337 5.521 0.059 1.153-0.612 1.825-1.441 1.825s-1.5-0.672-1.5-1.5z">
@@ -1030,12 +1035,13 @@
                             </path>
                         </svg>
                     </button>
-                    <button class="color-tab" onclick="openTab(event, 'color-tab2')"  title="Pattern Picker">
+                    <button class="color-tab" id="patternPickerTab" onclick="openTab(event, 'color-tab2')"
+                        title="Pattern Picker">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none">
                             <g id="Media / Image_02">
                                 <path id="Vector"
                                     d="M3.00005 18.0001C3 17.9355 3 17.8689 3 17.8002V6.2002C3 5.08009 3 4.51962 3.21799 4.0918C3.40973 3.71547 3.71547 3.40973 4.0918 3.21799C4.51962 3 5.08009 3 6.2002 3H17.8002C18.9203 3 19.4801 3 19.9079 3.21799C20.2842 3.40973 20.5905 3.71547 20.7822 4.0918C21 4.5192 21 5.07899 21 6.19691V17.8031C21 18.2881 21 18.6679 20.9822 18.9774M3.00005 18.0001C3.00082 18.9884 3.01337 19.5058 3.21799 19.9074C3.40973 20.2837 3.71547 20.5905 4.0918 20.7822C4.5192 21 5.07899 21 6.19691 21H17.8036C18.9215 21 19.4805 21 19.9079 20.7822C20.2842 20.5905 20.5905 20.2837 20.7822 19.9074C20.9055 19.6654 20.959 19.3813 20.9822 18.9774M3.00005 18.0001L7.76798 12.4375L7.76939 12.436C8.19227 11.9426 8.40406 11.6955 8.65527 11.6064C8.87594 11.5282 9.11686 11.53 9.33643 11.6113C9.58664 11.704 9.79506 11.9539 10.2119 12.4541L12.8831 15.6595C13.269 16.1226 13.463 16.3554 13.6986 16.4489C13.9065 16.5313 14.1357 16.5406 14.3501 16.4773C14.5942 16.4053 14.8091 16.1904 15.2388 15.7607L15.7358 15.2637C16.1733 14.8262 16.3921 14.6076 16.6397 14.5361C16.8571 14.4734 17.0896 14.4869 17.2988 14.5732C17.537 14.6716 17.7302 14.9124 18.1167 15.3955L20.9822 18.9774M20.9822 18.9774L21 18.9996M15 9C14.4477 9 14 8.55228 14 8C14 7.44772 14.4477 7 15 7C15.5523 7 16 7.44772 16 8C16 8.55228 15.5523 9 15 9Z"
-                                    stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-line join="round" />
                             </g>
                         </svg>
                     </button>
@@ -1049,7 +1055,7 @@
 
     <div id="mathematicalToolsModal" class="mathematicalToolsModal">
         <div class="mathematicalTool-content">
-            <div id="closeToolModalBtn"> <span class="close">&times;</span></div>
+            <div id="closeToolModalBtn"> <span class="closeIcon">&times;</span></div>
             <div class="tabs">
                 <div id="tab1--mathematiclTool" class="tab-content show">
                 </div>
@@ -1064,7 +1070,7 @@
     <!-- HTML 2 Canvas CDN -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
     </script> -->
- 
+
     <script src="OfflineCDN/cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
     </script>
     <script type="application/json" id="translations">{}</script>
@@ -1072,11 +1078,11 @@
     <script src="js/minitpl.js"></script>
     <script src="js/board.js"></script>
     <script src="js/draggableToolbar.js"></script>
-    <script src="tools/DeselectTool.js"></script>
+    <!-- <script src="tools/DeselectTool.js"></script> -->
     <script src="tools/pencil/pencil.js"></script>
     <script src="tools/eraser/eraser.js"></script>
     <script src="tools/clear/clear.js"></script>
-   
+
     <!-- Download -->
     <!-- <script src="tools/download/download.js"></script> -->
     <script src="tools/undo/undo.js"></script>
@@ -1150,9 +1156,9 @@
     <!-- Editor -->
     <script src="tools/editor/editor.js"></script>
     <!-- END EDITOR TOOL-->
-<!-- 
-    <script src="tools/handNew/hand.js"></script> -->
-    <!-- <script src="tools/grid/grid.js"></script> -->
+
+    <!-- <script src="tools/handNew/hand.js"></script>
+    <script src="tools/grid/grid.js"></script> -->
     <script src="tools/eraser2/eraser2.js"></script>
 
     <!-- BEGIN CALCULATOR TOOL-->
@@ -1168,8 +1174,8 @@
     <!-- Browser -->
     <!-- <script src="tools/browserUtil/browserUtil.js"></script> -->
     <script src="tools/Close/close.js"></script>
-    <script src="tools/zoom-in/zoom-in.js"></script>
-    <script src="tools/zoom-out/zoom-out.js"></script>
+    <!-- <script src="tools/zoom-in/zoom-in.js"></script>
+    <script src="tools/zoom-out/zoom-out.js"></script> -->
     <script src="components/measurement/measurement.js"></script>
     <script src="js/canvascolor/canvascolor.min.js"></script>
     <script src="js/customJs/custom.js"></script>
@@ -1182,7 +1188,7 @@
 
     <script src="tools/PDF/pdf.js"></script>
 
- 
+
     <!-- import ZoomMtg -->
     <!-- <script src="https://source.zoom.us/zoom-meeting-1.8.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.771.0/aws-sdk.min.js"></script> -->
@@ -1230,22 +1236,21 @@
 
     <!-- <Localization variable script> -->
 
-        <script src="localization.js"></script>
+    <script src="localization.js"></script>
 
     <script>
         function closeEditor(e) {
 
-document.getElementById("wb-editor-container").style.display = "none"
+            document.getElementById("wb-editor-container").style.display = "none"
 
-}
-        var tooll = document.querySelectorAll('.tool-selected');
-     console.log("TOOLS SELECTED",tooll)
-        tooll.forEach(button => {
-            button.addEventListener('click', () => {
-                tooll.forEach(b => b.classList.remove('selected'));
-                button.classList.add('selected');
-            });
-        });
+        }
+        // let tooll = document.querySelectorAll('.tool-selected');
+        // tooll.forEach(button => {
+        //     button.addEventListener('click', () => {
+        //         tooll.forEach(b => b.classList.remove('selected'));
+        //             button.classList.add('selected');
+        //     });
+        // });
     </script>
 
     <!-- Localization  -->
@@ -1266,7 +1271,8 @@ document.getElementById("wb-editor-container").style.display = "none"
                     document.getElementById("line1").title = `सोलिड लाइन`;
                     document.getElementById("line2").title = `सोलिड एरो`;
                     document.getElementById("line3").title = `डैश लाइन`;
-
+                    document.getElementById("colorPickerTab").title = `रंग चुनें`;
+                    document.getElementById("patternPickerTab").title = `पैटर्न चुनें`;
                     document.getElementById("color-pick").title = `कलर पिकर`;
                     document.getElementById("opacity-picker").title = `ओपेसिटी पिकर`;
                     document.getElementById("tool-size-selector").title = `टूल साइज़ सलेक्टर`;
@@ -1278,23 +1284,24 @@ document.getElementById("wb-editor-container").style.display = "none"
 
                     document.getElementById("toolID-Mathematical Tools").title = `मैथमेटिकल टूल्स`;
                     document.getElementById("toolID-Screenshot").title = `स्क्रीनशॉट`;
-                    document.getElementById("toolID-Recorder").title = `रिकॉर्डर`;
+                    document.getElementById("toolID-ScreenRecorder").title = `स्क्रीन रिकॉर्डर`;
                     document.getElementById("toolID-Transform").title = `ट्रांसफोर्म `;
                     document.getElementById("toolID-Document").title = `डॉक्यूमेंट`;
-                    document.getElementById("toolID-Download").title = `डाउनलोड`;
+                    // document.getElementById("toolID-Download").title = `डाउनलोड`;
 
                     document.getElementById("toolID-Editor").title = `एडीटर`;
-                    document.getElementById("toolID-Hand").title = `हैंड`;
-                    document.getElementById("toolID-Grid").title = `ग्रिड`;
-                    document.getElementById("toolID-Calculator").title = `कैलक्युलेटर`;
-                    document.getElementById("toolID-Zoom In").title = `जूम इन`;
-                    document.getElementById("toolID-Zoom Out").title = `जूम आउट`;
-                    document.getElementById("toolID-Background").title = `बैकग्राउंड`;
+                    // document.getElementById("toolID-Hand").title = `हैंड`;
+                    // document.getElementById("toolID-Grid").title = `ग्रिड`;
+                    // document.getElementById("toolID-Calculator").title = `कैलक्युलेटर`;
+                    // document.getElementById("toolID-Zoom In").title = `जूम इन`;
+                    // document.getElementById("toolID-Zoom Out").title = `जूम आउट`;
+                    // document.getElementById("toolID-Background").title = `बैकग्राउंड`;
                     document.getElementById("toolID-Table").title = `टेबल`;
+                    document.getElementById("toolID-Touch-Up-Eraser").title = `टच अप इरेजर`;
                     // document.getElementById("toogle-tranparency").title = `व्हाइट बोर्ड`;
-                    // document.getElementById("toolID-Undo").title = `अन्डू`;
-                    // document.getElementById("toolID-Redo").title = `रीडू`;
-                    // document.getElementById("toolID-Clear").title = `इरेजर`;
+                    document.getElementById("toolID-Undo").title = `अन्डू`;
+                    document.getElementById("toolID-Redo").title = `रीडू`;
+                    document.getElementById("toolID-Clear").title = `क्लियर`;
                     document.getElementById('tool-touch-up-eraser-localization').innerHTML = `टच अप इरेजर`;
 
                     document.getElementById("shape2d-rectangle").title = `रेक्टेंगल`;
@@ -1345,20 +1352,20 @@ document.getElementById("wb-editor-container").style.display = "none"
                     document.getElementById("tool-document-localization").innerHTML = `डॉक्यूमेंट`;
                     // document.getElementById("tool-download-localization").innerHTML = `डाउनलोड`;
                     document.getElementById("tool-editor-localization").innerHTML = `एडीटर`;
-                    document.getElementById("tool-hand-localization").innerHTML = `हैंड`;
-                    document.getElementById("tool-grid-localization").innerHTML = `ग्रिड`;
+                    // document.getElementById("tool-hand-localization").innerHTML = `हैंड`;
+                    // document.getElementById("tool-grid-localization").innerHTML = `ग्रिड`;
                     document.getElementById("tool-calculator-localization").innerHTML = `कैलक्युलेटर`;
-                    document.getElementById("tool-zoomin-localization").innerHTML = `जूम इन`;
-                    document.getElementById("tool-zoomout-localization").innerHTML = `जूम आउट`;
-                    document.getElementById("tool-background-localization").innerHTML = `बैकग्राउंड`;
+                    // document.getElementById("tool-zoomin-localization").innerHTML = `जूम इन`;
+                    // document.getElementById("tool-zoomout-localization").innerHTML = `जूम आउट`;
+                    // document.getElementById("tool-background-localization").innerHTML = `बैकग्राउंड`;
                     document.getElementById("tool-table-localization").innerHTML = `टेबल`;
                     document.getElementById("tool-close-localization").innerHTML = `क्लोज़`;
-                    document.getElementById("tool-recorder-localization").innerHTML = `रिकॉर्डर`;
+                    document.getElementById("tool-recorder-localization").innerHTML = `स्क्रीन रिकॉर्डर`;
                     // document.getElementById("tool-toggle-localization").innerHTML = `वाइट बोर्ड`;
 
                     document.getElementById("img-library").innerHTML = `इमेज लाइब्रेरी`;
-                    document.getElementById("SelectFromDevice").innerHTML = `ऐड इमेज from डिवाइस `;
-                    document.getElementById("SelectFromLibrary").innerHTML = `ऐड इमेज from लाइब्रेरी`;
+                    document.getElementById("SelectFromDevice").innerHTML = `डिवाइस से इमेज ऐड करें`;
+                    document.getElementById("SelectFromLibrary").innerHTML = `लाइब्रेरी से इमेज ऐड करें`;
                     document.getElementById("SelectFromPDF").innerHTML = `अपलोड पीडीएफ `;
                     document.getElementById("SelectFromVideo").innerHTML = `अपलोड वीडियो`;
 
@@ -1396,7 +1403,7 @@ document.getElementById("wb-editor-container").style.display = "none"
                     document.getElementById("tool-pencil-localization").innerHTML = `पेंसिल`;
                     document.getElementById("tool-clear-localization").innerHTML = `क्लियर`;
                     document.getElementById("tool-eraser-localization").innerHTML = `इरेजर`;
-                    document.getElementById("tool-save-localization").innerHTML = `सेव`;
+                    // document.getElementById("tool-save-localization").innerHTML = `सेव`;
                     document.getElementById("tool-more-localization").innerHTML = `मोर`;
 
                     //  table modal title                                  
@@ -1408,9 +1415,9 @@ document.getElementById("wb-editor-container").style.display = "none"
 
                     // Shapes names
 
-                    for(let item of localizedStringsHI){
-                        if(document.getElementById(item.id)){
-                            document.getElementById(item.id).innerHTML= item.value
+                    for (let item of localizedStringsHI) {
+                        if (document.getElementById(item.id)) {
+                            document.getElementById(item.id).innerHTML = item.value
                         }
                     }
 
@@ -1422,6 +1429,9 @@ document.getElementById("wb-editor-container").style.display = "none"
                     document.getElementById("line1").title = `Solid line`;
                     document.getElementById("line2").title = `Solid arrow`;
                     document.getElementById("line3").title = `Dashed line`;
+
+                    document.getElementById("colorPickerTab").title = `Color Picker`;
+                    document.getElementById("patternPickerTab").title = `Pattern Picker`;
 
                     document.getElementById("color-pick").title = `Color Picker`;
                     document.getElementById("opacity-picker").title = `Opacity Picker`;
@@ -1436,25 +1446,25 @@ document.getElementById("wb-editor-container").style.display = "none"
                     document.getElementById("toolID-Mathematical Tools").title = `Mathematical Tools`;
                     document.getElementById("tool-eraser-localization").innerHTML = `Eraser`;
                     document.getElementById("toolID-Screenshot").title = `Screenshot`;
-                    document.getElementById("toolID-Recorder").title = `Recorder`;
+                    document.getElementById("toolID-ScreenRecorder").title = `Screen Recorder`;
                     document.getElementById("toolID-Transform").title = `Transform`;
                     document.getElementById("toolID-Document").title = `Document`;
-                    document.getElementById("toolID-Download").title = `Download`;
+                    // document.getElementById("toolID-Download").title = `Download`;
 
                     document.getElementById("toolID-Editor").title = `Editor`;
-                    document.getElementById("toolID-Hand").title = `Hand`;
-                    document.getElementById("toolID-Grid").title = `Grid`;
+                    // document.getElementById("toolID-Hand").title = `Hand`;
+                    // document.getElementById("toolID-Grid").title = `Grid`;
                     document.getElementById("toolID-Calculator").title = `Calculator`;
-                    document.getElementById("toolID-Zoom In").title = `Zoom In`;
-                    document.getElementById("toolID-Zoom Out").title = `Zoom Out`;
-                    document.getElementById("toolID-Background").title = `Background`;
+                    // document.getElementById("toolID-Zoom In").title = `Zoom In`;
+                    // document.getElementById("toolID-Zoom Out").title = `Zoom Out`;
+                    // document.getElementById("toolID-Background").title = `Background`;
                     document.getElementById("toolID-Table").title = `Table`;
+                    document.getElementById("toolID-Touch-Up-Eraser").title = `Touch Up Eraser`;
                     // document.getElementById("toogle-tranparency").title = `White Board`;
                     // document.getElementById("toolID-Undo").title = `Undo`;
                     // document.getElementById("toolID-Redo").title = `Redo`;
                     document.getElementById("toolID-Clear").title = `Eraser`;
                     document.getElementById('tool-touch-up-eraser-localization').innerHTML = `Touch Up`;
-
                     document.getElementById("shape2d-rectangle").title = `Rectangle`;
                     document.getElementById("shape2d-circle").title = `Circle`;
                     document.getElementById("shape2d-triangle").title = `Triangle`;
@@ -1502,15 +1512,15 @@ document.getElementById("wb-editor-container").style.display = "none"
                     document.getElementById("tool-document-localization").innerHTML = `Document`;
                     // document.getElementById("tool-download-localization").innerHTML = `Download`;                  
                     document.getElementById("tool-editor-localization").innerHTML = `Editor`;
-                    document.getElementById("tool-hand-localization").innerHTML = `Hand`;
-                    document.getElementById("tool-grid-localization").innerHTML = `Grid`;
+                    // document.getElementById("tool-hand-localization").innerHTML = `Hand`;
+                    // document.getElementById("tool-grid-localization").innerHTML = `Grid`;
                     document.getElementById("tool-calculator-localization").innerHTML = `Calculator`;
-                    document.getElementById("tool-zoomin-localization").innerHTML = `Zoom in`;
-                    document.getElementById("tool-zoomout-localization").innerHTML = `Zoom Out`;
-                    document.getElementById("tool-background-localization").innerHTML = `Background`;
+                    // document.getElementById("tool-zoomin-localization").innerHTML = `Zoom in`;
+                    // document.getElementById("tool-zoomout-localization").innerHTML = `Zoom Out`;
+                    // document.getElementById("tool-background-localization").innerHTML = `Background`;
                     document.getElementById("tool-table-localization").innerHTML = `Table`;
                     document.getElementById("tool-close-localization").innerHTML = `Close`;
-                    document.getElementById("tool-recorder-localization").innerHTML = `Recorder`;
+                    document.getElementById("tool-recorder-localization").innerHTML = `Screen Recorder`;
                     // document.getElementById("tool-toggle-localization").innerHTML = `White Board`;
 
                     document.getElementById("img-library").innerHTML = `Image Library`;
@@ -1554,7 +1564,7 @@ document.getElementById("wb-editor-container").style.display = "none"
                     // Pencil-Erase
                     document.getElementById("tool-pencil-localization").innerHTML = `Pencil`;
                     document.getElementById("tool-clear-localization").innerHTML = `Clear`;
-                    document.getElementById("tool-save-localization").innerHTML = `Save`;
+                    // document.getElementById("tool-save-localization").innerHTML = `Save`;
                     document.getElementById("tool-more-localization").innerHTML = `More`;
 
 
@@ -1566,9 +1576,10 @@ document.getElementById("wb-editor-container").style.display = "none"
 
                     // Shapes names
 
-                    for(let item of localizedStringsEN){
-                        if(document.getElementById(item.id)){
-                            document.getElementById(item.id).innerHTML= item.value
+                    for (let item of localizedStringsEN) {
+                        if (document.getElementById(item.id)) {
+
+                            document.getElementById(item.id).innerHTML = item.value
                         }
                     }
 

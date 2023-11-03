@@ -46,17 +46,17 @@
 
   var icons = {
     line: {
-      icon: ` — <br> <label id="tool-solidline-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400;margin-top: 7px; margin-left: -3px;">Solid Line</label>`,
+      icon: `<div class="tool-selected">—</div><label id="tool-solidline-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400;margin-top: 14px; margin-left: -3px;">Solid Line</label>`,
       isHTML: true,
       isSVG: false,
     },
     arrw: {
-      icon: ` → <br> <label id="tool-arrow-line-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400;margin-top: 7px; margin-left: -3px;">Arrow Line</label>`,
+      icon: `<div class="tool-selected">→</div><label id="tool-arrow-line-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400;margin-top: 14px; margin-left: -3px;">Arrow Line</label>`,
       isHTML: true,
       isSVG: false,
     },
     dashline: {
-      icon: ` --- <br> <label id="tool-dashed-line-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400;margin-top: 7px; margin-left: -3px;">Dashed Line</label>`,
+      icon: `<div class="tool-selected">--- </div><label id="tool-dashed-line-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400;margin-top: 14px; margin-left: -3px;">Dashed Line</label>`,
       isHTML: true,
       isSVG: false,
     },
@@ -347,12 +347,13 @@
   }
 
   function toggle(elem) {
+    
     if (Tools.menus["Line"].menuOpen()) {
       Tools.menus["Line"].show(false)
     } else {
       Tools.menus["Line"].show(true)
     }
-    if (!menuInitialized) initMenu(elem)
+    // if (!menuInitialized) initMenu(elem)
   }
 
   var menuInitialized = false
@@ -381,6 +382,7 @@
   }
 
   var changeButtonIcon = function () {
+    console.log(button,"butdadasdas");
     if (icons[curLine].isHTML) {
       button.getElementsByClassName("tool-icon")[0].innerHTML =
         icons[curLine].icon
@@ -391,6 +393,7 @@
         button.getElementsByClassName("tool-icon")[0].childNodes,
         "childnodes"
       )
+      button.getElementsByClassName("tool-icon")[0].childNodes[0].classList.add("selected")
       if (select.value === "hi") {
         const ele = button.getElementsByClassName("tool-icon")[0].childNodes[3]
         for (let item of localizedStringsHI) {
@@ -452,6 +455,11 @@
     return false
   }
 
+  function onstart(){
+    Tools.menus["Line"].show(true)
+    initMenu(document.getElementById("toolID-Line"))
+  }
+
   Tools.add({
     //The new tool
     // "name": "Straight line",
@@ -489,6 +497,7 @@
 						</div>`,
       listener: menuListener,
     },
+    onstart:onstart,
     draw: draw,
     mouseCursor: "crosshair",
     stylesheet: "tools/line/line.css",

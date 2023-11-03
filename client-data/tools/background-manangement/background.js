@@ -225,11 +225,13 @@
   colorsArray.map((obj) => {
     var div = document.createElement("div");
     div.className = "colorContainer";
+
     div.style.backgroundColor = obj.color;
 
     // Create a tooltip element
     var tooltip = document.createElement("div");
-    tooltip.className = "tooltip";
+    tooltip.className = `tooltip`;
+    tooltip.id = `tooltip${obj.label}`;
     tooltip.textContent = obj.label;
 
     div.onclick = function () {
@@ -262,6 +264,7 @@
 
   function toggleColorPicker(evt) {
     // if($("#menu").width()>Tools.menu_width+3)return;
+    console.log("Toggle Color Picker");
 
     colorPickerModal.style.display = "block";
 
@@ -317,7 +320,7 @@
     listeners: {},
     draw: backgroundChange,
     isExtra: true,
-    // oneTouch: true,
+    oneTouch: true,
     onstart: toggleColorPicker, // start the fn while tool is selected
     mouseCursor: "crosshair",
   });

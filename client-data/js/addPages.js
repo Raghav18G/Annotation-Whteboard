@@ -2,7 +2,7 @@ var flag = 1;
 
 (() => {
   const displayNumber = window.location.search.split("&file=")[1];
-  console.log("PAGE", document.getElementById("pageNumber"));
+
   document.getElementById("pageNumber").textContent = `Page ${displayNumber}`;
 })();
 
@@ -16,18 +16,7 @@ async function addNewPage() {
   const structure = await window.localStorage.getItem("structure").split(",");
   const boardName = await window.localStorage.getItem("selectedBoard");
 
-  console.log("structure", structure, "Board Name: ", boardName);
   let pageTiles = document.querySelectorAll(".page-tile");
-  console.log("Page Tiles", pageTiles);
-
-  const modal = document.getElementById("addNewPageModal");
-  const modalContent = document.querySelector(".addNewPageModal-content");
-
-  modal.addEventListener("click", (event) => {
-    if (event.target === modal || event.target === modalContent) {
-      modal.style.display = "none";
-    }
-  });
 
   const files = [];
 
@@ -56,6 +45,15 @@ async function addNewPage() {
     });
   }
 
+  const modal = document.getElementById("addNewPageModal");
+  const pageTile = document.querySelector(".page-tile");
+
+  pageTile.addEventListener("click", (event) => {
+    if (event.target === pageTile) {
+      modal.style.display = "none";
+    }
+  });
+
   document.getElementById("addPageBtn").addEventListener("click", function () {
     //Main Logic of Page Addition
     const structure = window.localStorage.getItem("structure").split(",");
@@ -77,7 +75,6 @@ async function addNewPage() {
     }
 
     if (pageKey === pageNumber) {
-      console.log("KEY ALREADY EXUSTS");
       let selectedBoard = window.localStorage.getItem("selectedBoard");
       if (!selectedBoard) {
         selectedBoard = window.location.search
@@ -101,12 +98,11 @@ async function addNewPage() {
         `${baseURL}?board=${selectedBoard}&file=${nextFile + 1}`
       );
     } else {
-      console.log("KEY ALREADY EXUSTS");
       domtoimage.toPng(canvas, { bgcolor: "#fff" }).then(function (dataURL) {
         let obj = {};
         obj[pageNumber] = dataURL;
         generatedImages.push(obj);
-        console.log("GENERATED IMAGES", generatedImages);
+
         localStorage.setItem(
           "generatedImages",
           JSON.stringify(generatedImages)

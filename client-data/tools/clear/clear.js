@@ -63,12 +63,7 @@
 		"name": "Clear",
 		// "icon": "🗑",
 		title: "Clear",
-		 iconHTML : `
-<div class="tool-selected">
-    <img class="tool-img" src="assets/clean.svg" alt="Clear Icon">
-</div>
-<label id="tool-clear-localization" class="label-clear" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Clear</label>
-`,
+		 iconHTML : `<div class="tool-selected"><img class="tool-img" src="assets/clean.svg" alt="Clear Icon"></div><label id="tool-clear-localization" class="label-clear" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Clear</label>`,
 		// "iconHTML": `<div class="tool-selected">${binSVG}</div><label id="tool-clear-localization" class="label-clear" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Clear</label>`,
 		// "iconHTML": binIconSVG,
 		"shortcuts": {

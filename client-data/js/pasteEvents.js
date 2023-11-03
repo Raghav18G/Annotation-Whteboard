@@ -169,7 +169,7 @@ async function pasteImage() {
         throw new Error("Clipboard contains non-image data.");
       }
       const blob = await item.getType("image/png");
-    
+
       var image = new Image();
       var uid = Tools.generateUID("doc");
       image.src = URL.createObjectURL(blob);
@@ -207,7 +207,7 @@ async function pasteImage() {
           // Read the file as a Data URL
           reader.readAsDataURL(xhr.response);
         }
-      
+
         drawImage(msg);
       };
     }

@@ -10,16 +10,18 @@ $(document).ready(() => {
     ${fullScreen}
     </div>
     `;
+
   $("#top_left_tools").append(element);
   $("body").on("click", ".fullscreen_icon", () => {
     $("body").fullscreen();
     $(".fullscreen__container").empty().append(exitFullScreen);
-    // document.getElementById("rect_1").setAttribute("fill", "white");
+    // if(document.getElementById("rect_1").getAttribute("fill")==="transparent"){
+    // document.getElementById("rect_1").setAttribute("fill", "white")
+    // }
     return false;
   });
   $("body").on("click", ".exit__fullscreen", () => {
     $.fullscreen.exit();
-
     $(".fullscreen__container").empty().append(fullScreen);
     return false;
   });
@@ -36,6 +38,14 @@ $(document).ready(() => {
         $(".fullscreen__container").empty().append(fullScreen);
       } else {
         console.log("Entering full-screen mode...");
+        if (
+          document.getElementById("rect_1").getAttribute("fill") ===
+          "url(#imagePattern)"
+        ) {
+          document
+            .getElementById("rect_1")
+            .setAttribute("height", window.innerHeight);
+        }
       }
     }
   );
