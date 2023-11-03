@@ -6,71 +6,64 @@ function dragElement(elmnt) {
     pos2 = 0,
     pos3 = 0,
     pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    // If present, the header is where you move the element from:
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-    document
-      .getElementById(elmnt.id + "header")
-      .addEventListener("touchstart", dragTouchStart);
+  var header = document.getElementById(elmnt.id + "header");
+  if (header) {
+    // If the header is present, use it for touch events.
+    header.addEventListener("touchstart", touchStart);
+    header.addEventListener("mousedown", mouseDown);
   } else {
-    // Otherwise, move the element from anywhere inside the element:
-    elmnt.onmousedown = dragMouseDown;
-    elmnt.addEventListener("touchstart", dragTouchStart);
+    // Otherwise, use the entire element for touch events.
+    elmnt.addEventListener("touchstart", touchStart);
+    elmnt.addEventListener("mousedown", mouseDown);
   }
 
-  function dragMouseDown(e) {
+  function touchStart(e) {
     e = e || window.event;
     e.preventDefault();
-    // Get the mouse cursor position at startup:
+    var touch = e.touches[0];
+    pos3 = touch.clientX;
+    pos4 = touch.clientY;
+    elmnt.addEventListener("touchmove", touchMove);
+    elmnt.addEventListener("touchend", closeDragElement);
+  }
+
+  function touchMove(e) {
+    e = e || window.event;
+    e.preventDefault();
+    var touch = e.touches[0];
+    pos1 = pos3 - touch.clientX;
+    pos2 = pos4 - touch.clientY;
+    pos3 = touch.clientX;
+    pos4 = touch.clientY;
+    elmnt.style.top = elmnt.offsetTop - pos2 + "px";
+    elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
+  }
+
+  function mouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
     pos3 = e.clientX;
     pos4 = e.clientY;
     document.onmouseup = closeDragElement;
-    // Call a function whenever the cursor moves:
     document.onmousemove = elementDrag;
   }
 
   function elementDrag(e) {
     e = e || window.event;
     e.preventDefault();
-    // Calculate the new cursor position:
     pos1 = pos3 - e.clientX;
     pos2 = pos4 - e.clientY;
     pos3 = e.clientX;
     pos4 = e.clientY;
-    // Set the element's new position:
     elmnt.style.top = elmnt.offsetTop - pos2 + "px";
     elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
   }
 
   function closeDragElement() {
-    // Stop moving when the mouse button is released:
     document.onmouseup = null;
     document.onmousemove = null;
-  }
-
-  function dragTouchStart(e) {
-    e = e || window.event;
-    e.preventDefault();
-    var touch = e.touches[0];
-    // Get the initial touch position:
-    pos3 = touch.clientX;
-    pos4 = touch.clientY;
-    elmnt.addEventListener("touchmove", elementTouchMove);
-    elmnt.addEventListener("touchend", closeDragElement);
-  }
-
-  function elementTouchMove(e) {
-    e = e || window.event;
-    e.preventDefault();
-    var touch = e.touches[0];
-    // Calculate the new touch position:
-    pos1 = pos3 - touch.clientX;
-    pos2 = pos4 - touch.clientY;
-    pos3 = touch.clientX;
-    pos4 = touch.clientY;
-    // Set the element's new position:
-    elmnt.style.top = elmnt.offsetTop - pos2 + "px";
-    elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
+    elmnt.removeEventListener("touchmove", touchMove);
+    elmnt.removeEventListener("touchend", closeDragElement);
   }
 }
 
@@ -88,18 +81,39 @@ function resizable(element) {
   resizer.style.cursor = "se-resize";
   element.appendChild(resizer);
   resizer.addEventListener("mousedown", initResize, false);
+  resizer.addEventListener("touchstart", touchStartResize, false);
 
   function initResize(e) {
-    window.addEventListener("mousemove", Resize, false);
+    window.addEventListener("mousemove", resizeElement, false);
     window.addEventListener("mouseup", stopResize, false);
   }
-  function Resize(e) {
+
+  function resizeElement(e) {
     element.style.width = e.clientX - element.offsetLeft + "px";
     element.style.height = e.clientY - element.offsetTop + "px";
   }
+
   function stopResize(e) {
-    window.removeEventListener("mousemove", Resize, false);
+    window.removeEventListener("mousemove", resizeElement, false);
     window.removeEventListener("mouseup", stopResize, false);
+  }
+
+  function touchStartResize(e) {
+    e = e || window.event;
+    e.preventDefault();
+    var touch = e.touches[0];
+    element.addEventListener("touchmove", touchResize, false);
+    element.addEventListener("touchend", stopTouchResize, false);
+  }
+
+  function touchResize(e) {
+    element.style.width = e.touches[0].clientX - element.offsetLeft + "px";
+    element.style.height = e.touches[0].clientY - element.offsetTop + "px";
+  }
+
+  function stopTouchResize(e) {
+    element.removeEventListener("touchmove", touchResize, false);
+    element.removeEventListener("touchend", stopTouchResize, false);
   }
 }
 
