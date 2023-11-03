@@ -1,10 +1,10 @@
 var flag = 1;
 
-(() => {
-  const displayNumber = window.location.search.split("&file=")[1];
+// (() => {
+//   const displayNumber = window.location.search.split("&file=")[1];
 
-  document.getElementById("pageNumber").textContent = `Page ${displayNumber}`;
-})();
+//   document.getElementById("pageNumber").textContent = `Page ${displayNumber}`;
+// })();
 
 async function addNewPage() {
   //Navigation Logic
