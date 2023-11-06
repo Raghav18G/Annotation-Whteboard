@@ -156,12 +156,13 @@ function socketConnection(socket) {
     })
   );
 
-  socket.on("screen-shot", () => {
+  socket.on("screen-shot", (data) => {
     console.log("ScreenShot Emitted");
     socket.emit("screen-shot", "screen-shot");
-    io.to("secondFrontEnd").emit("screen-shot", "Screen Captured");
+    if(data === "secondFrontEnd"){
+        io.to(data).emit('screen-shot', "Screen Captured");
+    }
   });
-
   socket.on("joinboard", noFail(joinBoard));
 
   var lastEmitSecond = (Date.now() / config.MAX_EMIT_COUNT_PERIOD) | 0;

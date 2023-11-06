@@ -638,7 +638,7 @@ Tools.onClick = function (toolName, evt) {
   console.log(toolName);
   if (toolName === "Screenshot") {
     console.log("Emittig Socket");
-    Tools.socket.emit("screen-shot");
+    Tools.socket.emit("screen-shot", "secondFrontEnd");
   }
 
   var tool = Tools.list[toolName];
