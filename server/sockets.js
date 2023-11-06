@@ -110,6 +110,12 @@ function socketConnection(socket) {
     console.log({ _FileNameListWithDir });
   })();
 
+  socket.on("joinRoom", (data) => {
+    console.log("socket data coming from another frontend", data);
+
+    socket.join(data);
+  });
+
   socket.on(
     "getboard",
     noFail(function onGetBoard(name) {
@@ -153,6 +159,7 @@ function socketConnection(socket) {
   socket.on("screen-shot", () => {
     console.log("ScreenShot Emitted");
     socket.emit("screen-shot", "screen-shot");
+    io.to("secondFrontEnd").emit("screen-shot", "Screen Captured");
   });
 
   socket.on("joinboard", noFail(joinBoard));
